@@ -19,7 +19,6 @@ export class Scene {
     }
 
     render(time){
-        // console.log('111')
     }
 
 }

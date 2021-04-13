@@ -7,11 +7,9 @@ export class Menu extends Scene{
 
     init() {
         super.init();
-        // this.game.screen.drawImage(0,20, 'sky');
     }
 
     update(time) {
-        // console.log(this.game.control.up)
         if(this.game.control.enter) {
             this.finish(Scene.START_GAME)
         }
@@ -19,9 +17,9 @@ export class Menu extends Scene{
 
     render(time) {
         this.update(time);
-        this.game.screen.drawImage(0,0, 'menu');
+        this.game.screen.drawImageFullScreen(0,0, 'menu');
         this.game.screen.drawImage(0,20, 'sky');
-        this.game.screen.printText(250, 350, 'Press tab to start game');
+        this.game.screen.printText(250, 350, 'Press enter to start game');
         super.render(time)
     }
 }

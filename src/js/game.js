@@ -13,6 +13,8 @@ export class Game {
             sky: 'img/sky.png',
             plant: 'img/plant.png',
             slime: 'img/slime.png',
+            plant1: 'img/plant.png',
+            slime1: 'img/slime.png',
             player: 'img/player.png',
             menu: 'img/menu-bg.png',
             tiles: 'img/menu-bg.png'

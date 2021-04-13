@@ -30,14 +30,14 @@ export class Screen {
         mapImage.height = tileSet.imageHeight;
         const mapContext = mapImage.getContext('2d');
 
-        mapContext.drawImage(this.images[tileSet.imageName], 0, 0);
+        mapContext.drawImage(this.images[tileSet.imageName], 0, 0, mapImage.width, mapImage.height );
         this.images[name] = mapImage;
         return new Sprite({
             imageName: name,
             sourceX: 0,
             sourceY: 0,
             width: mapImage.width,
-            height: mapImage.height,
+            height: 640,
         });
     }
 
@@ -64,15 +64,14 @@ export class Screen {
         this.context.drawImage(this.images[imageName], x, y);
     }
 
+    drawImageFullScreen(x, y, imageName) {
+        this.context.drawImage(this.images[imageName], x, y, this.width, this.height);
+    }
+
     drawSprite(sprite) {
 
         let spriteX = sprite.x;
         let spriteY = sprite.y;
-
-        // if(this.isCameraSet) {
-        //     spriteX -= this.camera.x;
-        //     spriteY -= this.camera.y;
-        // }
 
         if(
             (spriteX >= this.width) ||

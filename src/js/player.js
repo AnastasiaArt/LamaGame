@@ -24,21 +24,8 @@ export class Player {
         this.control = control;
     }
 
-    // shoot(arrow) {
-    //     if(!this.isShooting) {
-    //         this.isShooting = true;
-    //         // this.view = this.animations["shoot_" + this.velocity.direction];
-    //         this.view.onEnd = () => {
-    //             this.isShooting = false;
-    //             arrow.fly(this.x, this.y, this.velocity.direction);
-    //         }
-    //         this.view.run();
-    //     }
-    // }
-
     // идти
     walk() {
-        console.log(this.isJumping, 'ddddddddddddddddddd')
         if(this.isJumping) return;
         // this.velocity.setDirection(direction, this.speed);
         this.view = this.tile.getAnimation([1,2,3,4],150);
@@ -49,7 +36,6 @@ export class Player {
     jump() {
         if(this.isJumping) return;
         this.isJumping = true;
-        console.log(this.isJumping)
         this.velocity.setDirection('up', this.speed);
         // this.view = this.tile.getAnimation([1],150, );
         this.view.stop();
