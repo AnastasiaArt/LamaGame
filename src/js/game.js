@@ -35,18 +35,23 @@ export class Game {
                 return this.scenes.menu;
             case Scene.START_GAME:
                 return this.scenes.running;
+            case Scene.STOP_GAME:
+                return this.currentScene.status = Scene.STOP_GAME ;
             default:
                 return this.scenes.menu;
         }
     }
 
      frame(time) {
-         if(this.currentScene.status !== Scene.WORKING) {
+         if(this.currentScene.status !== Scene.WORKING && this.currentScene.status !== Scene.STOP_GAME) {
              this.currentScene = this.changeScene(this.currentScene.status);
              this.currentScene.init();
          }
-         this.currentScene.render(time);
-         requestAnimationFrame((time) => this.frame(time));
+
+         if (this.currentScene.status !== Scene.STOP_GAME) {
+             this.currentScene.render(time);
+             requestAnimationFrame((time) => this.frame(time));
+         }
      }
 
     run() {

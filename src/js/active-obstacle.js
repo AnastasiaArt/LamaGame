@@ -14,7 +14,7 @@ export class ActiveObstacle  {
     getAllSpriteSheet() {
         this.obstaclesName.forEach(name => {
             this.obstacles[name] = new Obstacle({DX:this.getRandomInt(200, 400),imageName: this.obstacleName})
-            console.log(this.obstacles)
+            // console.log(this.obstacles)
         })
     }
 
@@ -52,7 +52,6 @@ export class ActiveObstacle  {
 
                 });
                 this.obstacles[obstacle].update(time);
-                console.log(this.obstacles[obstacle].view.y)
             }
         }
             // this.game.screen.drawSprite(this.obstacles[this.obstacle].view);

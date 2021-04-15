@@ -7,6 +7,7 @@ export class Scene {
     static get WORKING() { return 'WORKING'; }
     static get LOADED() { return 'LOADED'; }
     static get START_GAME() { return 'START_GAME'; }
+    static get STOP_GAME() { return 'STOP_GAME'}
     static get GAME_OVER() { return 'GAME_OVER'; }
     static get FINISHED() { return 'FINISHED'; }
 
