@@ -1,8 +1,8 @@
-import { Sprite } from "./sprite.js";
-import { Animation } from './animation.js';
+import {Sprite} from "./sprite.js";
+import {Animation} from './animation.js';
 
 export class SpriteSheet {
-    constructor({imageName, imageWidth, imageHeight , spriteWidth = 64, spriteHeight = 64}) {
+    constructor({imageName, imageWidth, imageHeight, spriteWidth = 64, spriteHeight = 64}) {
         this.imageName = imageName;
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;

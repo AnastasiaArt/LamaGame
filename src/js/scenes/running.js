@@ -1,4 +1,4 @@
-import { Scene } from '../scene.js'
+import {Scene} from '../scene.js'
 import {SpriteSheet} from "../sprite-sheet.js";
 import {Player} from "../player.js";
 import {Obstacle} from "../obstacle.js";
@@ -23,12 +23,10 @@ export class Running extends Scene {
         this.duration = 200;
         this.obstacles = [];
         this.obstaclesName = ['plant', 'slime', 'plant1', 'slime1'];
-
         this.count = 0;
         this.hit = false;
         this.lastTime = 0;
         this.duration = getRandomInt(3000, 5000);
-        this.deadCount = 0;
         this.hasDead = false;
     }
 
@@ -58,10 +56,9 @@ export class Running extends Scene {
             this.lastTime = time;
             this.duration = getRandomInt(3000, 5000);
         }
-        console.log(this.obstacles)
 
         this.obstacles.forEach((i) => {
-            this.hit = this.player.collide(i, this.obstacles);
+            this.hit = this.player.collide(i, this.obstacles, this.deadCount);
             if (i.dead) {
                 const index = this.obstacles.indexOf(i);
                 this.obstacles.splice(index, 1);
@@ -69,7 +66,6 @@ export class Running extends Scene {
 
             if (this.hit) {
                 console.log("Вы врезались!");
-                this.deadCount ++
                 return;
             } else {
                 if (Math.round(i.x) === this.player.x) {
@@ -78,7 +74,10 @@ export class Running extends Scene {
                 i.update(time)
             }
         })
-        console.log(this.obstacles)
+
+        if (this.player.deadCount >= 5) {
+            this.finish(Scene.GAME_OVER)
+        }
     }
 
     render(time) {
@@ -94,6 +93,6 @@ export class Running extends Scene {
             this.game.screen.drawSprite(i.view);
         })
         this.game.screen.printText(20, 50, this.count);
-        this.game.screen.printText(60, 50, this.deadCount/77);
+        this.game.screen.printText(60, 50, this.player.deadCount);
     }
 }

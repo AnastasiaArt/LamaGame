@@ -1,6 +1,6 @@
 import {Scene} from '../scene.js'
 
-export class Menu extends Scene {
+export class GameOver extends Scene {
     constructor(game) {
         super(game)
     }
@@ -10,16 +10,13 @@ export class Menu extends Scene {
     }
 
     update(time) {
-        if (this.game.control.enter) {
-            this.finish(Scene.START_GAME)
-        }
     }
 
     render(time) {
         this.update(time);
         this.game.screen.drawImageFullScreen(0, 0, 'menu');
         this.game.screen.drawImage(0, 20, 'sky');
-        this.game.screen.printText(250, 350, 'Press enter to start game');
+        this.game.screen.printText(250, 350, 'Game Over!!!!!!!!!!!!!!');
         super.render(time)
     }
 }

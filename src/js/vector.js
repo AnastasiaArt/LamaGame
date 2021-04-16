@@ -8,7 +8,7 @@ export class Vector {
         this.speed = speed;
         this.x = 0;
         this.y = 0;
-        switch(direction) {
+        switch (direction) {
             case "up":
                 this.y = -speed;
                 break;

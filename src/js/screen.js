@@ -1,5 +1,5 @@
 import {ImageLoader} from "./image-loader.js";
-import  {Sprite} from "./sprite.js";
+import {Sprite} from "./sprite.js";
 
 export class Screen {
     constructor(width, height) {
@@ -30,7 +30,7 @@ export class Screen {
         mapImage.height = tileSet.imageHeight;
         const mapContext = mapImage.getContext('2d');
 
-        mapContext.drawImage(this.images[tileSet.imageName], 0, 0, mapImage.width, mapImage.height );
+        mapContext.drawImage(this.images[tileSet.imageName], 0, 0, mapImage.width, mapImage.height);
         this.images[name] = mapImage;
         return new Sprite({
             imageName: name,
@@ -73,7 +73,7 @@ export class Screen {
         let spriteX = sprite.x;
         let spriteY = sprite.y;
 
-        if(
+        if (
             (spriteX >= this.width) ||
             (spriteY >= this.height) ||
             ((spriteX + sprite.width) <= 0) ||
@@ -97,5 +97,4 @@ export class Screen {
             width,
             height);
     }
-
 }

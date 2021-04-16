@@ -7,7 +7,7 @@ export class ImageLoader {
     async load() {
         for (let name in this.imageFiles) {
             if (this.imageFiles.hasOwnProperty(name)) {
-              await this.loadImage(name, this.imageFiles[name]);
+                await this.loadImage(name, this.imageFiles[name]);
             }
         }
     }

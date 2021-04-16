@@ -10,7 +10,6 @@ export class Player {
         this.speed = 500;
         this.velocity = new Vector('right', 0);
         this.lastTime = 0;
-        this.collisionShape = {x: 18, y: 15, width: 28, height: 49};
         this.isJumping = false;
         this.tile = new SpriteSheet({
             imageName: 'player',
@@ -24,6 +23,7 @@ export class Player {
         this.control = control;
         this.startPosY = y
         this.isStoped = false;
+        this.deadCount = 0;
     }
 
     // идти
@@ -33,14 +33,18 @@ export class Player {
         this.view = this.tile.getAnimation([1, 2, 3, 4], 150);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.view.run();
-        console.log(this.y)
     }
 
     // прыгать
     jump() {
         if (this.isJumping || this.isStoped) return;
         this.isJumping = true;
+        this.view = this.tileJump.getAnimation([1, 2, 3], 150);
         this.velocity.setDirection('up', this.speed);
+        this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
+        this.view.onEnd = () => {
+            this.walk()
+        }
         // this.view = this.tile.getAnimation([1],150, );
         this.view.stop();
     }
@@ -50,7 +54,7 @@ export class Player {
         if (this.isStoped) return;
         this.stop();
         this.isStoped = true;
-        this.view = this.tile.getAnimation([5, 6, 7, 8], 300, false);
+        this.view = this.tileCrash.getAnimation([1, 2, 3, 4], 300, false);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         obstacles.forEach(i => {
             i.isStoped = true;
@@ -61,7 +65,8 @@ export class Player {
             obstacles.forEach(i => {
                 i.isStoped = false;
             })
-            this.walk()
+            this.walk();
+            this.deadCount++;
         }
         this.view.run();
     }
@@ -98,8 +103,6 @@ export class Player {
             if (this.x + this.view.width > car.x && this.x < car.x + car.view.width) {
                 hit = true;
                 this.crash(car, obstacles);
-                // this.stop();
-                // car.stop();
             }
         }
         return hit;

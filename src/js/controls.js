@@ -3,7 +3,7 @@ export class Controls {
         this.jump = false;
         this.down = false;
         this.keyMap = new Map([
-            [40,'down'],[32,'jump'],[13, 'enter']
+            [40, 'down'], [32, 'jump'], [13, 'enter']
         ]);
         document.addEventListener('keydown', (event) => this.update(event, true));
         document.addEventListener('keyup', (event) => this.update(event, false));

@@ -1,10 +1,17 @@
-import { Vector } from "./vector.js";
+import {Vector} from "./vector.js";
 import {SpriteSheet} from "./sprite-sheet.js";
-import {getRandomInt} from "./math.js";
 
 export class Obstacle {
-    constructor( {imageName, imageWidth = 32, imageHeight = 32, spriteWidth = imageWidth, spriteHeight = imageHeight, gameWidth=640, gameHeight =640}) {
-        this.speed = 100;
+    constructor({
+                    imageName,
+                    imageWidth = 32,
+                    imageHeight = 32,
+                    spriteWidth = imageWidth,
+                    spriteHeight = imageHeight,
+                    gameWidth = 640,
+                    gameHeight = 640
+                }) {
+        this.speed = 180;
         this.velocity = new Vector('left', 0);
         this.lastTime = 0;
         this.isStoped = false;
@@ -16,15 +23,11 @@ export class Obstacle {
             spriteHeight: spriteHeight
         })
         this.gameWidth = gameWidth;
-        // this.x = this.gameWidth + DX;
         this.x = 0;
-        // this.DX = DX;
         this.y = 0;
         this.dead = false;
-        // this.y = gameHeight - gameHeight/1.98;
         // по умолчанию персонаж идет влево
         this.walk();
-        this.obstaclesName = ['plant', 'slime'];
     }
 
     // идти
@@ -34,23 +37,13 @@ export class Obstacle {
         this.velocity.setDirection('left', this.speed)
         this.view = this.tile.getAnimation([1], 150);
         this.view.run();
-        // this.view.setXY(-32, 300);
     }
-
-    // updatePosition(time, tile, callback) {
-    //     if (this.x < (0 - (this.tile.spriteWidth))) {
-    //            callback()
-    //            this.x = this.gameWidth + this.DX;
-    //     } else {
-    //         this.x += (time - this.lastTime) * (this.velocity.x / 1000);
-    //     }
-    // }
 
     // остановится, обнуляем скорость , останавливаем анимацию
     stop() {
-        if(this.isStoped) return;
+        if (this.isStoped) return;
         // this.velocity.setDirection(direction, 0);
-        this.view = this.tile.getAnimation([1],150);
+        this.view = this.tile.getAnimation([1], 150);
         this.view.stop();
     }
 
@@ -65,22 +58,7 @@ export class Obstacle {
             if (this.x < (0 - (this.tile.spriteWidth))) {
                 this.dead = true;
             }
-            //     this.tile = new SpriteSheet({
-            //         imageName: this.obstaclesName[Math.floor(Math.random() * 2)],
-            //         imageWidth: 64,
-            //         imageHeight: 64,
-            //         spriteWidth: 64,
-            //         spriteHeight: 64
-            //     });
-            //     this.walk();
-            //     // this.view.stop();
-            //     // this.walk();
-            //     // this.view = this.tile.getAnimation([1],150);
-            //     // this.view.run();
-            //     this.x = 0;
-            // } else {
-                this.x += (time - this.lastTime) * (this.velocity.x / 1000);
-            // }
+            this.x += (time - this.lastTime) * (this.velocity.x / 1000);
             this.y += (time - this.lastTime) * (this.velocity.y / 1000);
             this.lastTime = time;
             this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
