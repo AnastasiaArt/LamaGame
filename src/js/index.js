@@ -1,7 +1,7 @@
 import { Game } from "./game.js";
 
 window.onload = () => {
-    const lamaGame = new Game();
+    const lamaGame = new Game({width: window.innerWidth, height: window.innerHeight});
     document.getElementById('start-btn').onclick = () => {
         document.querySelector('.start-screen').style.display = 'none';
         lamaGame.run();

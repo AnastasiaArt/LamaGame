@@ -27,7 +27,6 @@ export class Animation extends Sprite {
     }
 
     run() {
-        console.log()
         if (!this.running) {
             this.setFrame(0);
             this.running = true;

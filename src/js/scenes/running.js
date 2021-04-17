@@ -9,25 +9,24 @@ export class Running extends Scene {
         super(game);
         this.tiles = new SpriteSheet({
             imageName: 'tiles',
-            imageWidth: 640,
-            imageHeight: 640
+            imageWidth: this.game.screen.width,
+            imageHeight: this.game.screen.height,
         });
 
         this.position = {
             x: this.game.screen.width,
             y: 0,
         };
+
         this.player = new Player(this.game.control, this.game.screen.height - this.game.screen.height / 1.7);
         this.player.x = this.game.screen.width / 4;
         this.player.y = this.game.screen.height - this.game.screen.height / 1.7;
         this.duration = 200;
         this.obstacles = [];
-        this.obstaclesName = ['plant', 'slime', 'plant1', 'slime1'];
         this.count = 0;
         this.hit = false;
         this.lastTime = 0;
-        this.duration = getRandomInt(3000, 5000);
-        this.hasDead = false;
+        this.duration = getRandomInt(5000, 7000);
     }
 
     init() {
@@ -39,9 +38,9 @@ export class Running extends Scene {
 
 
     addNewObstacle() {
-        let obs = new Obstacle({imageName: this.obstaclesName[Math.floor(Math.random() * 4)]})
+        let obs = new Obstacle({index: getRandomInt(1, 36)})
         obs.x = this.game.screen.width;
-        obs.y = this.game.screen.height - this.game.screen.height / 2;
+        obs.y = this.game.screen.height - this.game.screen.height / 2.3;
         this.obstacles.push(obs)
     }
 

@@ -12,15 +12,10 @@ export class Game {
         this.screen = new Screen(width, width);
         this.screen.loadImages({
             sky: 'img/sky.png',
-            plant: 'img/plant.png',
-            slime: 'img/slime.png',
-            plant1: 'img/plant.png',
-            slime1: 'img/slime.png',
-            player: 'img/run-sm.png',
+            obstacles: 'img/obstacles.png',
+            player: 'img/player.png',
             menu: 'img/menu-bg.png',
             tiles: 'img/menu-bg.png',
-            jump: 'img/jump-sm.png',
-            crash: 'img/crash-sm.png',
         });
         this.control = new Controls();
         this.scenes = {

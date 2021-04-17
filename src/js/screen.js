@@ -37,7 +37,7 @@ export class Screen {
             sourceX: 0,
             sourceY: 0,
             width: mapImage.width,
-            height: 640,
+            height: mapImage.height,
         });
     }
 

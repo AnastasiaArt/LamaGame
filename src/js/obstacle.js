@@ -2,26 +2,19 @@ import {Vector} from "./vector.js";
 import {SpriteSheet} from "./sprite-sheet.js";
 
 export class Obstacle {
-    constructor({
-                    imageName,
-                    imageWidth = 32,
-                    imageHeight = 32,
-                    spriteWidth = imageWidth,
-                    spriteHeight = imageHeight,
-                    gameWidth = 640,
-                    gameHeight = 640
-                }) {
-        this.speed = 180;
+    constructor({ gameWidth = 640, gameHeight = 640, index = 1 }) {
+        this.speed = 100;
         this.velocity = new Vector('left', 0);
         this.lastTime = 0;
         this.isStoped = false;
-        this.tile = new SpriteSheet({
-            imageName: imageName,
-            imageWidth: imageWidth,
-            imageHeight: imageHeight,
-            spriteWidth: spriteWidth,
-            spriteHeight: spriteHeight
-        })
+        this.tiles = new SpriteSheet({
+            imageName: 'obstacles',
+            imageWidth: 600,
+            imageHeight: 600,
+            spriteHeight: 100,
+            spriteWidth: 100,
+        });
+        this.view = this.tiles.getSprite(index)
         this.gameWidth = gameWidth;
         this.x = 0;
         this.y = 0;
@@ -33,18 +26,7 @@ export class Obstacle {
     // идти
     walk() {
         if (this.isStoped) return;
-        // this.velocity.setDirection('left', this.speed, this.x, this.y);
         this.velocity.setDirection('left', this.speed)
-        this.view = this.tile.getAnimation([1], 150);
-        this.view.run();
-    }
-
-    // остановится, обнуляем скорость , останавливаем анимацию
-    stop() {
-        if (this.isStoped) return;
-        // this.velocity.setDirection(direction, 0);
-        this.view = this.tile.getAnimation([1], 150);
-        this.view.stop();
     }
 
     update(time, width) {
@@ -55,14 +37,13 @@ export class Obstacle {
         }
 
         if (!this.isStoped) {
-            if (this.x < (0 - (this.tile.spriteWidth))) {
+            if (this.x < (0 - (this.tiles.spriteWidth))) {
                 this.dead = true;
             }
             this.x += (time - this.lastTime) * (this.velocity.x / 1000);
             this.y += (time - this.lastTime) * (this.velocity.y / 1000);
             this.lastTime = time;
             this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
-            this.view.update(time);
         }
     }
 }

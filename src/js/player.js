@@ -6,17 +6,16 @@ export class Player {
     constructor(control, y) {
         this.x = 0;
         this.y = 0;
-        // колличество пикселей в секунду
-        this.speed = 500;
+        this.speed = 250;
         this.velocity = new Vector('right', 0);
         this.lastTime = 0;
         this.isJumping = false;
         this.tile = new SpriteSheet({
             imageName: 'player',
-            imageWidth: 240,
-            imageHeight: 384,
-            spriteWidth: 62,
-            spriteHeight: 100
+            imageWidth: 1680,
+            imageHeight: 720,
+            spriteWidth: 240,
+            spriteHeight: 240
         })
         // по умолчанию персонаж идет вправо
         this.walk();
@@ -30,7 +29,7 @@ export class Player {
     walk() {
         if (this.isJumping) return;
         // this.velocity.setDirection(direction, this.speed);
-        this.view = this.tile.getAnimation([1, 2, 3, 4], 150);
+        this.view = this.tile.getAnimation([4, 5, 6, 7], 300);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.view.run();
     }
@@ -39,14 +38,12 @@ export class Player {
     jump() {
         if (this.isJumping || this.isStoped) return;
         this.isJumping = true;
-        this.view = this.tileJump.getAnimation([1, 2, 3], 150);
+        this.view = this.tile.getAnimation([15, 16, 17, 18, 19, 20, 21], 400, false);
         this.velocity.setDirection('up', this.speed);
-        this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.view.onEnd = () => {
-            this.walk()
+            // this.walk()
         }
-        // this.view = this.tile.getAnimation([1],150, );
-        this.view.stop();
+        this.view.run();
     }
 
     // столкновение
@@ -54,14 +51,15 @@ export class Player {
         if (this.isStoped) return;
         this.stop();
         this.isStoped = true;
-        this.view = this.tileCrash.getAnimation([1, 2, 3, 4], 300, false);
+        this.view = this.tile.getAnimation([11, 12, 13, 14], 400, false);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         obstacles.forEach(i => {
             i.isStoped = true;
-        })
+        });
+        obstacle.x = 0 - obstacle.view.width;
+        obstacle.view.setXY(Math.trunc(obstacle.x), Math.trunc(obstacle.x));
         this.view.onEnd = () => {
             this.isStoped = false;
-            obstacle.x = 0 - (this.tile.spriteWidth);
             obstacles.forEach(i => {
                 i.isStoped = false;
             })
@@ -76,7 +74,7 @@ export class Player {
     stop() {
         if (this.isJumping) return;
         // this.velocity.setDirection(direction, 0);
-        this.view = this.tile.getAnimation([1], 150);
+        this.view = this.tile.getAnimation([4], 150);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.view.stop();
     }
@@ -84,13 +82,11 @@ export class Player {
     updatePosition(time) {
         this.x += (time - this.lastTime) * (this.velocity.x / 1000);
         this.y += (time - this.lastTime) * (this.velocity.y / 1000);
-        this.velocity.y += 10;
+        this.velocity.y += 2;
 
         // не ниже значения, чтоб не провалился под землю при прыжке
         if (this.y >= this.startPosY) {
             this.isJumping = false;
-            // this.view.stop()
-            // this.view = this.tile.getAnimation([1,2,3,4],150);
             this.view.run();
         }
     }
