@@ -3,7 +3,7 @@ import {SpriteSheet} from "./sprite-sheet.js";
 
 export class Obstacle {
     constructor({ gameWidth = 640, gameHeight = 640, index = 1 }) {
-        this.speed = 100;
+        this.speed = 120;
         this.velocity = new Vector('left', 0);
         this.lastTime = 0;
         this.isStoped = false;
@@ -15,6 +15,7 @@ export class Obstacle {
             spriteWidth: 100,
         });
         this.view = this.tiles.getSprite(index)
+        this.collisionShape = {x: 10, y: 10, width: 90, height: 90};
         this.gameWidth = gameWidth;
         this.x = 0;
         this.y = 0;

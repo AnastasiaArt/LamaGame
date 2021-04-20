@@ -9,8 +9,8 @@ export class Running extends Scene {
         super(game);
         this.tiles = new SpriteSheet({
             imageName: 'tiles',
-            imageWidth: this.game.screen.width,
-            imageHeight: this.game.screen.height,
+            imageWidth: this.game.width,
+            imageHeight: this.game.height,
         });
 
         this.position = {
@@ -18,9 +18,19 @@ export class Running extends Scene {
             y: 0,
         };
 
-        this.player = new Player(this.game.control, this.game.screen.height - this.game.screen.height / 1.7);
-        this.player.x = this.game.screen.width / 4;
-        this.player.y = this.game.screen.height - this.game.screen.height / 1.7;
+        this.position1 = {
+            x: 0,
+            y: 0,
+        };
+
+        this.backgrounds = ['bg1', 'bg2', 'bg3', 'bg4', 'bg5'];
+        this.opacity = 0;
+        this.startChange = false;
+        this.backgroundsTree = ['tree1', 'tree2', 'tree3', 'tree4', 'tree5'];
+
+        this.player = new Player(this.game.control, this.game.screen.height - 300);
+        this.player.x = this.game.screen.width / 2 - this.player.view.width / 2 ;
+        this.player.y = this.game.screen.height - 60 - this.player.view.height;
         this.duration = 200;
         this.obstacles = [];
         this.count = 0;
@@ -32,15 +42,16 @@ export class Running extends Scene {
     init() {
         super.init();
         this.addNewObstacle();
-        // если понадобится тайловая карта,
-        this.map = this.game.screen.createMap("tiles", this.tiles);
+        this.player.view.x = this.game.screen.width / 2 - this.player.view.width / 2 ;
+        this.player.view.x = this.game.screen.height - 60 - this.player.view.height;
     }
-
 
     addNewObstacle() {
         let obs = new Obstacle({index: getRandomInt(1, 36)})
         obs.x = this.game.screen.width;
-        obs.y = this.game.screen.height - this.game.screen.height / 2.3;
+        obs.view.x = this.game.screen.width;
+        obs.y = this.game.screen.height - 60 - obs.view.height;
+        obs.view.y = this.game.screen.height - 60 - obs.view.height;
         this.obstacles.push(obs)
     }
 
@@ -53,7 +64,7 @@ export class Running extends Scene {
         if (time - this.lastTime > this.duration) {
             this.addNewObstacle();
             this.lastTime = time;
-            this.duration = getRandomInt(3000, 5000);
+            this.duration = getRandomInt(5000, 7000);
         }
 
         this.obstacles.forEach((i) => {
@@ -64,7 +75,7 @@ export class Running extends Scene {
             }
 
             if (this.hit) {
-                console.log("Вы врезались!");
+                this.startChange = true;
                 return;
             } else {
                 if (Math.round(i.x) === this.player.x) {
@@ -74,18 +85,36 @@ export class Running extends Scene {
             }
         })
 
-        if (this.player.deadCount >= 5) {
-            this.finish(Scene.GAME_OVER)
+        if (this.startChange) {
+            if (this.opacity <= 1) {
+                this.opacity += 0.01;
+            } else if (this.backgrounds.length > 2) {
+                this.backgrounds.shift();
+                this.backgroundsTree.shift();
+                this.startChange = false
+                this.opacity = 0;
+            }
+        }
+            if (this.player.deadCount >= 5) {
+                this.finish(Scene.GAME_OVER)
         }
     }
 
     render(time) {
         this.update(time);
         // если понадобится тайловая карта
-        this.game.screen.drawSprite(this.map);
+        // this.game.screen.drawSprite(this.map);
         // если фон будет картинкой
-        // this.game.screen.drawImage(0,0, 'menu');
-        this.position.x < (0 - (this.game.screen.width + 100)) ? this.position.x = this.game.screen.width : this.position.x -= 1;
+
+        this.game.screen.context.globalAlpha = 1 - this.opacity;
+        this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
+        this.game.screen.context.globalAlpha = this.opacity;
+        this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[1]);
+        this.game.screen.context.globalAlpha = 1;
+        this.game.screen.drawImage(this.game.screen.canvas.width /2 - this.game.screen.images.sun.width/2, this.game.screen.canvas.height  - this.game.screen.images.sun.height/1.5  , 'sun');
+        this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[0]);
+        this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[1]);
+        this.position.x < (0 - (this.game.screen.width + 100)) ? this.position.x = this.game.screen.canvas.width : this.position.x -= 1;
         this.game.screen.drawImage(this.position.x, 0, 'sky');
         this.game.screen.drawSprite(this.player.view);
         this.obstacles.forEach((i) => {

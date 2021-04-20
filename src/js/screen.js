@@ -54,8 +54,8 @@ export class Screen {
         });
     }
 
-    printText(x, y, text) {
-        this.context.fillStyle = "#ffffff";
+    printText(x, y, text, color = "#ffffff") {
+        this.context.fillStyle = color;
         this.context.font = "22px Georgia";
         this.context.fillText(text, x, y);
     }

@@ -23,6 +23,7 @@ export class Player {
         this.startPosY = y
         this.isStoped = false;
         this.deadCount = 0;
+        this.collisionShape = {x: 35, y: 0, width: 170, height: 240};
     }
 
     // идти
@@ -38,10 +39,10 @@ export class Player {
     jump() {
         if (this.isJumping || this.isStoped) return;
         this.isJumping = true;
-        this.view = this.tile.getAnimation([15, 16, 17, 18, 19, 20, 21], 400, false);
+        this.view = this.tile.getAnimation([15, 16, 17, 18, 19, 20, 21], 600, false);
         this.velocity.setDirection('up', this.speed);
         this.view.onEnd = () => {
-            // this.walk()
+            this.walk()
         }
         this.view.run();
     }
@@ -51,7 +52,9 @@ export class Player {
         if (this.isStoped) return;
         this.stop();
         this.isStoped = true;
-        this.view = this.tile.getAnimation([11, 12, 13, 14], 400, false);
+        this.velocity.y = 10;
+        this.y =  this.startPosY;
+        this.view = this.tile.getAnimation([11, 12, 13, 14], 300, false);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         obstacles.forEach(i => {
             i.isStoped = true;
@@ -68,7 +71,6 @@ export class Player {
         }
         this.view.run();
     }
-
 
     // остановится, обнуляем скорость , останавливаем анимацию
     stop() {
@@ -91,14 +93,14 @@ export class Player {
         }
     }
 
-    collide(car, obstacles) {
+    collide(obs, obstacles) {
         let hit = false;
         //Если объекты находятся на одной линии по горизонтали{
-        if (this.y < car.y + car.view.height && this.y + this.view.height > car.y) {
+        if (this.y < obs.y + obs.view.height - obs.collisionShape.y && this.y + this.view.height > obs.y -  obs.collisionShape.y) {
             //Если объекты находятся на одной линии по вертикали
-            if (this.x + this.view.width > car.x && this.x < car.x + car.view.width) {
+            if (this.x + this.view.width - this.collisionShape.x > obs.x  && this.x + this.collisionShape.x < obs.x + obs.view.width + obs.collisionShape.x) {
                 hit = true;
-                this.crash(car, obstacles);
+                this.crash(obs, obstacles);
             }
         }
         return hit;
