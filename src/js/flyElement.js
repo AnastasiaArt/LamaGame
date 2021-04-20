@@ -1,0 +1,95 @@
+import {Vector} from "./vector.js";
+import {SpriteSheet} from "./sprite-sheet.js";
+
+export class FlyElement {
+    constructor(y, imageName, imageWidth, imageHeight, spriteWidth, spriteHeight, isJumping = false) {
+        this.x = 0;
+        this.y = 0;
+        this.speed = 250;
+        this.velocity = new Vector('right', 0);
+        this.lastTime = 0;
+        this.isJumping = isJumping;
+        this.tile = new SpriteSheet({
+            imageName: imageName,
+            imageWidth: imageWidth,
+            imageHeight: imageHeight,
+            spriteWidth: spriteWidth,
+            spriteHeight: spriteHeight,
+        })
+        // по умолчанию персонаж идет вправо
+        this.isJumping ? this.jump() : this.walk();
+        this.startPosY = y
+        this.isStoped = false;
+    }
+
+    // идти
+    walk() {
+        this.velocity.setDirection('left', this.speed);
+        this.view = this.tile.getAnimation([1, 2, 3, 4], 300);
+        this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
+        this.view.run();
+    }
+
+    // прыгать
+    jump() {
+        this.isJumping = true;
+        this.view = this.tile.getAnimation([1, 2, 3, 4, 5], 600,);
+        this.velocity.setDirection('up', this.speed);
+        this.view.run();
+    }
+
+    waveFly(time) {
+        if (this.y > 0 && this.y <= this.startPosY) {
+            this.x += (time - this.lastTime) * (this.velocity.x / 1000);
+            this.y += (time - this.lastTime) * (this.velocity.y / 1000);
+            this.velocity.x += 10;
+            this.velocity.y -= 1;
+        } else {
+            if (this.y >= this.startPosY) {
+                this.velocity.setDirection('up', this.speed);
+                this.velocity.y -= 1;
+            } else {
+                this.velocity.setDirection('down', this.speed);
+                this.velocity.y += 1;
+            }
+            this.x += (time - this.lastTime) * (this.velocity.x / 1000);
+            this.y += (time - this.lastTime) * (this.velocity.y / 1000);
+            this.velocity.x += 10;
+        }
+    }
+
+    fly(time) {
+        console.log(0 - this.tile.spriteWidth)
+        if (this.x > 0 - this.tile.spriteWidth && this.y > 0) {
+            this.x += (time - this.lastTime) * (this.velocity.x / 1000);
+            this.y += (time - this.lastTime) * (this.velocity.y / 1000);
+            this.velocity.y -= 1;
+        } else {
+            this.x = 700;
+            this.y = 200
+            this.velocity.y = 0;
+        }
+    }
+
+    update(time) {
+        // пропускаем первый кадр
+        if (this.lastTime === 0) {
+            this.lastTime = time;
+            return;
+        }
+
+        if (this.isJumping) {
+            if (this.x >= 700) {
+                this.x = 0 - this.tile.spriteWidth;
+                this.y = 200;
+            }
+            this.waveFly(time);
+
+        } else {
+            this.fly(time);
+        }
+        this.lastTime = time;
+        this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
+        this.view.update(time);
+    }
+}

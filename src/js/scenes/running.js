@@ -3,6 +3,7 @@ import {SpriteSheet} from "../sprite-sheet.js";
 import {Player} from "../player.js";
 import {Obstacle} from "../obstacle.js";
 import {getRandomInt} from "../math.js";
+import {FlyElement} from "../flyElement";
 
 export class Running extends Scene {
     constructor(game) {
@@ -27,7 +28,6 @@ export class Running extends Scene {
         this.opacity = 0;
         this.startChange = false;
         this.backgroundsTree = ['tree1', 'tree2', 'tree3', 'tree4', 'tree5'];
-
         this.player = new Player(this.game.control, this.game.screen.height - 300);
         this.player.x = this.game.screen.width / 2 - this.player.view.width / 2 ;
         this.player.y = this.game.screen.height - 60 - this.player.view.height;
@@ -37,6 +37,12 @@ export class Running extends Scene {
         this.hit = false;
         this.lastTime = 0;
         this.duration = getRandomInt(5000, 7000);
+        this.bird = new FlyElement(200,'bird', 400, 100, 100, 100);
+        this.bird.x = this.game.screen.canvas.width;
+        this.bird.y = 200;
+        this.mouse = new FlyElement(200,'mouse', 500, 100, 100, 100, true);
+        this.mouse.x = this.game.screen.canvas.width;
+        this.mouse.y = 200;
     }
 
     init() {
@@ -57,6 +63,8 @@ export class Running extends Scene {
 
     update(time) {
         this.player.update(time);
+        this.bird.update(time);
+        this.mouse.update(time);
         if (this.lastTime === 0) {
             this.lastTime = time;
             return;
@@ -110,17 +118,28 @@ export class Running extends Scene {
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
         this.game.screen.context.globalAlpha = this.opacity;
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[1]);
+        if (this.player.deadCount >= 4) {
+            this.game.screen.drawImage(this.game.screen.canvas.width /2, 100  , 'moon');
+        }
         this.game.screen.context.globalAlpha = 1;
-        this.game.screen.drawImage(this.game.screen.canvas.width /2 - this.game.screen.images.sun.width/2, this.game.screen.canvas.height  - this.game.screen.images.sun.height/1.5  , 'sun');
+        if (this.player.deadCount <= 3) {
+            this.game.screen.drawImage(this.game.screen.canvas.width / 2 - this.game.screen.images.sun.width / 2, this.game.screen.canvas.height - this.game.screen.images.sun.height / 1.5, 'sun');
+        }
         this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[0]);
         this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[1]);
-        this.position.x < (0 - (this.game.screen.width + 100)) ? this.position.x = this.game.screen.canvas.width : this.position.x -= 1;
-        this.game.screen.drawImage(this.position.x, 0, 'sky');
+
+        if ( this.player.deadCount <= 2) {
+            this.position.x < (0 - (this.game.screen.width + 100)) ? this.position.x = this.game.screen.canvas.width : this.position.x -= 1;
+            this.game.screen.drawImage(this.position.x, 0, 'sky');
+            this.game.screen.drawSprite(this.bird.view);
+        } else if (this.player.deadCount >= 4) {
+            this.game.screen.drawSprite(this.mouse.view);
+        }
         this.game.screen.drawSprite(this.player.view);
         this.obstacles.forEach((i) => {
             this.game.screen.drawSprite(i.view);
         })
-        this.game.screen.printText(20, 50, this.count);
-        this.game.screen.printText(60, 50, this.player.deadCount);
+        this.game.screen.printText(20, 50, `Счет: ${this.count}`, '#000000');
+        // this.game.screen.printText(60, 50, this.player.deadCount);
     }
 }

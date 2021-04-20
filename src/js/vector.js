@@ -24,7 +24,6 @@ export class Vector {
             case "left":
                 this.x = -speed;
                 break;
-
         }
     }
 

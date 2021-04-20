@@ -53,7 +53,7 @@ export class Player {
         this.stop();
         this.isStoped = true;
         this.velocity.y = 10;
-        this.y =  this.startPosY;
+        this.y = this.startPosY;
         this.view = this.tile.getAnimation([11, 12, 13, 14], 300, false);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         obstacles.forEach(i => {
@@ -84,7 +84,7 @@ export class Player {
     updatePosition(time) {
         this.x += (time - this.lastTime) * (this.velocity.x / 1000);
         this.y += (time - this.lastTime) * (this.velocity.y / 1000);
-        this.velocity.y += 2;
+        this.velocity.y += 2.2;
 
         // не ниже значения, чтоб не провалился под землю при прыжке
         if (this.y >= this.startPosY) {
@@ -96,9 +96,9 @@ export class Player {
     collide(obs, obstacles) {
         let hit = false;
         //Если объекты находятся на одной линии по горизонтали{
-        if (this.y < obs.y + obs.view.height - obs.collisionShape.y && this.y + this.view.height > obs.y -  obs.collisionShape.y) {
+        if (this.y < obs.y + obs.view.height - obs.collisionShape.y && this.y + this.view.height > obs.y - obs.collisionShape.y) {
             //Если объекты находятся на одной линии по вертикали
-            if (this.x + this.view.width - this.collisionShape.x > obs.x  && this.x + this.collisionShape.x < obs.x + obs.view.width + obs.collisionShape.x) {
+            if (this.x + this.view.width - this.collisionShape.x > obs.x && this.x + this.collisionShape.x < obs.x + obs.view.width + obs.collisionShape.x) {
                 hit = true;
                 this.crash(obs, obstacles);
             }

@@ -29,6 +29,10 @@ export class Game {
             tree4: 'img/Elements4(evening).png',
             tree5: 'img/Elements5(night).png',
             sun: 'img/sun_rays.png',
+            bird: 'img/birds.png',
+            mouse: 'img/mouse.png',
+            gameOverPlayer: 'img/game-over-player.png',
+            moon: 'img/moon.png',
         });
         this.control = new Controls();
         this.scenes = {
@@ -40,8 +44,9 @@ export class Game {
         this.currentScene = this.scenes.loading;
         this.currentScene.init();
     }
+
     resize() {
-        this.screen = new Screen( window.innerWidth, window.innerHeight);
+        this.screen = new Screen(window.innerWidth, window.innerHeight);
     }
 
     changeScene(status) {

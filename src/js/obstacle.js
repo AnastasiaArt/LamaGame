@@ -2,7 +2,7 @@ import {Vector} from "./vector.js";
 import {SpriteSheet} from "./sprite-sheet.js";
 
 export class Obstacle {
-    constructor({ gameWidth = 640, gameHeight = 640, index = 1 }) {
+    constructor({gameWidth = 640, gameHeight = 640, index = 1}) {
         this.speed = 120;
         this.velocity = new Vector('left', 0);
         this.lastTime = 0;
