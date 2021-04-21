@@ -6,7 +6,7 @@ export class Player {
     constructor(control, y) {
         this.x = 0;
         this.y = 0;
-        this.speed = 250;
+        this.speed = 500;
         this.velocity = new Vector('right', 0);
         this.lastTime = 0;
         this.isJumping = false;
@@ -30,7 +30,7 @@ export class Player {
     walk() {
         if (this.isJumping) return;
         // this.velocity.setDirection(direction, this.speed);
-        this.view = this.tile.getAnimation([4, 5, 6, 7], 300);
+        this.view = this.tile.getAnimation([4, 5, 6, 7], 150);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.view.run();
     }
@@ -39,10 +39,30 @@ export class Player {
     jump() {
         if (this.isJumping || this.isStoped) return;
         this.isJumping = true;
-        this.view = this.tile.getAnimation([15, 16, 17, 18, 19, 20, 21], 600, false);
+        this.view = this.tile.getAnimation([15, 16, 17], 150, false);
         this.velocity.setDirection('up', this.speed);
+        // меняющаяся анимация при прыжке
         this.view.onEnd = () => {
-            this.walk()
+            this.view = this.tile.getAnimation([18], 700, false);
+            this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
+            this.view.onEnd = () => {
+                this.view = this.tile.getAnimation([18,19], 100, false);
+                this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
+                this.view.onEnd = () => {
+                    this.view = this.tile.getAnimation([19], 1110, false);
+                    this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
+                    this.view.onEnd = () => {
+                        this.view = this.tile.getAnimation([20, 21], 100, false);
+                        this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
+                        this.view.onEnd = () => {
+                            this.walk()
+                        }
+                    }
+                    this.view.run();
+                }
+                this.view.run();
+            }
+            this.view.run();
         }
         this.view.run();
     }
@@ -54,7 +74,7 @@ export class Player {
         this.isStoped = true;
         this.velocity.y = 10;
         this.y = this.startPosY;
-        this.view = this.tile.getAnimation([11, 12, 13, 14], 300, false);
+        this.view = this.tile.getAnimation([11, 12, 13, 14], 200, false);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         obstacles.forEach(i => {
             i.isStoped = true;
@@ -84,8 +104,11 @@ export class Player {
     updatePosition(time) {
         this.x += (time - this.lastTime) * (this.velocity.x / 1000);
         this.y += (time - this.lastTime) * (this.velocity.y / 1000);
-        this.velocity.y += 2.2;
+        this.velocity.y += 6.2;
 
+        if (this.y <= 70) {
+
+        }
         // не ниже значения, чтоб не провалился под землю при прыжке
         if (this.y >= this.startPosY) {
             this.isJumping = false;

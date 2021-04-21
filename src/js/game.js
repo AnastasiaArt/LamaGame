@@ -13,7 +13,6 @@ export class Game {
         // window.addEventListener("resize", this.resize);
         // this.resize();
         this.screen.loadImages({
-            sky: 'img/sky.png',
             obstacles: 'img/obstacles.png',
             player: 'img/player.png',
             menu: 'img/menu-bg.png',
@@ -33,6 +32,13 @@ export class Game {
             mouse: 'img/mouse.png',
             gameOverPlayer: 'img/game-over-player.png',
             moon: 'img/moon.png',
+            sky1: 'img/cloud3-180.png',
+            sky2: 'img/cloud2-120.png',
+            sky3: 'img/cloud1-100.png',
+            cloudLogo: 'img/Cloud_with_Plushy_logo-150.png',
+            logo: 'img/game-logo.png',
+            btnStart: 'img/start-btn.png',
+            textGameOver: 'img/game-over-text.png'
         });
         this.control = new Controls();
         this.scenes = {

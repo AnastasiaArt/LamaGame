@@ -29,7 +29,7 @@ export class Running extends Scene {
         this.startChange = false;
         this.backgroundsTree = ['tree1', 'tree2', 'tree3', 'tree4', 'tree5'];
         this.player = new Player(this.game.control, this.game.screen.height - 300);
-        this.player.x = this.game.screen.width / 2 - this.player.view.width / 2 ;
+        this.player.x = this.game.screen.width / 2 - this.player.view.width ;
         this.player.y = this.game.screen.height - 60 - this.player.view.height;
         this.duration = 200;
         this.obstacles = [];
@@ -110,10 +110,6 @@ export class Running extends Scene {
 
     render(time) {
         this.update(time);
-        // если понадобится тайловая карта
-        // this.game.screen.drawSprite(this.map);
-        // если фон будет картинкой
-
         this.game.screen.context.globalAlpha = 1 - this.opacity;
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
         this.game.screen.context.globalAlpha = this.opacity;
@@ -125,21 +121,28 @@ export class Running extends Scene {
         if (this.player.deadCount <= 3) {
             this.game.screen.drawImage(this.game.screen.canvas.width / 2 - this.game.screen.images.sun.width / 2, this.game.screen.canvas.height - this.game.screen.images.sun.height / 1.5, 'sun');
         }
+
         this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[0]);
         this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[1]);
-
-        if ( this.player.deadCount <= 2) {
-            this.position.x < (0 - (this.game.screen.width + 100)) ? this.position.x = this.game.screen.canvas.width : this.position.x -= 1;
-            this.game.screen.drawImage(this.position.x, 0, 'sky');
+        // if ( this.player.deadCount <= 2 || (this.player.deadCount > 2 && this.position.x >  0 - (this.game.screen.width + 100) && this.position.x <= this.game.screen.canvas.width)) {
+        //     this.game.screen.drawImage(this.position.x, 0, 'sky');
+        //     this.position.x < (0 - (this.game.screen.width + 100)) ? this.position.x = this.game.screen.canvas.width : this.position.x -= 1;
+        // }
+        if (this.player.deadCount <= 2) {
+            this.game.screen.drawImage(this.position.x, 20, 'sky1');
+            this.game.screen.drawImage(this.position.x - 20 , 40 + this.game.screen.images.sky1.height , 'sky2');
+            this.game.screen.drawImage(this.position.x + this.game.screen.images.sky1.width + 80, 10 + this.game.screen.images.sky1.height , 'sky3');
+            this.position.x < 0 - this.game.screen.images.sky1.width - this.game.screen.images.sky2.width - this.game.screen.images.sky3.width - 160 ? this.position.x = this.game.screen.canvas.width : this.position.x -= 1;
             this.game.screen.drawSprite(this.bird.view);
+
         } else if (this.player.deadCount >= 4) {
             this.game.screen.drawSprite(this.mouse.view);
         }
+
         this.game.screen.drawSprite(this.player.view);
         this.obstacles.forEach((i) => {
             this.game.screen.drawSprite(i.view);
         })
         this.game.screen.printText(20, 50, `Счет: ${this.count}`, '#000000');
-        // this.game.screen.printText(60, 50, this.player.deadCount);
     }
 }

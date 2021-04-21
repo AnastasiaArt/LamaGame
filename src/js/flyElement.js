@@ -5,7 +5,7 @@ export class FlyElement {
     constructor(y, imageName, imageWidth, imageHeight, spriteWidth, spriteHeight, isJumping = false) {
         this.x = 0;
         this.y = 0;
-        this.speed = 250;
+        this.speed = 350;
         this.velocity = new Vector('right', 0);
         this.lastTime = 0;
         this.isJumping = isJumping;
@@ -25,7 +25,7 @@ export class FlyElement {
     // идти
     walk() {
         this.velocity.setDirection('left', this.speed);
-        this.view = this.tile.getAnimation([1, 2, 3, 4], 300);
+        this.view = this.tile.getAnimation([1, 2, 3, 4], 150);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.view.run();
     }
@@ -33,8 +33,8 @@ export class FlyElement {
     // прыгать
     jump() {
         this.isJumping = true;
-        this.view = this.tile.getAnimation([1, 2, 3, 4, 5], 600,);
         this.velocity.setDirection('up', this.speed);
+        this.view = this.tile.getAnimation([1, 2, 3, 4, 5], 500,);
         this.view.run();
     }
 
@@ -59,14 +59,13 @@ export class FlyElement {
     }
 
     fly(time) {
-        console.log(0 - this.tile.spriteWidth)
         if (this.x > 0 - this.tile.spriteWidth && this.y > 0) {
             this.x += (time - this.lastTime) * (this.velocity.x / 1000);
             this.y += (time - this.lastTime) * (this.velocity.y / 1000);
-            this.velocity.y -= 1;
+            this.velocity.y -= 2;
         } else {
             this.x = 700;
-            this.y = 200
+            this.y = 150
             this.velocity.y = 0;
         }
     }
