@@ -26,7 +26,7 @@ export class Menu extends Scene {
         this.game.screen.drawImage(0 - this.game.screen.images.sky1.width/2, this.game.screen.canvas.height - 20 - this.game.screen.images.sky1.height, 'sky1');
         this.game.screen.drawImage(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 + 40 , 'cloudLogo');
         this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.logo.width/2, 100 , 'logo');
-        this.game.screen.printText(250, 650, 'Press enter to start game', '#000000');
+        this.game.screen.printText(220, 650, 'Press enter to start game', '#000000');
         this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 100 - this.game.screen.images.btnStart.height , 'btnStart');
         super.render(time)
     }
