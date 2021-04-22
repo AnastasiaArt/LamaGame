@@ -60,8 +60,12 @@ export class Screen {
         this.context.fillText(text, x, y);
     }
 
-    drawImage(x, y, imageName) {
+    drawImage(x, y, imageName, ) {
         this.context.drawImage(this.images[imageName], x, y);
+    }
+
+    drawScaleImage(imageName, x, y, sx, sy, sWidth, sHeight,  dWidth, dHeight ) {
+        this.context.drawImage(this.images[imageName], sx, sy, sWidth, sHeight, x, y, dWidth, dHeight);
     }
 
     drawImageFullScreen(x, y, imageName) {

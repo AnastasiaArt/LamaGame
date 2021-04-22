@@ -39,20 +39,20 @@ export class Player {
     jump() {
         if (this.isJumping || this.isStoped) return;
         this.isJumping = true;
-        this.view = this.tile.getAnimation([15, 16, 17], 150, false);
+        this.view = this.tile.getAnimation([15, 16, 17], 130, false);
         this.velocity.setDirection('up', this.speed);
         // меняющаяся анимация при прыжке
         this.view.onEnd = () => {
-            this.view = this.tile.getAnimation([18], 700, false);
+            this.view = this.tile.getAnimation([18], 350, false);
             this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
             this.view.onEnd = () => {
                 this.view = this.tile.getAnimation([18,19], 100, false);
                 this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
                 this.view.onEnd = () => {
-                    this.view = this.tile.getAnimation([19], 1110, false);
+                    this.view = this.tile.getAnimation([19], 650, false);
                     this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
                     this.view.onEnd = () => {
-                        this.view = this.tile.getAnimation([20, 21], 100, false);
+                        this.view = this.tile.getAnimation([20, 21], 120, false);
                         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
                         this.view.onEnd = () => {
                             this.walk()
@@ -104,7 +104,7 @@ export class Player {
     updatePosition(time) {
         this.x += (time - this.lastTime) * (this.velocity.x / 1000);
         this.y += (time - this.lastTime) * (this.velocity.y / 1000);
-        this.velocity.y += 6.2;
+        this.velocity.y += 9;
 
         if (this.y <= 70) {
 

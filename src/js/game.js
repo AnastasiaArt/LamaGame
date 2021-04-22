@@ -35,10 +35,11 @@ export class Game {
             sky1: 'img/cloud3-180.png',
             sky2: 'img/cloud2-120.png',
             sky3: 'img/cloud1-100.png',
-            cloudLogo: 'img/Cloud_with_Plushy_logo-150.png',
+            cloudLogo: 'img/Cloud_with_Plushy_logo-200.png',
             logo: 'img/game-logo.png',
             btnStart: 'img/start-btn.png',
-            textGameOver: 'img/game-over-text.png'
+            textGameOver: 'img/game-over-text.png',
+            menuLama: 'img/menu-lama.png'
         });
         this.control = new Controls();
         this.scenes = {
