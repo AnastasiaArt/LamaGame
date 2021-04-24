@@ -3,19 +3,19 @@ import {SpriteSheet} from "./sprite-sheet.js";
 
 export class Obstacle {
     constructor({gameWidth = 640, gameHeight = 640, index = 1}) {
-        this.speed = 250;
+        this.speed = 290;
         this.velocity = new Vector('left', 0);
         this.lastTime = 0;
         this.isStoped = false;
         this.tiles = new SpriteSheet({
             imageName: 'obstacles',
-            imageWidth: 600,
-            imageHeight: 600,
-            spriteHeight: 100,
-            spriteWidth: 100,
+            imageWidth: 480,
+            imageHeight: 480,
+            spriteHeight: 80,
+            spriteWidth: 80,
         });
         this.view = this.tiles.getSprite(index)
-        this.collisionShape = {x: 10, y: 10, width: 90, height: 90};
+        this.collisionShape = {x: 20, y: 20, width: 80, height: 80};
         this.gameWidth = gameWidth;
         this.x = 0;
         this.y = 0;

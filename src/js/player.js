@@ -6,7 +6,7 @@ export class Player {
     constructor(control, y) {
         this.x = 0;
         this.y = 0;
-        this.speed = 500;
+        this.speed = 1000;
         this.velocity = new Vector('right', 0);
         this.lastTime = 0;
         this.isJumping = false;
@@ -39,26 +39,17 @@ export class Player {
     jump() {
         if (this.isJumping || this.isStoped) return;
         this.isJumping = true;
-        this.view = this.tile.getAnimation([15, 16, 17], 130, false);
+        this.view = this.tile.getAnimation([15, 16, 17, 18, ], 120, false);
         this.velocity.setDirection('up', this.speed);
         // меняющаяся анимация при прыжке
         this.view.onEnd = () => {
-            this.view = this.tile.getAnimation([18], 350, false);
+            this.view = this.tile.getAnimation([19], 500, false);
             this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
             this.view.onEnd = () => {
-                this.view = this.tile.getAnimation([18,19], 100, false);
+                this.view = this.tile.getAnimation([20, 21], 120, false);
                 this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
                 this.view.onEnd = () => {
-                    this.view = this.tile.getAnimation([19], 650, false);
-                    this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
-                    this.view.onEnd = () => {
-                        this.view = this.tile.getAnimation([20, 21], 120, false);
-                        this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
-                        this.view.onEnd = () => {
-                            this.walk()
-                        }
-                    }
-                    this.view.run();
+                    this.walk()
                 }
                 this.view.run();
             }
@@ -74,7 +65,7 @@ export class Player {
         this.isStoped = true;
         this.velocity.y = 10;
         this.y = this.startPosY;
-        this.view = this.tile.getAnimation([11, 12, 13, 14], 200, false);
+        this.view = this.tile.getAnimation([11, 12, 13, 14], 160, false);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         obstacles.forEach(i => {
             i.isStoped = true;
@@ -102,13 +93,9 @@ export class Player {
     }
 
     updatePosition(time) {
-        this.x += (time - this.lastTime) * (this.velocity.x / 1000);
         this.y += (time - this.lastTime) * (this.velocity.y / 1000);
-        this.velocity.y += 9;
-
-        if (this.y <= 70) {
-
-        }
+        this.velocity.y += 29;
+        this.x += (time - this.lastTime) * (this.velocity.x / 1000);
         // не ниже значения, чтоб не провалился под землю при прыжке
         if (this.y >= this.startPosY) {
             this.isJumping = false;
@@ -121,7 +108,7 @@ export class Player {
         //Если объекты находятся на одной линии по горизонтали{
         if (this.y < obs.y + obs.view.height - obs.collisionShape.y && this.y + this.view.height > obs.y - obs.collisionShape.y) {
             //Если объекты находятся на одной линии по вертикали
-            if (this.x + this.view.width - this.collisionShape.x > obs.x && this.x + this.collisionShape.x < obs.x + obs.view.width + obs.collisionShape.x) {
+            if (this.x + this.view.width - this.collisionShape.x > obs.x && this.x + this.collisionShape.x < obs.x + obs.view.width - obs.collisionShape.x) {
                 hit = true;
                 this.crash(obs, obstacles);
             }

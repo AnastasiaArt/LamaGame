@@ -24,6 +24,12 @@ export class Vector {
             case "left":
                 this.x = -speed;
                 break;
+
+            case "fly":
+                this.x = this.x;
+                this.y = this.y;
+                break;
+
         }
     }
 

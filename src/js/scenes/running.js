@@ -26,7 +26,7 @@ export class Running extends Scene {
 
         this.backgrounds = ['bg1', 'bg2', 'bg3', 'bg4', 'bg5'];
         this.opacity = 0;
-        this.startChange = false;
+        this.isCollide = false;
         this.backgroundsTree = ['tree1', 'tree2', 'tree3', 'tree4', 'tree5'];
         this.player = new Player(this.game.control, this.game.screen.height - 300);
         this.player.x = this.game.screen.width / 2 - this.player.view.width ;
@@ -43,6 +43,11 @@ export class Running extends Scene {
         this.mouse = new FlyElement(200,'mouse', 500, 100, 100, 100, true);
         this.mouse.x = this.game.screen.canvas.width;
         this.mouse.y = 200;
+        this.collideText = ['collideText1', 'collideText2', 'collideText3', 'collideText4'];
+        this.countText = ['countText1', 'countText2', 'countText3', 'countText4'];
+        this.imgText = 'collideText1';
+        this.isAddCount = false;
+        this.lastTimeCountText = 0;
     }
 
     init() {
@@ -61,6 +66,26 @@ export class Running extends Scene {
         this.obstacles.push(obs)
     }
 
+    collide(time) {
+        this.isCollide = true;
+        if(this.player.deadCount + 1 < 4) {
+            this.imgText = this.collideText[Math.floor(Math.random() * 4)];
+        } else if(this.player.deadCount + 1 === 4){
+            this.imgText = 'sleepText';
+        } else {
+            this.isCollide = false;
+            this.imgText = 'sleepText';
+        }
+        this.lastTimeCountText = time;
+    }
+
+    addCount(time) {
+        this.count++;
+        this.imgText = this.countText[Math.floor(Math.random() * 4)];
+        this.isAddCount = true;
+        this.lastTimeCountText = time;
+    }
+
     update(time) {
         this.player.update(time);
         this.bird.update(time);
@@ -69,6 +94,11 @@ export class Running extends Scene {
             this.lastTime = time;
             return;
         }
+        if (this.lastTimeCountText === 0) {
+            this.lastTimeCountText = time;
+            return;
+        }
+
         if (time - this.lastTime > this.duration) {
             // добавить проверку у обсталес из нот стопед
             this.addNewObstacle();
@@ -84,33 +114,41 @@ export class Running extends Scene {
             }
 
             if (this.hit) {
-                this.startChange = true;
+                this.collide(time);
                 return;
             } else {
                 if (Math.round(i.x) === this.player.x) {
-                    this.count++
+                   this.addCount(time);
                 }
                 i.update(time)
             }
         })
 
-        if (this.startChange) {
+        if (this.isCollide) {
             if (this.opacity <= 1) {
                 this.opacity += 0.01;
             } else if (this.backgrounds.length > 2) {
                 this.backgrounds.shift();
                 this.backgroundsTree.shift();
-                this.startChange = false
+                this.isCollide = false
                 this.opacity = 0;
+            } else {
+                this.isCollide = false;
             }
         }
-            if (this.player.deadCount >= 5) {
-                this.finish(Scene.GAME_OVER)
+        if (this.player.deadCount >= 5) {
+            this.game.count = this.count;
+            this.finish(Scene.GAME_OVER)
+        }
+
+        if (time - this.lastTimeCountText > 1400) {
+            this.isAddCount = false;
         }
     }
 
     render(time) {
         this.update(time);
+        //  плавная смена фона
         this.game.screen.context.globalAlpha = 1 - this.opacity;
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
         this.game.screen.context.globalAlpha = this.opacity;
@@ -122,13 +160,8 @@ export class Running extends Scene {
         if (this.player.deadCount <= 3) {
             this.game.screen.drawImage(this.game.screen.canvas.width / 2 - this.game.screen.images.sun.width / 2, this.game.screen.canvas.height - this.game.screen.images.sun.height / 1.5, 'sun');
         }
-
         this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[0]);
         this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[1]);
-        // if ( this.player.deadCount <= 2 || (this.player.deadCount > 2 && this.position.x >  0 - (this.game.screen.width + 100) && this.position.x <= this.game.screen.canvas.width)) {
-        //     this.game.screen.drawImage(this.position.x, 0, 'sky');
-        //     this.position.x < (0 - (this.game.screen.width + 100)) ? this.position.x = this.game.screen.canvas.width : this.position.x -= 1;
-        // }
         if (this.player.deadCount <= 2) {
             this.game.screen.drawImage(this.position.x, 20, 'sky1');
             this.game.screen.drawImage(this.position.x - 20 , 40 + this.game.screen.images.sky1.height , 'sky2');
@@ -139,11 +172,13 @@ export class Running extends Scene {
         } else if (this.player.deadCount >= 4) {
             this.game.screen.drawSprite(this.mouse.view);
         }
-
         this.game.screen.drawSprite(this.player.view);
         this.obstacles.forEach((i) => {
             this.game.screen.drawSprite(i.view);
         })
         this.game.screen.printText(20, 50, `Счет: ${this.count}`, '#000000');
+        if (this.isAddCount || this.isCollide) {
+            this.game.screen.drawImage(this.game.screen.canvas.width / 2 - this.game.screen.images[this.imgText].width/ 2, this.game.screen.canvas.height/3, this.imgText)
+        }
     }
 }
