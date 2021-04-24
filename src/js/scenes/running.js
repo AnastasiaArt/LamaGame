@@ -36,7 +36,7 @@ export class Running extends Scene {
         this.count = 0;
         this.hit = false;
         this.lastTime = 0;
-        this.duration = getRandomInt(3000, 5000);
+        this.duration = getRandomInt(4000, 6000);
         this.bird = new FlyElement(200,'bird', 400, 100, 100, 100);
         this.bird.x = this.game.screen.canvas.width;
         this.bird.y = 200;
@@ -103,7 +103,7 @@ export class Running extends Scene {
             // добавить проверку у обсталес из нот стопед
             this.addNewObstacle();
             this.lastTime = time;
-            this.duration = getRandomInt(3000, 5000);
+            this.duration = getRandomInt(4000, 6000);
         }
 
         this.obstacles.forEach((i) => {

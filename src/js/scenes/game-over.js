@@ -1,6 +1,7 @@
 import {Scene} from '../scene.js'
 import {Player} from "../player";
 import {SpriteSheet} from "../sprite-sheet";
+import { Game } from "../game.js";
 
 export class GameOver extends Scene {
     constructor(game) {
@@ -26,8 +27,8 @@ export class GameOver extends Scene {
         this.game.screen.printText(245, this.game.screen.canvas.height/8 + 130, 'Лучший результат:', '#000000');
         this.game.screen.printText(340, this.game.screen.canvas.height/8 + 160, this.game.count, '#000000');
         this.game.screen.printText(270, this.game.screen.canvas.height/8 + 190, 'Ваш результат:', '#000000');
-        this.game.screen.printText(320, this.game.screen.canvas.height/8 + 220, this.game.count, '#000000');
-        this.game.screen.drawScaleImage('btnRetry',340, this.game.screen.canvas.height/8 + 250, 0, 0, 102, 92, 50, 50);
+        this.game.screen.printText(340, this.game.screen.canvas.height/8 + 220, this.game.count, '#000000');
+        this.game.screen.drawScaleImage('btnRetry',320, this.game.screen.canvas.height/8 + 250, 0, 0, 102, 92, 50, 50);
         this.game.screen.printText(180, this.game.screen.canvas.height/8 + 400, 'Для старта игры нажмите enter', '#000000');
     }
 
@@ -57,6 +58,8 @@ export class GameOver extends Scene {
             this.opacity += 0.01;
         }
         if (this.game.control.enter) {
+            this.game = new Game({isRetry: true});
+            this.game.run();
             this.finish(Scene.START_GAME)
         }
     }

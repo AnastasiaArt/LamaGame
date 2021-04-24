@@ -8,7 +8,7 @@ import {Running} from "./scenes/running.js";
 
 export class Game {
     // ширина и высота по умолчанию 640
-    constructor({width = 700, height = 700} = {}) {
+    constructor({width = 700, height = 700, isRetry = false} = {}) {
         this.screen = new Screen(width, width);
         // window.addEventListener("resize", this.resize);
         // this.resize();
@@ -60,7 +60,7 @@ export class Game {
             running: new Running(this),
             gameOver: new GameOver(this)
         };
-        this.currentScene = this.scenes.loading;
+        this.currentScene = isRetry ? this.scenes.running : this.scenes.loading;
         this.currentScene.init();
     }
 
