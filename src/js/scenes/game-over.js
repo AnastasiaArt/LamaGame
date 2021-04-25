@@ -65,6 +65,7 @@ export class GameOver extends Scene {
     }
 
     render(time) {
+        this.game.screen.context.globalAlpha = 1;
         this.update(time);
         this.game.screen.drawImageFullScreen(0, 0, 'bg5');
         this.game.screen.drawImage(this.game.screen.canvas.width - this.game.screen.images.sky1.width/1.5, -20, 'sky1');
@@ -79,10 +80,6 @@ export class GameOver extends Scene {
             this.game.screen.context.globalAlpha = 1;
             this.drawText();
         } else {
-            this.game.screen.context.globalAlpha = 1 - this.opacity;
-            if (this.opacity <= 1) {
-                this.drawText();
-            }
             this.game.screen.context.globalAlpha = this.opacity;
             this.showModalRetry();
         }
