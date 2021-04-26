@@ -7,7 +7,7 @@ module.exports = {
     mode: "development",
     entry: ['@babel/polyfill', './js/index.js'],
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'docs'),
         filename: 'js/index.js',
     },
     plugins: [
@@ -19,13 +19,13 @@ module.exports = {
             patterns: [
                 {
                     from: path.resolve(__dirname, 'src/img'),
-                    to: path.resolve(__dirname, 'dist/img'),
+                    to: path.resolve(__dirname, 'docs/img'),
                 },
             ],
         }),
     ],
     devServer: {
-        contentBase: './dist',
+        contentBase: './docs',
         compress: true,
         port: 9000,
     },

@@ -108,7 +108,7 @@ export class Player {
         //Если объекты находятся на одной линии по горизонтали{
         if (this.y < obs.y + obs.view.height - obs.collisionShape.y && this.y + this.view.height > obs.y - obs.collisionShape.y) {
             //Если объекты находятся на одной линии по вертикали
-            if (this.x + this.view.width - this.collisionShape.x > obs.x && this.x + this.collisionShape.x < obs.x + obs.view.width - obs.collisionShape.x) {
+            if (this.x + this.view.width - this.collisionShape.x > obs.x && this.x + this.collisionShape.x + 20 < obs.x + obs.view.width - obs.collisionShape.x) {
                 hit = true;
                 this.crash(obs, obstacles);
             }

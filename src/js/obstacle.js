@@ -9,13 +9,13 @@ export class Obstacle {
         this.isStoped = false;
         this.tiles = new SpriteSheet({
             imageName: 'obstacles',
-            imageWidth: 480,
-            imageHeight: 480,
-            spriteHeight: 80,
-            spriteWidth: 80,
+            imageWidth: 420,
+            imageHeight: 420,
+            spriteHeight: 70,
+            spriteWidth: 70,
         });
         this.view = this.tiles.getSprite(index)
-        this.collisionShape = {x: 20, y: 20, width: 80, height: 80};
+        this.collisionShape = {x: 20, y: 20, width: 70, height: 70};
         this.gameWidth = gameWidth;
         this.x = 0;
         this.y = 0;
