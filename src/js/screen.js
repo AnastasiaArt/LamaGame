@@ -9,6 +9,8 @@ export class Screen {
         this.context = this.canvas.getContext('2d');
         this.images = {};
         this.isImagesLoaded = false;
+        this.scale = 1.000;
+        this.isChangeScale = false;
     }
 
     createCanvas(width, height) {
@@ -70,6 +72,32 @@ export class Screen {
 
     drawImageFullScreen(x, y, imageName) {
         this.context.drawImage(this.images[imageName], x, y, this.width, this.height);
+    }
+
+    drawImageRotated(imageName, x, y, scale, rot, isRotate =  true) {
+        this.context.clearRect(0, 0, this.context.width, this.context.height);
+        this.context.setTransform(scale, 0, 0, scale, x, y);
+        if (isRotate) {
+            this.context.rotate(rot);
+        }
+        this.context.drawImage(this.images[imageName], -this.images[imageName].width /2, -this.images[imageName].height / 1.5);
+        this.context.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    changeScale(start, end, step) {
+        if(this.scale.toFixed(3) === start) {
+            this.isChangeScale = false;
+        }
+        if (this.scale.toFixed(3) === end) {
+            this.isChangeScale = true;
+        }
+        if (this.scale.toFixed(3) <= start && !this.isChangeScale) {
+            this.scale -= step;
+        }
+        if (this.scale.toFixed(3) >= end && this.isChangeScale) {
+            this.scale += step;
+        }
+        return this.scale
     }
 
     drawSprite(sprite) {

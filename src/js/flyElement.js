@@ -1,5 +1,6 @@
 import {Vector} from "./vector.js";
 import {SpriteSheet} from "./sprite-sheet.js";
+import {getRandomInt} from "./math.js";
 
 export class FlyElement {
     constructor(y, imageName, imageWidth, imageHeight, spriteWidth, spriteHeight, isJumping = false) {
@@ -42,7 +43,7 @@ export class FlyElement {
         if (this.y > 0 && this.y <= this.startPosY) {
             this.x += (time - this.lastTime) * (this.velocity.x / 1000);
             this.y += (time - this.lastTime) * (this.velocity.y / 1000);
-            this.velocity.x += 10;
+            this.velocity.x += 9;
             this.velocity.y -= 1;
         } else {
             if (this.y >= this.startPosY) {
@@ -64,8 +65,8 @@ export class FlyElement {
             this.y += (time - this.lastTime) * (this.velocity.y / 1000);
             this.velocity.y -= 2;
         } else {
-            this.x = 700;
-            this.y = 150
+            this.x = getRandomInt(900, 1400)
+            this.y = getRandomInt(100, 150) + this.x/4;
             this.velocity.y = 0;
         }
     }

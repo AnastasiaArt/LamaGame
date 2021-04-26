@@ -51,6 +51,7 @@ export class Game {
             countText4: 'img/text/teddy.png',
             sleepText: 'img/text/sleeping.png',
             textBg: 'img/text-bg.png',
+            cloudText: 'img/text/cloud-text.png',
         });
         this.count = 0;
         this.control = new Controls();

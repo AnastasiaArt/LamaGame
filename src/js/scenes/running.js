@@ -24,6 +24,12 @@ export class Running extends Scene {
             y: 0,
         };
 
+
+        this.positionText = {
+            x: this.game.screen.width,
+            y: 0,
+        };
+
         this.backgrounds = ['bg1', 'bg2', 'bg3', 'bg4', 'bg5'];
         this.opacity = 0;
         this.isCollide = false;
@@ -117,7 +123,8 @@ export class Running extends Scene {
                 this.collide(time);
                 return;
             } else {
-                if (Math.round(i.x) === this.player.x) {
+                console.log(Math.round(i.x))
+                if (Math.round(i.x) === this.player.x + 1) {
                    this.addCount(time);
                 }
                 i.update(time)
@@ -146,6 +153,7 @@ export class Running extends Scene {
         }
     }
 
+
     render(time) {
         this.update(time);
         //  плавная смена фона
@@ -158,7 +166,7 @@ export class Running extends Scene {
         }
         this.game.screen.context.globalAlpha = 1;
         if (this.player.deadCount <= 3) {
-            this.game.screen.drawImage(this.game.screen.canvas.width / 2 - this.game.screen.images.sun.width / 2, this.game.screen.canvas.height - this.game.screen.images.sun.height / 1.5, 'sun');
+            this.game.screen.drawImageRotated('sun',this.game.screen.width / 2, this.game.screen.height , this.game.screen.changeScale('1.000', '0.800', 0.002), time/9000)
         }
         this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[0]);
         this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[1]);
@@ -166,7 +174,7 @@ export class Running extends Scene {
             this.game.screen.drawImage(this.position.x, 20, 'sky1');
             this.game.screen.drawImage(this.position.x - 20 , 40 + this.game.screen.images.sky1.height , 'sky2');
             this.game.screen.drawImage(this.position.x + this.game.screen.images.sky1.width + 80, 10 + this.game.screen.images.sky1.height , 'sky3');
-            this.position.x < 0 - this.game.screen.images.sky1.width - this.game.screen.images.sky2.width - this.game.screen.images.sky3.width - 160 ? this.position.x = this.game.screen.canvas.width : this.position.x -= 1;
+            this.position.x < 0 - this.game.screen.images.sky1.width - this.game.screen.images.sky2.width - this.game.screen.images.sky3.width - 160 ? this.position.x = this.game.screen.canvas.width : this.position.x -= 2;
             this.game.screen.drawSprite(this.bird.view);
 
         } else if (this.player.deadCount >= 4) {
@@ -178,7 +186,14 @@ export class Running extends Scene {
         })
         this.game.screen.printText(20, 50, `Счет: ${this.count}`, '#000000');
         if (this.isAddCount || this.isCollide) {
-            this.game.screen.drawImage(this.game.screen.canvas.width / 2 - this.game.screen.images[this.imgText].width/ 2, this.game.screen.canvas.height/3, this.imgText)
+            if (this.positionText.x >= this.game.screen.canvas.width/2 ) {
+                this.positionText.x -= 10;
+            }
+            this.game.screen.drawImage(this.positionText.x - this.game.screen.images.cloudText.width/ 2,this.game.screen.canvas.height/4 - this.game.screen.images.cloudText.height/ 3, 'cloudText')
+            this.game.screen.drawImage(this.positionText.x - this.game.screen.images[this.imgText].width/ 2, this.game.screen.canvas.height/4, this.imgText)
+        } else {
+            this.positionText.x = this.game.screen.width;
         }
+         console.log( this.positionText.x)
     }
 }

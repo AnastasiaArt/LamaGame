@@ -6,7 +6,7 @@ export class Player {
     constructor(control, y) {
         this.x = 0;
         this.y = 0;
-        this.speed = 1000;
+        this.speed = 1050;
         this.velocity = new Vector('right', 0);
         this.lastTime = 0;
         this.isJumping = false;
@@ -23,7 +23,7 @@ export class Player {
         this.startPosY = y
         this.isStoped = false;
         this.deadCount = 0;
-        this.collisionShape = {x: 35, y: 0, width: 170, height: 240};
+        this.collisionShape = {x: 35, y: 0, width: 170, height: 220};
     }
 
     // идти
@@ -43,7 +43,7 @@ export class Player {
         this.velocity.setDirection('up', this.speed);
         // меняющаяся анимация при прыжке
         this.view.onEnd = () => {
-            this.view = this.tile.getAnimation([19], 500, false);
+            this.view = this.tile.getAnimation([19], 550, false);
             this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
             this.view.onEnd = () => {
                 this.view = this.tile.getAnimation([20, 21], 120, false);
@@ -94,7 +94,7 @@ export class Player {
 
     updatePosition(time) {
         this.y += (time - this.lastTime) * (this.velocity.y / 1000);
-        this.velocity.y += 29;
+        this.velocity.y +=28;
         this.x += (time - this.lastTime) * (this.velocity.x / 1000);
         // не ниже значения, чтоб не провалился под землю при прыжке
         if (this.y >= this.startPosY) {
