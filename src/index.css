@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+/*@font-face {*/
+/*    font-family: 'CeraRoundPro-Bold';*/
+/*    src: url('./fonts/CeraRoundPro-Bold.woff2') format('woff2');*/
+/*    font-weight: 700;*/
+/*    font-style: normal;*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: 'CeraRoundPro-Medium';*/
+/*    src: url('./fonts/CeraRoundPro-Medium.woff2') format('woff2');*/
+/*    font-weight: 500;*/
+/*    font-style: normal;*/
+/*}*/
+
+@font-face {
+    font-family: 'CeraRoundPro';
+    src: url('./fonts/CeraRoundProDEMO-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+#start-btn {
+    font: 1.2em "CeraRoundPro";
+}
+
+html {
+    overflow:  hidden;
+}

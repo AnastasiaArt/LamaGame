@@ -16,10 +16,10 @@ export class GameOver extends Scene {
     }
 
     drawText() {
-        this.game.screen.printText(280, this.game.screen.canvas.height/8 + 70, 'Лама уснула');
-        this.game.screen.printText(240, this.game.screen.canvas.height/8 + 100,  'и ты тоже засыпай!')
-        this.game.screen.printText(240, this.game.screen.canvas.height/8 + 130, 'Встретимся завтра');
-        this.game.screen.printText(260, this.game.screen.canvas.height/8 + 160, 'в этоже время!');
+        this.game.screen.printText(330, this.game.screen.canvas.height/8 + 70, 'Упс!');
+        this.game.screen.printText(280, this.game.screen.canvas.height/8 + 100,  'Лама заснула!')
+        this.game.screen.printText(250, this.game.screen.canvas.height/8 + 130, 'Встретимся завтра');
+        this.game.screen.printText(250, this.game.screen.canvas.height/8 + 160, ' или ещё поиграем?');
     }
 
     showModalRetry() {

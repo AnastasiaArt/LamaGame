@@ -11,6 +11,8 @@ export class Screen {
         this.isImagesLoaded = false;
         this.scale = 1.000;
         this.isChangeScale = false;
+        // this.canvas.width = innerWidth;
+        // this.canvas.height = innerHeight;
     }
 
     createCanvas(width, height) {
@@ -52,13 +54,19 @@ export class Screen {
         const loader = new ImageLoader(imageFiles);
         loader.load().then((names) => {
             this.images = Object.assign(this.images, loader.images);
-            this.isImagesLoaded = true;
+
         });
+        let f = new FontFace('CeraRoundPro', 'url(fonts/CeraRoundProDEMO-Regular.woff2)');
+        f.load().then(() => {
+            this.isImagesLoaded = true;
+        }).catch((err) => {
+           console.log(err)
+        })
     }
 
     printText(x, y, text, color = "#ffffff") {
         this.context.fillStyle = color;
-        this.context.font = "bold 22px Arial";
+        this.context.font = '23px CeraRoundPro';
         this.context.fillText(text, x, y);
     }
 

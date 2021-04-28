@@ -98,5 +98,9 @@ export class Game {
 
     run() {
         requestAnimationFrame((time) => this.frame(time));
+        // this.screen.context.save();
+        // this.screen.context.scale(innerWidth / this.screen.canvas.width, innerHeight / this.screen.canvas.height);
+        // this.screen.context.restore()
+
     }
 }

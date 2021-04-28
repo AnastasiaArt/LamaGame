@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -23,11 +24,16 @@ module.exports = {
                 },
             ],
         }),
+        new MiniCssExtractPlugin({
+            filename: 'index.css',
+        }),
     ],
     devServer: {
         contentBase: './docs',
         compress: true,
         port: 9000,
+        host: '0.0.0.0',
+        disableHostCheck: true,
     },
     resolve: {
         alias: {
@@ -38,6 +44,20 @@ module.exports = {
     devtool: 'inline-source-map',
     module: {
         rules: [
+            {
+                test: /\.css$/i,
+                use: [ MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                use: [{
+                    loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: 'fonts/'
+                }
+                }]
+            },
             {
                 test: /\.m?js$/,
                 exclude: /(node_modules)/,
