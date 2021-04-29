@@ -11,6 +11,12 @@ export class Screen {
         this.isImagesLoaded = false;
         this.scale = 1.000;
         this.isChangeScale = false;
+        // this.vector = {
+        //     x:this.canvas.width/2,
+        //     y:this.canvas.height/3
+        // }
+        // this.isChangeVectorX =false;
+        // this.isChangeVectorY = false
         // this.canvas.width = innerWidth;
         // this.canvas.height = innerHeight;
     }
@@ -88,9 +94,51 @@ export class Screen {
         if (isRotate) {
             this.context.rotate(rot);
         }
-        this.context.drawImage(this.images[imageName], -this.images[imageName].width /2, -this.images[imageName].height / 1.5);
+        this.context.drawImage(this.images[imageName], -this.images[imageName].width /2, -this.images[imageName].height / 2);
         this.context.setTransform(1, 0, 0, 1, 0, 0);
     }
+
+    // levitation(imageName, x, y, scale,end, step) {
+    //     this.context.clearRect(0, 0, this.context.width, this.context.height);
+    //     this.context.setTransform(scale, 0, 0, scale,  this.changeVectorX(x,x, x - end, step), this.changeVectorY(y,y, y - end -10, step));
+    //     this.context.drawImage(this.images[imageName], -this.images[imageName].width /2, -this.images[imageName].height / 2);
+    //     this.context.setTransform(1, 0, 0, 1, 0, 0);
+    // }
+    //
+    // changeVectorX(x,start, end, step) {
+    //     console.log(x)
+    //     if(Math.round(x)  === start ) {
+    //         this.isChangeVectorX = false;
+    //     }
+    //     if (Math.round(x)  === end ) {
+    //         this.isChangeVectorX = true;
+    //     }
+    //     if (Math.round(x) <= start  && !this.isChangeVectorX) {
+    //         x -=  Math.sin(step);
+    //     }
+    //     if (Math.round(x) >= end  && this.isChangeVectorX) {
+    //         x += Math.sin(step);
+    //     }
+    //     console.log(x)
+    //     return x
+    // }
+    //
+    // changeVectorY(y,start, end, step,) {
+    //     if(Math.round(y) === Math.round(start )) {
+    //         this.isChangeVectorY = false;
+    //     }
+    //     if (Math.round(y)  ===  Math.round(end)) {
+    //         this.isChangeVectorY = true;
+    //     }
+    //     if (Math.round(y) <= Math.round(start) && !this.isChangeVectorY) {
+    //         y -= step;
+    //     }
+    //     if (Math.round(y) >= Math.round(end)  && this.isChangeVectorY) {
+    //         y += step;
+    //     }
+    //     return y
+    // }
+
 
     changeScale(start, end, step) {
         if(this.scale.toFixed(3) === start) {
