@@ -3,11 +3,11 @@ import {SpriteSheet} from "./sprite-sheet.js";
 
 export class Player {
     // constructor({imageName, speed, imageWidth, imageHeight, spriteWidth, spriteHeight, control}) {
-    constructor(control, y) {
+    constructor(control, y, speedWalk=0) {
         this.x = 0;
         this.y = 0;
         this.speed = 1050;
-        this.velocity = new Vector('right', 0);
+        this.velocity = new Vector('right', speedWalk);
         this.lastTime = 0;
         this.isJumping = false;
         this.tile = new SpriteSheet({
@@ -24,12 +24,12 @@ export class Player {
         this.isStoped = false;
         this.deadCount = 0;
         this.collisionShape = {x: 35, y: 0, width: 170, height: 220};
+        this.speedWalk = speedWalk;
     }
 
     // идти
     walk() {
         if (this.isJumping) return;
-        // this.velocity.setDirection(direction, this.speed);
         this.view = this.tile.getAnimation([4, 5, 6, 7], 150);
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.view.run();
@@ -132,7 +132,6 @@ export class Player {
         if (this.isJumping) {
             this.updatePosition(time);
         }
-
         this.lastTime = time;
         this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.view.update(time);

@@ -1,12 +1,12 @@
-import {ImageLoader} from "./image-loader.js";
-import {Sprite} from "./sprite.js";
-import {Screen} from "./screen";
+import {Vector} from "@/js/vector";
 
 export class AnimateObject  {
-    constructor(imageName, x, y, scale= 1, deg=0, context ={}, images={}) {
+    constructor(imageName, x, y, scale= 1, deg=0, context ={}, images={}, direction ='left') {
         this.scale = scale;
         this.deg = deg;
         this.isChangeScale1 = false;
+        this.isChangeDeg1 = false;
+        this.velocity = new Vector(direction, 10);
         this.vector1 = {
             x:x,
             y:y
@@ -16,6 +16,8 @@ export class AnimateObject  {
         this.imageName1 = imageName;
         this.images =images;
         this.context = context;
+        this.isLevitation = false;
+        this.isRotation = false;
     }
 
     drawImageRotated(x, y, start, end, step, rot, isRotate =  true) {
@@ -29,16 +31,25 @@ export class AnimateObject  {
         this.context.setTransform(1, 0, 0, 1, 0, 0);
     }
 
+    drawImageSpriteRotated(x, y, start, end, step, sx, sy, sWidth, sHeight, dWidth, dHeight ) {
+        this.isRotation = true;
+        let rot = this.changeDeg(start, end, step)
+        this.context.clearRect(0, 0, this.context.width, this.context.height);
+        this.context.setTransform(1 , 0, 0, 1, x, y);
+        this.context.rotate(rot);
+        this.context.drawImage(this.images[this.imageName1], sx, sy, sWidth, sHeight, 0,0, dWidth, dHeight);
+        this.context.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
     levitation( x, y, scale, end, step) {
+        this.isLevitation = true;
         this.context.clearRect(0, 0, this.context.width, this.context.height);
         this.context.setTransform(scale, 0, 0, scale,  this.changeVectorX(x, x - end, step), this.changeVectorY(y, y - end -10, step));
-        this.context.drawImage(this.images[this.imageName1], -this.images[this.imageName1].width /2, -this.images[this.imageName1].height / 2);
+        this.context.drawImage(this.images[this.imageName1], 0, 0);
         this.context.setTransform(1, 0, 0, 1, 0, 0);
     }
 
     changeVectorX(start, end, step) {
-        console.log(Math.round(this.vector1.x) )
-        console.log(Math.round(start ))
         if(Math.round(this.vector1.x)  === Math.round(start) ) {
             this.isChangeVectorX1 = false;
         }
@@ -85,6 +96,34 @@ export class AnimateObject  {
             this.scale += step;
         }
         return this.scale
+    }
+
+    changeDeg(start, end, step) {
+        if(Math.round(this.deg) ===  Math.round(start )) {
+            this.isChangeDeg1 = false;
+        }
+        if (Math.round(this.deg) === Math.round(end)) {
+            this.isChangeDeg1 = true;
+        }
+        if (Math.round(this.deg) <=  Math.round(start ) && !this.isChangeDeg1) {
+            this.deg -= step;
+        }
+        if (Math.round(this.deg) >= Math.round(end) && this.isChangeDeg1) {
+            this.deg+= step;
+        }
+        return this.deg
+    }
+
+    run() {
+        this.vector1.x += this.velocity.x;
+        this.vector1.y += this.velocity.y;
+        this.context.drawImage(this.images[this.imageName1], this.vector1.x, this.vector1.y);
+    }
+
+    runSprite(sx, sy, sWidth, sHeight, dWidth, dHeight ) {
+        this.vector1.x += this.velocity.x;
+        this.vector1.y += this.velocity.y;
+        this.context.drawImage(this.images[this.imageName1], sx, sy, sWidth, sHeight, this.vector1.x,this.vector1.y, dWidth, dHeight);
     }
 
     update(time) {

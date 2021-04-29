@@ -12,6 +12,10 @@ export class Scene {
         return 'LOADED';
     }
 
+    static get PRE_START() {
+        return 'PRE_START';
+    }
+
     static get START_GAME() {
         return 'START_GAME';
     }

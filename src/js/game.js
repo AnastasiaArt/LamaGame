@@ -5,6 +5,7 @@ import {Menu} from './scenes/menu.js';
 import {Scene} from './scene.js';
 import {Controls} from "./controls.js";
 import {Running} from "./scenes/running.js";
+import {PreStart} from "./scenes/pre-start.js";
 
 export class Game {
     // ширина и высота по умолчанию 640
@@ -58,6 +59,7 @@ export class Game {
         this.scenes = {
             loading: new Loading(this),
             menu: new Menu(this),
+            preStart: new PreStart(this),
             running: new Running(this),
             gameOver: new GameOver(this)
         };
@@ -73,6 +75,8 @@ export class Game {
         switch (status) {
             case Scene.LOADED:
                 return this.scenes.menu;
+            case Scene.PRE_START:
+                return this.scenes.preStart;
             case Scene.START_GAME:
                 return this.scenes.running;
             case Scene.STOP_GAME:

@@ -24,10 +24,13 @@ export class Running extends Scene {
             y: 0,
         };
 
-
         this.positionText = {
             x: this.game.screen.width,
             y: 0,
+        };
+        this.positionMoon = {
+            x: this.game.screen.width,
+            y: this.game.screen.height/2,
         };
 
         this.backgrounds = ['bg1', 'bg2', 'bg3', 'bg4', 'bg5'];
@@ -42,7 +45,7 @@ export class Running extends Scene {
         this.count = 0;
         this.hit = false;
         this.lastTime = 0;
-        this.duration = getRandomInt(4000, 6000);
+        this.duration = getRandomInt(6000, 6000);
         this.bird = new FlyElement(200,'bird', 400, 100, 100, 100);
         this.bird.x = this.game.screen.canvas.width;
         this.bird.y = 200;
@@ -54,13 +57,15 @@ export class Running extends Scene {
         this.imgText = 'collideText1';
         this.isAddCount = false;
         this.lastTimeCountText = 0;
+        this.sunHeight = this.game.screen.height;
+        this.isSunRays = false;
     }
 
     init() {
         super.init();
         this.addNewObstacle();
         this.player.view.x = this.game.screen.width / 2 - this.player.view.width / 2 ;
-        this.player.view.x = this.game.screen.height - 60 - this.player.view.height;
+        this.player.view.y = this.game.screen.height - 60 - this.player.view.height;
     }
 
     addNewObstacle() {
@@ -123,7 +128,6 @@ export class Running extends Scene {
                 this.collide(time);
                 return;
             } else {
-                console.log(Math.round(i.x))
                 if (Math.round(i.x) === this.player.x + 1) {
                    this.addCount(time);
                 }
@@ -162,12 +166,27 @@ export class Running extends Scene {
         this.game.screen.context.globalAlpha = this.opacity;
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[1]);
         if (this.player.deadCount >= 4) {
-            this.game.screen.drawImage(this.game.screen.canvas.width /2, 100  , 'moon');
+            if (this.positionMoon.x > this.game.screen.width / 2 + 40) {
+                this.positionMoon.x -=1;
+            }
+            if (this.positionMoon.y > 50) {
+                this.positionMoon.y -=1;
+            }
+            this.game.screen.drawImage(this.positionMoon.x , this.positionMoon.y , 'moon');
         }
         this.game.screen.context.globalAlpha = 1;
-        if (this.player.deadCount <= 3) {
-            this.game.screen.drawImageRotated('sun',this.game.screen.width / 2, this.game.screen.height , this.game.screen.changeScale('1.000', '0.800', 0.002), time/9000)
+        if (this.player.deadCount <= 5) {
+            if (this.player.deadCount === 3 &&  this.sunHeight < this.game.screen.height + 100) {
+                this.sunHeight += 1;
+                this.isSunRays= true;
+            }
+        if (this.player.deadCount >= 4 &&  this.sunHeight < 1200) {
+            this.sunHeight += 1;
         }
+        this.game.screen.context.globalAlpha = this.isSunRays ? 0.5 : 1;
+                this.game.screen.drawImageRotated('sun', this.game.screen.width / 2, this.sunHeight, this.game.screen.changeScale('1.000', '0.800', 0.002), time / 9000);
+        }
+        this.game.screen.context.globalAlpha = 1;
         this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[0]);
         this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[1]);
         if (this.player.deadCount <= 2) {
@@ -194,6 +213,5 @@ export class Running extends Scene {
         } else {
             this.positionText.x = this.game.screen.width;
         }
-         console.log( this.positionText.x)
     }
 }

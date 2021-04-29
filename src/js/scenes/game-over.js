@@ -46,7 +46,7 @@ export class GameOver extends Scene {
         this.player.y = this.game.screen.height - this.player.view.height;
         this.player.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.player.view.run();
-        setTimeout(()=> { this.isShowModal = true;}, 2000);
+        setTimeout(()=> { this.isShowModal = true;}, 5000);
     }
 
     update(time) {
