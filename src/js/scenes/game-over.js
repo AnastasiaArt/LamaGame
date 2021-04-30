@@ -62,6 +62,8 @@ export class GameOver extends Scene {
         this.btnRetry = new Button(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width/2,this.game.screen.canvas.height/8 + 250, this.game.screen.images.btnRetry.width, this.game.screen.images.btnRetry.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
             if (this.btnRetry.checkCollision(e)) {
+                this.game = new Game({isRetry: true});
+                this.game.run();
                 this.finish(Scene.START_GAME)
             }
         }, false);
@@ -85,11 +87,11 @@ export class GameOver extends Scene {
             this.textGameOver = new AnimateObject('textGameOver', this.game.screen.canvas.width/2, this.game.screen.canvas.height/7, 0, 0, this.game.screen.context, this.game.screen.images);
 
         }
-        if (this.game.control.enter) {
-            this.game = new Game({isRetry: true});
-            this.game.run();
-            this.finish(Scene.START_GAME)
-        }
+        // if (this.game.control.enter) {
+        //     this.game = new Game({isRetry: true});
+        //     this.game.run();
+        //     this.finish(Scene.START_GAME)
+        // }
     }
 
     render(time) {
