@@ -1,4 +1,5 @@
-import {Scene} from '../scene.js'
+import {Scene} from '../scene.js';
+import {Button} from '../button.js'
 import {AnimateObject} from "@/js/animateObject";
 
 export class Menu extends Scene {
@@ -19,9 +20,17 @@ export class Menu extends Scene {
         this.obstacle7 = null;
         this.lama = null;
         this.isStopAnimation = false;
+        this.scale = 0;
+        this.btnStart = null;
     }
 
     init() {
+        this.btnStart = new Button(this.game.screen.canvas.width/2-this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 100-this.game.screen.images.btnStart.height, this.game.screen.images.btnStart.width, this.game.screen.images.btnStart.height);
+        this.game.screen.canvas.addEventListener("mousedown",  (e) => {
+            if (this.btnStart.checkCollision(e)) {
+                this.isStopAnimation = true;
+            }
+        }, false);
         super.init();
     }
 
@@ -45,9 +54,7 @@ export class Menu extends Scene {
             this.obstacle7 = new AnimateObject('obstacles', this.game.screen.images.sky1.width - 70, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
             this.lama = new AnimateObject('menuLama', 0, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.2, 1, 0, this.game.screen.context, this.game.screen.images, 'right');
         }
-        if (this.game.control.enter) {
-            this.isStopAnimation = true;
-        }
+
         if (this.obstacle7.vector1.y > this.game.screen.canvas.height && this.sky4.vector1.x < 0 && this.isStopAnimation ) {
             this.finish(Scene.PRE_START)
         }
@@ -87,7 +94,16 @@ export class Menu extends Scene {
         } else {
             this.logoCloud.levitation(this.game.screen.canvas.width - this.game.screen.images.cloudLogo.width, this.game.screen.canvas.height/2, 1, 40, 0.3);
         }
-        this.logo.drawImageRotated(this.game.screen.width/2, this.game.screen.height/3, '1.000', '0.800', 0.002, 0, false)
+        if (this.scale < 1 && !this.isStopAnimation) {
+            this.scale +=0.05;
+            this.logo.drawImageScale(this.game.screen.width/2, this.game.screen.height/3, this.scale)
+        } else if(!this.isStopAnimation) {
+            this.logo.drawImageRotated(this.game.screen.width/2, this.game.screen.height/3, '1.000', '0.800', 0.002, 0, false)
+        }
+        if (this.isStopAnimation && this.scale >= 0) {
+            this.scale -= 0.05;
+            this.logo.drawImageScale(this.game.screen.width / 2, this.game.screen.height / 3, this.scale)
+        }
         if(this.sky4.vector1.x >= this.game.screen.canvas.width - this.game.screen.images.sky1.width && !this.sky4.isLevitation || this.isStopAnimation) {
             this.sky4.run()
         } else {
@@ -99,7 +115,7 @@ export class Menu extends Scene {
         } else {
             this.lama.levitation(this.game.screen.images.menuLama.width/4, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.2, 1, 40, 0.3)
         }
-        this.game.screen.printText(220, 650, 'Press enter to start game', '#000000');
+
         this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 100 - this.game.screen.images.btnStart.height , 'btnStart');
         if(this.obstacle2.vector1.y <= this.game.screen.canvas.height/3 && !this.obstacle2.isRotation || this.isStopAnimation) {
             this.obstacle2.runSprite(320, 320, 80, 80, 80, 80)

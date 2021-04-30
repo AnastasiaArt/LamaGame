@@ -18,6 +18,7 @@ export class AnimateObject  {
         this.context = context;
         this.isLevitation = false;
         this.isRotation = false;
+        this.isScale = false;
     }
 
     drawImageRotated(x, y, start, end, step, rot, isRotate =  true) {
@@ -27,6 +28,14 @@ export class AnimateObject  {
         if (isRotate) {
             this.context.rotate(rot);
         }
+        this.context.drawImage(this.images[this.imageName1], -this.images[this.imageName1].width /2, -this.images[this.imageName1].height / 2);
+        this.context.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    drawImageScale(x, y, scale) {
+        this.isScale = true;
+        this.context.clearRect(0, 0, this.context.width, this.context.height);
+        this.context.setTransform(scale , 0, 0, scale, x, y);
         this.context.drawImage(this.images[this.imageName1], -this.images[this.imageName1].width /2, -this.images[this.imageName1].height / 2);
         this.context.setTransform(1, 0, 0, 1, 0, 0);
     }
