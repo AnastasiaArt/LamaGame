@@ -1,5 +1,6 @@
 import {Vector} from "./vector.js";
 import {SpriteSheet} from "./sprite-sheet.js";
+import {AnimateObject} from "@/js/animateObject";
 
 export class Player {
     // constructor({imageName, speed, imageWidth, imageHeight, spriteWidth, spriteHeight, control}) {
@@ -24,7 +25,6 @@ export class Player {
         this.isStoped = false;
         this.deadCount = 0;
         this.collisionShape = {x: 35, y: 0, width: 170, height: 220};
-        this.speedWalk = speedWalk;
     }
 
     // идти

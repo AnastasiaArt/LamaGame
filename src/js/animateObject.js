@@ -50,11 +50,11 @@ export class AnimateObject  {
         this.context.setTransform(1, 0, 0, 1, 0, 0);
     }
 
-    levitation( x, y, scale, end, step) {
+    levitation( x, y, scale, end, step, sx=0, sy=0,sWidth=this.images[this.imageName1].width, sHeight = this.images[this.imageName1].height,dWidth=this.images[this.imageName1].width, dHeight = this.images[this.imageName1].height) {
         this.isLevitation = true;
         this.context.clearRect(0, 0, this.context.width, this.context.height);
         this.context.setTransform(scale, 0, 0, scale,  this.changeVectorX(x, x - end, step), this.changeVectorY(y, y - end -10, step));
-        this.context.drawImage(this.images[this.imageName1], 0, 0);
+        this.context.drawImage(this.images[this.imageName1], sx, sy, sWidth, sHeight, 0,0, dWidth, dHeight);
         this.context.setTransform(1, 0, 0, 1, 0, 0);
     }
 

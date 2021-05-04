@@ -26,6 +26,7 @@ export class GameOver extends Scene {
         this.isChangeScale = false;
         this.textGameOverY = this.game.screen.canvas.height/2;
         this.btnRetry = null;
+        this.isStartLevitation = false;
     }
 
     drawText() {
@@ -41,7 +42,8 @@ export class GameOver extends Scene {
         this.game.screen.printText(340, this.game.screen.canvas.height/8 + 160, this.game.count, '#000000');
         this.game.screen.printText(270, this.game.screen.canvas.height/8 + 190, 'Ваш результат:', '#000000');
         this.game.screen.printText(340, this.game.screen.canvas.height/8 + 220, this.game.count, '#000000');
-        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width/2, this.game.screen.canvas.height/8 + 250, 'btnRetry');
+        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10, this.game.screen.canvas.height/8 + 250, 'btnRetry');
+        this.game.screen.drawImage(this.game.screen.canvas.width/2 + 10, this.game.screen.canvas.height/8 + 250, 'btnStats');
     }
 
     init() {
@@ -63,7 +65,6 @@ export class GameOver extends Scene {
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
             if (this.btnRetry.checkCollision(e)) {
                 this.game = new Game({isRetry: true});
-                console.log(this.player)
                 this.game.run();
                 this.finish(Scene.START_GAME)
             }
@@ -84,15 +85,10 @@ export class GameOver extends Scene {
             this.sky3 = new AnimateObject('sky1', this.game.screen.canvas.width, this.game.screen.canvas.height - this.game.screen.images.sky1.height - 40, 1, 0, this.game.screen.context, this.game.screen.images);
             this.sky4 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2 + this.game.screen.images.sky2.height, 1, 0, this.game.screen.context, this.game.screen.images);
             this.logoCloud = new AnimateObject('cloudLogo', this.game.screen.canvas.width, 70 + this.game.screen.images.sky1.height , 1, 0, this.game.screen.context, this.game.screen.images);
-            this.lama = new AnimateObject('menuLama', 0, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.2, 1, 0, this.game.screen.context, this.game.screen.images, 'right');
+            this.lama = new AnimateObject('gameOverPlayer', this.game.screen.width / 2 - this.player.view.width/1.5, this.game.screen.height - this.player.view.height, 1, 0, this.game.screen.context, this.game.screen.images, 'right');
             this.textGameOver = new AnimateObject('textGameOver', this.game.screen.canvas.width/2, this.game.screen.canvas.height/7, 0, 0, this.game.screen.context, this.game.screen.images);
 
         }
-        // if (this.game.control.enter) {
-        //     this.game = new Game({isRetry: true});
-        //     this.game.run();
-        //     this.finish(Scene.START_GAME)
-        // }
     }
 
     render(time) {
@@ -134,7 +130,14 @@ export class GameOver extends Scene {
             this.textGameOverY -=10;
         }
         this.textGameOver.drawImageScale(this.game.screen.canvas.width/2, this.textGameOverY, this.scale)
-        this.game.screen.drawSprite(this.player.view);
+        this.player.view.onEnd = () => {
+            this.isStartLevitation = true;
+        }
+        if(this.isStartLevitation) {
+            this.lama.levitation(this.game.screen.width / 2 - this.player.view.width/1.5, this.game.screen.height - this.player.view.height, 1, 20, 0.3, 1000, 0, 336, 336, 336, 336)
+        } else {
+            this.game.screen.drawSprite(this.player.view);
+        }
         super.render(time);
         if (this.isChangeScale && this.scale <=1 ) {
             if (!this.isShowModal) {

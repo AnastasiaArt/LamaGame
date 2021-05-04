@@ -63,6 +63,7 @@ export class Running extends Scene {
 
     init() {
         console.log(this.player)
+        this.player.deadCount = 0;
         super.init();
         this.addNewObstacle();
         this.player.view.x = this.game.screen.width / 2 - this.player.view.width / 2 ;
@@ -161,6 +162,7 @@ export class Running extends Scene {
 
     render(time) {
         this.update(time);
+        this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
         //  плавная смена фона
         this.game.screen.context.globalAlpha = 1 - this.opacity;
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
