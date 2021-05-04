@@ -62,6 +62,7 @@ export class Running extends Scene {
     }
 
     init() {
+        console.log(this.player)
         super.init();
         this.addNewObstacle();
         this.player.view.x = this.game.screen.width / 2 - this.player.view.width / 2 ;
@@ -114,7 +115,7 @@ export class Running extends Scene {
             // добавить проверку у обсталес из нот стопед
             this.addNewObstacle();
             this.lastTime = time;
-            this.duration = getRandomInt(4000, 6000);
+            this.duration = getRandomInt(3000, 6000);
         }
 
         this.obstacles.forEach((i) => {

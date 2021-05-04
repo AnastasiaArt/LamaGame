@@ -63,6 +63,7 @@ export class GameOver extends Scene {
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
             if (this.btnRetry.checkCollision(e)) {
                 this.game = new Game({isRetry: true});
+                console.log(this.player)
                 this.game.run();
                 this.finish(Scene.START_GAME)
             }
