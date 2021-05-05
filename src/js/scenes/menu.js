@@ -56,7 +56,7 @@ export class Menu extends Scene {
         }
 
         if (this.obstacle7.vector1.y > this.game.screen.canvas.height && this.sky4.vector1.x < 0 && this.isStopAnimation ) {
-            this.finish(Scene.GAME_OVER)
+            this.finish(Scene.PRE_START)
         }
     }
 
