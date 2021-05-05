@@ -25,6 +25,7 @@ export class Player {
         this.isStoped = false;
         this.deadCount = 0;
         this.collisionShape = {x: 35, y: 0, width: 170, height: 220};
+        this.jumpAudio = null;
     }
 
     // идти
@@ -37,6 +38,9 @@ export class Player {
 
     // прыгать
     jump() {
+        if(this.jumpAudio) {
+            this.jumpAudio.play();
+        }
         if (this.isJumping || this.isStoped) return;
         this.isJumping = true;
         this.view = this.tile.getAnimation([15, 16, 17, 18, ], 120, false);

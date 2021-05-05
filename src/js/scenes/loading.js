@@ -12,7 +12,7 @@ export class Loading extends Scene {
     }
 
     update(time) {
-        if (this.loadedAt === 0 && this.game.screen.isImagesLoaded) {
+        if (this.loadedAt === 0 && this.game.screen.isImagesLoaded && this.game.screen.isAudiosLoaded ) {
             this.loadedAt = time;
         }
         if (this.loadedAt !== 0 && (time - this.loadedAt) > 500) {

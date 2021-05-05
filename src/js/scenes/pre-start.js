@@ -27,6 +27,7 @@ export class PreStart extends Scene {
         this.player.view.y = 500;
         this.btnClose = new Button(this.game.screen.canvas.width/2 - this.game.screen.canvas.width/6 + this.game.screen.canvas.width/3 -this.game.screen.images.btnClose.width - 20,this.game.screen.canvas.height/8 + 80, this.game.screen.images.btnClose.width, this.game.screen.images.btnClose.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
+            this.game.screen.audios.jump.play();
             if (this.btnClose.checkCollision(e)) {
                 this.finish(Scene.START_GAME)
             }

@@ -1,5 +1,6 @@
 import {ImageLoader} from "./image-loader.js";
 import {Sprite} from "./sprite.js";
+import {AudioLoader} from "@/js/audio-loader";
 
 export class Screen {
     constructor(width, height) {
@@ -11,14 +12,8 @@ export class Screen {
         this.isImagesLoaded = false;
         this.scale = 1.000;
         this.isChangeScale = false;
-        // this.vector = {
-        //     x:this.canvas.width/2,
-        //     y:this.canvas.height/3
-        // }
-        // this.isChangeVectorX =false;
-        // this.isChangeVectorY = false
-        // this.canvas.width = innerWidth;
-        // this.canvas.height = innerHeight;
+        this.audios= {};
+        this.isAudiosLoaded = false;
     }
 
     createCanvas(width, height) {
@@ -66,7 +61,15 @@ export class Screen {
         f.load().then(() => {
             this.isImagesLoaded = true;
         }).catch((err) => {
-           console.log(err)
+            console.log(err)
+        })
+    }
+
+    loadAudio(audioFiles) {
+        const audioLoader = new AudioLoader(audioFiles)
+        audioLoader.load().then(() => {
+            this.audios = Object.assign(this.audios, audioLoader.audios);
+            this.isAudiosLoaded = true;
         })
     }
 

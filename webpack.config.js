@@ -21,7 +21,7 @@ module.exports = {
                 {
                     from: path.resolve(__dirname, 'src/img'),
                     to: path.resolve(__dirname, 'docs/img'),
-                },
+                }
             ],
         }),
         new MiniCssExtractPlugin({
@@ -54,8 +54,20 @@ module.exports = {
                     loader: 'file-loader',
                 options: {
                     name: '[name].[ext]',
-                    outputPath: 'fonts/'
+                    outputPath: 'fonts/',
+                    publicPath: 'sound/',
                 }
+                }]
+            },
+            {
+                test:  /\.mp3$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'sound/',
+                        publicPath: 'sound/',
+                    }
                 }]
             },
             {

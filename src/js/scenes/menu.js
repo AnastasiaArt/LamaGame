@@ -27,6 +27,7 @@ export class Menu extends Scene {
     init() {
         this.btnStart = new Button(this.game.screen.canvas.width/2-this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 100-this.game.screen.images.btnStart.height, this.game.screen.images.btnStart.width, this.game.screen.images.btnStart.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
+            this.game.screen.audios.jump.play();
             if (this.btnStart.checkCollision(e)) {
                 this.isStopAnimation = true;
             }

@@ -56,6 +56,12 @@ export class Game {
             textBg: 'img/text-bg.png',
             cloudText: 'img/text/cloud-text.png',
         });
+        this.screen.loadAudio({
+            crash1: 'sound/Oi.mp3',
+            crash2: 'sound/Oops.mp3',
+            crash3: 'sound/crash3.mp3',
+            jump: 'sound/Pryzhok.mp3',
+        })
         this.count = 0;
         this.control = new Controls();
         this.scenes = {

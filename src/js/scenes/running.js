@@ -59,15 +59,17 @@ export class Running extends Scene {
         this.lastTimeCountText = 0;
         this.sunHeight = this.game.screen.height;
         this.isSunRays = false;
+        this.crashAudios = ['crash1', 'crash2', 'crash3']
     }
 
     init() {
-        console.log(this.player)
         this.player.deadCount = 0;
-        super.init();
+        this.player.jumpAudio = this.game.screen.audios.jump;
+        console.log(this.obstacles)
         this.addNewObstacle();
         this.player.view.x = this.game.screen.width / 2 - this.player.view.width / 2 ;
         this.player.view.y = this.game.screen.height - 60 - this.player.view.height;
+        super.init();
     }
 
     addNewObstacle() {
@@ -80,6 +82,8 @@ export class Running extends Scene {
     }
 
     collide(time) {
+        const audio = this.crashAudios[Math.floor(Math.random() * 3)];
+        this.game.screen.audios[audio].play();
         this.isCollide = true;
         if(this.player.deadCount + 1 < 4) {
             this.imgText = this.collideText[Math.floor(Math.random() * 4)];

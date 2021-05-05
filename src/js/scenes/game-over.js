@@ -61,14 +61,17 @@ export class GameOver extends Scene {
         this.player.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.player.view.run();
         setTimeout(()=> { this.isShowModal = true;}, 5000);
-        this.btnRetry = new Button(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width/2,this.game.screen.canvas.height/8 + 250, this.game.screen.images.btnRetry.width, this.game.screen.images.btnRetry.height);
+        this.btnRetry = new Button(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10,this.game.screen.canvas.height/8 + 250, this.game.screen.images.btnRetry.width, this.game.screen.images.btnRetry.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
-            if (this.btnRetry.checkCollision(e)) {
-                this.game = new Game({isRetry: true});
-                this.game.run();
-                this.finish(Scene.START_GAME)
-            }
+            this.retry(e);
         }, false);
+    }
+
+    retry(e){
+        if (this.btnRetry.checkCollision(e)) {
+            this.game = new Game({isRetry: true});
+            this.game.run();
+        }
     }
 
     update(time) {
