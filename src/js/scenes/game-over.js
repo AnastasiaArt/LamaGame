@@ -10,7 +10,7 @@ export class GameOver extends Scene {
     constructor(game) {
         super(game)
         this.isShowModal = false;
-        this.player = new Player(this.game.screen.height - 300);
+        this.player = new Player(this.game.screen.canvas.height - 300);
         this.player.tile = new SpriteSheet({
             imageName: 'gameOverPlayer',
             imageWidth: 1341,
@@ -19,12 +19,12 @@ export class GameOver extends Scene {
             spriteHeight: 336
         });
         this.player.view = this.player.tile.getAnimation([1, 2, 3, 4], 150, false);
-        this.player.x = this.game.screen.width / 2 - this.player.view.width/1.5;
-        this.player.y = this.game.screen.height - this.player.view.height;
+        this.player.x = this.game.screen.canvas.width / 2 - this.player.view.width/1.5;
+        this.player.y = this.game.screen.canvas.height - this.player.view.height;
         this.player.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
         this.player.view.run();
         this.position = {
-            x: this.game.screen.width,
+            x: this.game.screen.canvas.width,
             y: 0,
         };
         this.opacity = 0;
@@ -43,20 +43,22 @@ export class GameOver extends Scene {
     }
 
     drawText() {
-        this.game.screen.printText(330, this.game.screen.canvas.height/8 + 70, 'Упс!');
-        this.game.screen.printText(280, this.game.screen.canvas.height/8 + 100,  'Лама заснула!')
-        this.game.screen.printText(250, this.game.screen.canvas.height/8 + 130, 'Встретимся завтра');
-        this.game.screen.printText(250, this.game.screen.canvas.height/8 + 160, ' или ещё поиграем?');
+        // this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height/2 - 300, 0, 0, 82, 108, 300, 300);
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 30, this.game.screen.canvas.height/2 - 300 + 100, 'Упс!');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 90, this.game.screen.canvas.height/2 - 300 + 130,  'Лама заснула!')
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 110, this.game.screen.canvas.height/2 - 300 + 160, 'Встретимся завтра');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 110, this.game.screen.canvas.height/2 - 300 + 190, 'или ещё поиграем?');
     }
 
     showModalRetry() {
-        this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - this.game.screen.canvas.width/6, this.game.screen.canvas.height/8 + 60, 0, 0, 82, 108, this.game.screen.canvas.width/3, this.game.screen.canvas.height/2 - 70);
-        this.game.screen.printText(245, this.game.screen.canvas.height/8 + 130, 'Лучший результат:', '#000000');
-        this.game.screen.printText(340, this.game.screen.canvas.height/8 + 160, this.game.count, '#000000');
-        this.game.screen.printText(270, this.game.screen.canvas.height/8 + 190, 'Ваш результат:', '#000000');
-        this.game.screen.printText(340, this.game.screen.canvas.height/8 + 220, this.game.count, '#000000');
-        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10, this.game.screen.canvas.height/8 + 250, 'btnRetry');
-        this.game.screen.drawImage(this.game.screen.canvas.width/2 + 10, this.game.screen.canvas.height/8 + 250, 'btnStats');
+        this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height/2 - 300, 0, 0, 82, 108, 300, 300);
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 - 300 + 100, 'Лучший результат:', '#000000');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 10, this.game.screen.canvas.height/2 - 300+ 130, this.game.count, '#000000');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 80, this.game.screen.canvas.height/2 - 300 + 160, 'Ваш результат:', '#000000');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 10, this.game.screen.canvas.height/2 - 300 + 190, this.game.count, '#000000');
+        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10, this.game.screen.canvas.height/2 - 300 + 230, 'btnRetry');
+        this.game.screen.drawImage(this.game.screen.canvas.width/2 + 10, this.game.screen.canvas.height/2 - 300 + 230, 'btnStats');
+        this.textGameOver.drawImageScale(this.game.screen.canvas.width/2, this.textGameOverY, this.scale)
     }
 
     init() {
@@ -66,11 +68,11 @@ export class GameOver extends Scene {
         this.sky3 = new AnimateObject('sky1', this.game.screen.canvas.width, this.game.screen.canvas.height - this.game.screen.images.sky1.height - 40, 1, 0, this.game.screen.context, this.game.screen.images);
         this.sky4 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2 + this.game.screen.images.sky2.height, 1, 0, this.game.screen.context, this.game.screen.images);
         this.logoCloud = new AnimateObject('cloudLogo', this.game.screen.canvas.width, 70 + this.game.screen.images.sky1.height , 1, 0, this.game.screen.context, this.game.screen.images);
-        this.lama = new AnimateObject('gameOverPlayer', this.game.screen.width / 2 - this.player.view.width/1.5, this.game.screen.height - this.player.view.height, 1, 0, this.game.screen.context, this.game.screen.images, 'right');
+        this.lama = new AnimateObject('gameOverPlayer', this.game.screen.canvas.width / 2 - this.player.view.width/1.5, this.game.screen.canvas.height - this.player.view.height, 1, 0, this.game.screen.context, this.game.screen.images, 'right');
         this.textGameOver = new AnimateObject('textGameOver', this.game.screen.canvas.width/2, this.game.screen.canvas.height/7, 0, 0, this.game.screen.context, this.game.screen.images);
 
         setTimeout(()=> { this.isShowModal = true;}, 5000);
-        this.btnRetry = new Button(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10,this.game.screen.canvas.height/8 + 250, this.game.screen.images.btnRetry.width, this.game.screen.images.btnRetry.height);
+        this.btnRetry = new Button(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10, this.game.screen.canvas.height/2 - 300 + 230, this.game.screen.images.btnRetry.width, this.game.screen.images.btnRetry.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
             this.retry(e);
         }, false);
@@ -137,7 +139,7 @@ export class GameOver extends Scene {
             this.isStartLevitation = true;
         }
         if(this.isStartLevitation) {
-            this.lama.levitation(this.game.screen.width / 2 - this.player.view.width/1.5, this.game.screen.height - this.player.view.height, 1, 20, 0.3, 1000, 0, 336, 336, 336, 336)
+            this.lama.levitation(this.game.screen.canvas.width / 2 - this.player.view.width/1.5, this.game.screen.canvas.height - this.player.view.height, 1, 20, 0.3, 1000, 0, 336, 336, 336, 336)
         } else {
             this.game.screen.drawSprite(this.player.view);
         }

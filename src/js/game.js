@@ -80,8 +80,6 @@ export class Game {
     resize() {
         // this.screen = new Screen(window.innerWidth, window.innerHeight);
         // this.screen.context.save();
-        // console.log(this.screen.canvas.height)
-        // console.log(innerWidth)
         this.screen.context.scale(innerWidth / this.screen.canvas.width, innerHeight / this.screen.canvas.height);
         // this.screen.context.restore()
     }
@@ -118,10 +116,6 @@ export class Game {
     run() {
         requestAnimationFrame((time) => this.frame(time));
         // window.addEventListener("resize", this.resize);
-        // this.screen.context.save();
-        // this.screen.context.scale(innerWidth / this.screen.canvas.width, innerHeight / this.screen.canvas.height);
-        // this.screen.context.restore()
-        console.log(this.screen.context)
         // this.resize();
 
     }

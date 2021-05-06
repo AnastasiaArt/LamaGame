@@ -6,16 +6,16 @@ export class PreStart extends Scene {
     constructor(game) {
         super(game);
         this.position = {
-            x: this.game.screen.width,
+            x: this.game.screen.canvas.width,
             y: 0,
         };
 
         this.position1 = {
-            x: this.game.screen.width,
+            x: this.game.screen.canvas.width,
             y: 0,
         };
 
-        this.player = new Player(this.game.control, this.game.screen.height - 300,100);
+        this.player = new Player(this.game.control, this.game.screen.canvas.height - 300,100);
         this.player.x = 0 - this.player.view.width / 2;
     }
 
@@ -24,7 +24,7 @@ export class PreStart extends Scene {
         this.player.view.x = 500;
         this.player.view.y = 500;
         this.player.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
-        this.btnClose = new Button(this.game.screen.canvas.width/2 - this.game.screen.canvas.width/6 + this.game.screen.canvas.width/3 -this.game.screen.images.btnClose.width - 20,this.game.screen.canvas.height/8 + 80, this.game.screen.images.btnClose.width, this.game.screen.images.btnClose.height);
+        this.btnClose = new Button(this.game.screen.canvas.width/2 + 150 - this.game.screen.images.btnClose.width - 20,this.game.screen.canvas.height/2 - 200 + 20, this.game.screen.images.btnClose.width, this.game.screen.images.btnClose.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
             this.game.screen.audios.jump.play();
             if (this.btnClose.checkCollision(e)) {
@@ -50,10 +50,10 @@ export class PreStart extends Scene {
     }
 
     showModalStart() {
-        this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - this.game.screen.canvas.width/6, this.game.screen.canvas.height/8 + 60, 0, 0, 82, 108, this.game.screen.canvas.width/3, this.game.screen.canvas.height/2 - 160);
-        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.canvas.width/6 + this.game.screen.canvas.width/3 - this.game.screen.images.btnClose.width - 20, this.game.screen.canvas.height/8 + 80 , 'btnClose');
-        this.game.screen.printText(245, this.game.screen.canvas.height/8 +  this.game.screen.images.btnClose.height + 110, 'Привет, ламопрыг!', '#000000');
-        this.game.screen.printText(245, this.game.screen.canvas.height/8 + 200, ' С возвращением!', '#000000');
+        this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height/2 - 200, 0, 0, 82, 108, 300, 200);
+        this.game.screen.drawImage(this.game.screen.canvas.width/2 + 150 - this.game.screen.images.btnClose.width - 20, this.game.screen.canvas.height/2 - 200 + 20, 'btnClose');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Привет, ламопрыг!', '#000000');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, ' С возвращением!', '#000000');
     }
 
     render(time) {
@@ -62,7 +62,7 @@ export class PreStart extends Scene {
         if (this.position1.x >= 0) {
             this.position1.x -= 30;
         }
-        this.game.screen.drawImageRotated('sun',this.game.screen.width / 2, this.game.screen.height , this.game.screen.changeScale('1.000', '0.800', 0.002), time/9000);
+        this.game.screen.drawImageRotated('sun',this.game.screen.canvas.width / 2, this.game.screen.canvas.height , this.game.screen.changeScale('1.000', '0.800', 0.002), time/9000);
         this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.tree1.height, 'tree1');
         this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.ground.height, 'ground');
 
@@ -72,7 +72,7 @@ export class PreStart extends Scene {
         this.position.x < 0 - this.game.screen.images.sky1.width - this.game.screen.images.sky2.width - this.game.screen.images.sky3.width - 160 ? this.position.x = this.game.screen.canvas.width : this.position.x -= 2;
         if (this.position1.x < 0) {
             this.game.screen.drawSprite(this.player.view);
-            if (this.player.x <= this.game.screen.width / 2 - this.player.view.width) {
+            if (this.player.x <= this.game.screen.canvas.width / 2 - this.player.view.width) {
                 this.player.x+= 2;
             } else {
                 this.showModalStart();

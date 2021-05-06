@@ -15,7 +15,7 @@ export class Running extends Scene {
         });
 
         this.position = {
-            x: this.game.screen.width,
+            x: this.game.screen.canvas.width,
             y: 0,
         };
 
@@ -25,12 +25,12 @@ export class Running extends Scene {
         };
 
         this.positionText = {
-            x: this.game.screen.width,
+            x: this.game.screen.canvas.width,
             y: 0,
         };
         this.positionMoon = {
-            x: this.game.screen.width,
-            y: this.game.screen.height/2,
+            x: this.game.screen.canvas.width,
+            y: this.game.screen.canvas.height/2,
         };
 
         this.backgrounds = ['bg1', 'bg2', 'bg3', 'bg4', 'bg5'];
@@ -43,22 +43,22 @@ export class Running extends Scene {
         this.hit = false;
         this.lastTime = 0;
         this.duration = getRandomInt(6000, 6000);
-        this.bird = new FlyElement(200,'bird', 400, 100, 100, 100);
+        this.bird = new FlyElement(this.game.screen.canvas.width,200,'bird', 400, 100, 100, 100);
         this.bird.x = this.game.screen.canvas.width;
         this.bird.y = 200;
-        this.mouse = new FlyElement(200,'mouse', 500, 100, 100, 100, true);
-        this.mouse.x = this.game.screen.canvas.width;
+        this.mouse = new FlyElement(this.game.screen.canvas.width,200,'mouse', 500, 100, 100, 100, true);
+        this.mouse.x = 0;
         this.mouse.y = 200;
         this.collideText = ['collideText1', 'collideText2', 'collideText3', 'collideText4'];
         this.countText = ['countText1', 'countText2', 'countText3', 'countText4'];
         this.imgText = 'collideText1';
         this.isAddCount = false;
         this.lastTimeCountText = 0;
-        this.sunHeight = this.game.screen.height;
+        this.sunHeight = this.game.screen.canvas.height;
         this.isSunRays = false;
         this.crashAudios = ['crash1', 'crash2', 'crash3'];
         this.player = new Player(this.game.control);
-        this.player.x = this.game.screen.width / 2 - this.player.view.width ;
+        this.player.x = this.game.screen.canvas.width / 2 - this.player.view.width ;
     }
 
     init() {
@@ -67,16 +67,21 @@ export class Running extends Scene {
         this.game.isRetry = false;
         this.player.deadCount = 0;
         this.player.jumpAudio = this.game.screen.audios.jump;
-        this.player.view.x = this.game.screen.width / 2 - this.player.view.width / 2 ;
+        this.player.view.x = this.game.screen.canvas.width / 2 - this.player.view.width / 2 ;
         this.player.view.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
         this.player.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
         this.player.startPosY = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
+        this.bird.view.x = this.game.screen.canvas.width;
+        this.bird.view.y = 200;
+        this.mouse.view.x = 0;
+        this.mouse.view.y = 200;
+        console.log(this.bird)
     }
 
     addNewObstacle() {
         let obs = new Obstacle({index: getRandomInt(1, 36)})
-        obs.x = this.game.screen.width;
-        obs.view.x = this.game.screen.width;
+        obs.x = this.game.screen.canvas.width;
+        obs.view.x = this.game.screen.canvas.width;
         obs.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - obs.view.height;
         obs.view.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 -  obs.view.height;
         this.obstacles.push(obs)
@@ -107,7 +112,9 @@ export class Running extends Scene {
     update(time) {
         this.player.update(time);
         this.bird.update(time);
-        this.mouse.update(time);
+        if (this.player.deadCount >= 4) {
+            this.mouse.update(time);
+        }
         if (this.lastTime === 0) {
             this.lastTime = time;
             return;
@@ -176,7 +183,7 @@ export class Running extends Scene {
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[1]);
 
         if (this.player.deadCount >= 4) {
-            if (this.positionMoon.x > this.game.screen.width / 2 + 40) {
+            if (this.positionMoon.x > this.game.screen.canvas.width / 2 + 40) {
                 this.positionMoon.x -=1;
             }
             if (this.positionMoon.y > 50) {
@@ -185,10 +192,9 @@ export class Running extends Scene {
             this.game.screen.drawImage(this.positionMoon.x , this.positionMoon.y , 'moon');
         }
         this.game.screen.context.globalAlpha = 1;
-        // this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.ground.height, 'ground');
 
         if (this.player.deadCount <= 5) {
-            if (this.player.deadCount === 3 &&  this.sunHeight < this.game.screen.height + 100) {
+            if (this.player.deadCount === 3 &&  this.sunHeight < this.game.screen.canvas.height + 100) {
                 this.sunHeight += 1;
                 this.isSunRays= true;
             }
@@ -196,7 +202,7 @@ export class Running extends Scene {
             this.sunHeight += 1;
         }
             this.game.screen.context.globalAlpha = this.isSunRays ? 0.5 : 1;
-            this.game.screen.drawImageRotated('sun', this.game.screen.width / 2, this.sunHeight, this.game.screen.changeScale('1.000', '0.800', 0.002), time / 9000);
+            this.game.screen.drawImageRotated('sun', this.game.screen.canvas.width / 2, this.sunHeight, this.game.screen.changeScale('1.000', '0.800', 0.002), time / 9000);
         }
 
         // плавная смена деревьев
@@ -229,7 +235,7 @@ export class Running extends Scene {
             this.game.screen.drawImage(this.positionText.x - this.game.screen.images.cloudText.width/ 2,this.game.screen.canvas.height/4 - this.game.screen.images.cloudText.height/ 3, 'cloudText')
             this.game.screen.drawImage(this.positionText.x - this.game.screen.images[this.imgText].width/ 2, this.game.screen.canvas.height/4, this.imgText)
         } else {
-            this.positionText.x = this.game.screen.width;
+            this.positionText.x = this.game.screen.canvas.width;
         }
     }
 }

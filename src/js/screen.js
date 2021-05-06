@@ -20,6 +20,8 @@ export class Screen {
         let elements = document.getElementsByTagName('canvas');
         let canvas = elements[0] || document.createElement('canvas');
         document.body.appendChild(canvas);
+        // canvas.width = innerWidth;
+        // canvas.height = innerHeight;
         canvas.width = width;
         canvas.height = height;
         return canvas;
@@ -52,17 +54,14 @@ export class Screen {
     }
 
     loadImages(imageFiles) {
+        let f = new FontFace('CeraRoundPro', 'url(fonts/CeraRoundProDEMO-Regular.woff2)');
+        f.load();
         const loader = new ImageLoader(imageFiles);
         loader.load().then((names) => {
             this.images = Object.assign(this.images, loader.images);
             this.isImagesLoaded = true;
 
         });
-        let f = new FontFace('CeraRoundPro', 'url(fonts/CeraRoundProDEMO-Regular.woff2)');
-        f.load().then(() => {
-        }).catch((err) => {
-            console.log(err)
-        })
     }
 
     loadAudio(audioFiles) {
@@ -88,7 +87,7 @@ export class Screen {
     }
 
     drawImageFullScreen(x, y, imageName) {
-        this.context.drawImage(this.images[imageName], x, y, this.width, this.height);
+        this.context.drawImage(this.images[imageName], x, y, this.canvas.width, this.canvas.height);
     }
 
     drawImageRotated(imageName, x, y, scale, rot, isRotate =  true) {
@@ -123,8 +122,8 @@ export class Screen {
         let spriteY = sprite.y;
 
         if (
-            (spriteX >= this.width) ||
-            (spriteY >= this.height) ||
+            (spriteX >= this.canvas.width) ||
+            (spriteY >= this.canvas.height) ||
             ((spriteX + sprite.width) <= 0) ||
             ((spriteY + sprite.height) <= 0)
         ) {
@@ -133,8 +132,8 @@ export class Screen {
 
         let sourceX = sprite.sourceX + Math.abs(Math.min(0, spriteX));
         let sourceY = sprite.sourceY + Math.abs(Math.min(0, spriteY));
-        let width = Math.min(this.width, spriteX + sprite.width) - Math.max(0, spriteX);
-        let height = Math.min(this.height, spriteY + sprite.height) - Math.max(0, spriteY);
+        let width = Math.min(this.canvas.width, spriteX + sprite.width) - Math.max(0, spriteX);
+        let height = Math.min(this.canvas.height, spriteY + sprite.height) - Math.max(0, spriteY);
 
         this.context.drawImage(this.images[sprite.imageName],
             sourceX,

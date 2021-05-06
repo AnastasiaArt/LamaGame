@@ -40,8 +40,14 @@ export class Scene {
         this.status = status;
     }
 
-    render(time) {
+    resize() {
+        this.game.screen.context.save();
         this.game.screen.context.scale(innerWidth / this.game.screen.canvas.width, innerHeight / this.game.screen.canvas.height);
-        console.log('11111111111')
+        this.game.screen.context.restore();
+    }
+
+    render(time) {
+        // window.addEventListener("resize", this.resize);
+        this.resize();
     }
 }
