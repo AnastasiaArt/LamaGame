@@ -11,8 +11,6 @@ export class Game {
     // ширина и высота по умолчанию 640
     constructor({width = 700, height = 700, isRetry = false} = {}) {
         this.screen = new Screen(width, width);
-        // window.addEventListener("resize", this.resize);
-        // this.resize();
         this.screen.loadImages({
             obstacles: 'img/obstacles.png',
             player: 'img/player.png',
@@ -80,7 +78,12 @@ export class Game {
     }
 
     resize() {
-        this.screen = new Screen(window.innerWidth, window.innerHeight);
+        // this.screen = new Screen(window.innerWidth, window.innerHeight);
+        // this.screen.context.save();
+        // console.log(this.screen.canvas.height)
+        // console.log(innerWidth)
+        this.screen.context.scale(innerWidth / this.screen.canvas.width, innerHeight / this.screen.canvas.height);
+        // this.screen.context.restore()
     }
 
     changeScene(status) {
@@ -114,9 +117,12 @@ export class Game {
 
     run() {
         requestAnimationFrame((time) => this.frame(time));
+        // window.addEventListener("resize", this.resize);
         // this.screen.context.save();
         // this.screen.context.scale(innerWidth / this.screen.canvas.width, innerHeight / this.screen.canvas.height);
         // this.screen.context.restore()
+        console.log(this.screen.context)
+        // this.resize();
 
     }
 }

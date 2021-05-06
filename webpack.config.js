@@ -60,17 +60,6 @@ module.exports = {
                 }]
             },
             {
-                test:  /\.mp3$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[ext]',
-                        outputPath: 'sound/',
-                        publicPath: 'sound/',
-                    }
-                }]
-            },
-            {
                 test: /\.m?js$/,
                 exclude: /(node_modules)/,
                 use: {

@@ -41,5 +41,11 @@ export class Scene {
     }
 
     render(time) {
+        // this.game.screen.context.save();
+        console.log(innerWidth)
+        console.log( this.game.screen.canvas.width)
+        this.game.screen.context.scale(innerWidth / this.game.screen.canvas.width, innerHeight / this.game.screen.canvas.height);
+        // this.game.screen.context.restore()
+        console.log('11111111111')
     }
 }

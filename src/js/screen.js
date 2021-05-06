@@ -55,11 +55,11 @@ export class Screen {
         const loader = new ImageLoader(imageFiles);
         loader.load().then((names) => {
             this.images = Object.assign(this.images, loader.images);
+            this.isImagesLoaded = true;
 
         });
         let f = new FontFace('CeraRoundPro', 'url(fonts/CeraRoundProDEMO-Regular.woff2)');
         f.load().then(() => {
-            this.isImagesLoaded = true;
         }).catch((err) => {
             console.log(err)
         })
