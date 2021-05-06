@@ -15,7 +15,7 @@ export class Loading extends Scene {
         if (this.loadedAt === 0 && this.game.screen.isImagesLoaded && this.game.screen.isAudiosLoaded ) {
             this.loadedAt = time;
         }
-        if (this.loadedAt !== 0 && (time - this.loadedAt) > 500) {
+        if (this.loadedAt !== 0 ) {
             this.finish(Scene.LOADED);
         }
     }

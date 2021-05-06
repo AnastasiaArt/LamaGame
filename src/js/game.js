@@ -23,11 +23,12 @@ export class Game {
             bg3: 'img/bg/Bg3(pre_evening).png',
             bg4: 'img/bg/Bg4(evening).png',
             bg5: 'img/bg/Bg5(night).png',
-            tree1: 'img/bg/Elements1(morning).png',
-            tree2: 'img/bg/Elements2(day).png',
-            tree3: 'img/bg/Elements3(pre_evening).png',
-            tree4: 'img/bg/Elements4(evening).png',
-            tree5: 'img/bg/Elements5(night).png',
+            tree1: 'img/bg/tree1.png',
+            tree2: 'img/bg/tree2.png',
+            tree3: 'img/bg/tree3.png',
+            tree4: 'img/bg/tree4.png',
+            tree5: 'img/bg/tree5.png',
+            ground: 'img/bg/ground.png',
             sun: 'img/sun_rays.png',
             bird: 'img/birds.png',
             mouse: 'img/mouse.png',
@@ -61,6 +62,8 @@ export class Game {
             crash2: 'sound/Oops.mp3',
             crash3: 'sound/crash3.mp3',
             jump: 'sound/Pryzhok.mp3',
+            intro: 'sound/Lama_Intro.mp3',
+            main: 'sound/Lama_Main.mp3',
         })
         this.count = 0;
         this.control = new Controls();
@@ -71,7 +74,8 @@ export class Game {
             running: new Running(this),
             gameOver: new GameOver(this)
         };
-        this.currentScene = isRetry ? this.scenes.running : this.scenes.loading;
+        this.isRetry = isRetry;
+        this.currentScene = this.scenes.loading;
         this.currentScene.init();
     }
 

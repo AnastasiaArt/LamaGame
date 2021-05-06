@@ -37,9 +37,6 @@ export class Running extends Scene {
         this.opacity = 0;
         this.isCollide = false;
         this.backgroundsTree = ['tree1', 'tree2', 'tree3', 'tree4', 'tree5'];
-        this.player = new Player(this.game.control, this.game.screen.height - 300);
-        this.player.x = this.game.screen.width / 2 - this.player.view.width ;
-        this.player.y = this.game.screen.height - 60 - this.player.view.height;
         this.duration = 200;
         this.obstacles = [];
         this.count = 0;
@@ -59,25 +56,29 @@ export class Running extends Scene {
         this.lastTimeCountText = 0;
         this.sunHeight = this.game.screen.height;
         this.isSunRays = false;
-        this.crashAudios = ['crash1', 'crash2', 'crash3']
+        this.crashAudios = ['crash1', 'crash2', 'crash3'];
+        this.player = new Player(this.game.control);
+        this.player.x = this.game.screen.width / 2 - this.player.view.width ;
     }
 
     init() {
+        super.init();
+        this.addNewObstacle();
+        this.game.isRetry = false;
         this.player.deadCount = 0;
         this.player.jumpAudio = this.game.screen.audios.jump;
-        console.log(this.obstacles)
-        this.addNewObstacle();
         this.player.view.x = this.game.screen.width / 2 - this.player.view.width / 2 ;
-        this.player.view.y = this.game.screen.height - 60 - this.player.view.height;
-        super.init();
+        this.player.view.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
+        this.player.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
+        this.player.startPosY = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
     }
 
     addNewObstacle() {
         let obs = new Obstacle({index: getRandomInt(1, 36)})
         obs.x = this.game.screen.width;
         obs.view.x = this.game.screen.width;
-        obs.y = this.game.screen.height - 60 - obs.view.height;
-        obs.view.y = this.game.screen.height - 60 - obs.view.height;
+        obs.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - obs.view.height;
+        obs.view.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 -  obs.view.height;
         this.obstacles.push(obs)
     }
 
@@ -120,7 +121,7 @@ export class Running extends Scene {
             // добавить проверку у обсталес из нот стопед
             this.addNewObstacle();
             this.lastTime = time;
-            this.duration = getRandomInt(3000, 6000);
+            this.duration = getRandomInt(1500, 5000);
         }
 
         this.obstacles.forEach((i) => {
@@ -167,11 +168,13 @@ export class Running extends Scene {
     render(time) {
         this.update(time);
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
+        this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.tree1.height, this.backgroundsTree[0]);
         //  плавная смена фона
         this.game.screen.context.globalAlpha = 1 - this.opacity;
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
         this.game.screen.context.globalAlpha = this.opacity;
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[1]);
+
         if (this.player.deadCount >= 4) {
             if (this.positionMoon.x > this.game.screen.width / 2 + 40) {
                 this.positionMoon.x -=1;
@@ -182,6 +185,8 @@ export class Running extends Scene {
             this.game.screen.drawImage(this.positionMoon.x , this.positionMoon.y , 'moon');
         }
         this.game.screen.context.globalAlpha = 1;
+        // this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.ground.height, 'ground');
+
         if (this.player.deadCount <= 5) {
             if (this.player.deadCount === 3 &&  this.sunHeight < this.game.screen.height + 100) {
                 this.sunHeight += 1;
@@ -190,16 +195,22 @@ export class Running extends Scene {
         if (this.player.deadCount >= 4 &&  this.sunHeight < 1200) {
             this.sunHeight += 1;
         }
-        this.game.screen.context.globalAlpha = this.isSunRays ? 0.5 : 1;
-                this.game.screen.drawImageRotated('sun', this.game.screen.width / 2, this.sunHeight, this.game.screen.changeScale('1.000', '0.800', 0.002), time / 9000);
+            this.game.screen.context.globalAlpha = this.isSunRays ? 0.5 : 1;
+            this.game.screen.drawImageRotated('sun', this.game.screen.width / 2, this.sunHeight, this.game.screen.changeScale('1.000', '0.800', 0.002), time / 9000);
         }
+
+        // плавная смена деревьев
+        this.game.screen.context.globalAlpha = 1 - this.opacity;
+        this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.tree1.height, this.backgroundsTree[0]);
+        this.game.screen.context.globalAlpha = this.opacity;
+        this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.tree1.height, this.backgroundsTree[1]);
+
         this.game.screen.context.globalAlpha = 1;
-        this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[0]);
-        this.game.screen.drawImage(this.position1.x, this.game.screen.canvas.height - 258, this.backgroundsTree[1]);
+        this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.ground.height, 'ground');
         if (this.player.deadCount <= 2) {
             this.game.screen.drawImage(this.position.x, 20, 'sky1');
-            this.game.screen.drawImage(this.position.x - 20 , 40 + this.game.screen.images.sky1.height , 'sky2');
-            this.game.screen.drawImage(this.position.x + this.game.screen.images.sky1.width + 80, 10 + this.game.screen.images.sky1.height , 'sky3');
+            this.game.screen.drawImage(this.position.x - 20, 40 + this.game.screen.images.sky1.height, 'sky2');
+            this.game.screen.drawImage(this.position.x + this.game.screen.images.sky1.width + 80, 10 + this.game.screen.images.sky1.height, 'sky3');
             this.position.x < 0 - this.game.screen.images.sky1.width - this.game.screen.images.sky2.width - this.game.screen.images.sky3.width - 160 ? this.position.x = this.game.screen.canvas.width : this.position.x -= 2;
             this.game.screen.drawSprite(this.bird.view);
 

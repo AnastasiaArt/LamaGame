@@ -4,7 +4,7 @@ import {AnimateObject} from "@/js/animateObject";
 
 export class Player {
     // constructor({imageName, speed, imageWidth, imageHeight, spriteWidth, spriteHeight, control}) {
-    constructor(control, y, speedWalk=0) {
+    constructor(control, y=0, speedWalk=0) {
         this.x = 0;
         this.y = 0;
         this.speed = 1050;
@@ -21,7 +21,7 @@ export class Player {
         // по умолчанию персонаж идет вправо
         this.walk();
         this.control = control;
-        this.startPosY = y
+        this.startPosY = y;
         this.isStoped = false;
         this.deadCount = 0;
         this.collisionShape = {x: 35, y: 0, width: 170, height: 220};

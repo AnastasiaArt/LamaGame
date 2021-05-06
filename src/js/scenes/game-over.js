@@ -4,12 +4,25 @@ import {SpriteSheet} from "../sprite-sheet";
 import { Game } from "../game.js";
 import {AnimateObject} from "@/js/animateObject";
 import {Button} from "@/js/button";
+import {Running} from "@/js/scenes/running";
 
 export class GameOver extends Scene {
     constructor(game) {
         super(game)
         this.isShowModal = false;
         this.player = new Player(this.game.screen.height - 300);
+        this.player.tile = new SpriteSheet({
+            imageName: 'gameOverPlayer',
+            imageWidth: 1341,
+            imageHeight: 336,
+            spriteWidth: 336,
+            spriteHeight: 336
+        });
+        this.player.view = this.player.tile.getAnimation([1, 2, 3, 4], 150, false);
+        this.player.x = this.game.screen.width / 2 - this.player.view.width/1.5;
+        this.player.y = this.game.screen.height - this.player.view.height;
+        this.player.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
+        this.player.view.run();
         this.position = {
             x: this.game.screen.width,
             y: 0,
@@ -48,18 +61,14 @@ export class GameOver extends Scene {
 
     init() {
         super.init();
-        this.player.tile = new SpriteSheet({
-            imageName: 'gameOverPlayer',
-            imageWidth: 1341,
-            imageHeight: 336,
-            spriteWidth: 336,
-            spriteHeight: 336
-        });
-        this.player.view = this.player.tile.getAnimation([1, 2, 3, 4], 150, false);
-        this.player.x = this.game.screen.width / 2 - this.player.view.width/1.5;
-        this.player.y = this.game.screen.height - this.player.view.height;
-        this.player.view.setXY(Math.trunc(this.x), Math.trunc(this.y));
-        this.player.view.run();
+        this.sky1 = new AnimateObject('sky1', this.game.screen.canvas.width, -20, 1, 0, this.game.screen.context, this.game.screen.images);
+        this.sky2 = new AnimateObject('sky3', this.game.screen.canvas.width, this.game.screen.images.sky1.height + 60 , 1, 0, this.game.screen.context, this.game.screen.images);
+        this.sky3 = new AnimateObject('sky1', this.game.screen.canvas.width, this.game.screen.canvas.height - this.game.screen.images.sky1.height - 40, 1, 0, this.game.screen.context, this.game.screen.images);
+        this.sky4 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2 + this.game.screen.images.sky2.height, 1, 0, this.game.screen.context, this.game.screen.images);
+        this.logoCloud = new AnimateObject('cloudLogo', this.game.screen.canvas.width, 70 + this.game.screen.images.sky1.height , 1, 0, this.game.screen.context, this.game.screen.images);
+        this.lama = new AnimateObject('gameOverPlayer', this.game.screen.width / 2 - this.player.view.width/1.5, this.game.screen.height - this.player.view.height, 1, 0, this.game.screen.context, this.game.screen.images, 'right');
+        this.textGameOver = new AnimateObject('textGameOver', this.game.screen.canvas.width/2, this.game.screen.canvas.height/7, 0, 0, this.game.screen.context, this.game.screen.images);
+
         setTimeout(()=> { this.isShowModal = true;}, 5000);
         this.btnRetry = new Button(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10,this.game.screen.canvas.height/8 + 250, this.game.screen.images.btnRetry.width, this.game.screen.images.btnRetry.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
@@ -69,8 +78,9 @@ export class GameOver extends Scene {
 
     retry(e){
         if (this.btnRetry.checkCollision(e)) {
-            this.game = new Game({isRetry: true});
-            this.game.run();
+            this.game.currentScene = new Running(this.game);
+            this.game.currentScene.init();
+            this.game.screen.canvas.removeEventListener("mousedown",this.retry)
         }
     }
 
@@ -81,16 +91,6 @@ export class GameOver extends Scene {
         }
         if (this.isShowModal && this.opacity <=1) {
             this.opacity += 0.01;
-        }
-        if(this.sky1 === null) {
-            this.sky1 = new AnimateObject('sky1', this.game.screen.canvas.width, -20, 1, 0, this.game.screen.context, this.game.screen.images);
-            this.sky2 = new AnimateObject('sky3', this.game.screen.canvas.width, this.game.screen.images.sky1.height + 60 , 1, 0, this.game.screen.context, this.game.screen.images);
-            this.sky3 = new AnimateObject('sky1', this.game.screen.canvas.width, this.game.screen.canvas.height - this.game.screen.images.sky1.height - 40, 1, 0, this.game.screen.context, this.game.screen.images);
-            this.sky4 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2 + this.game.screen.images.sky2.height, 1, 0, this.game.screen.context, this.game.screen.images);
-            this.logoCloud = new AnimateObject('cloudLogo', this.game.screen.canvas.width, 70 + this.game.screen.images.sky1.height , 1, 0, this.game.screen.context, this.game.screen.images);
-            this.lama = new AnimateObject('gameOverPlayer', this.game.screen.width / 2 - this.player.view.width/1.5, this.game.screen.height - this.player.view.height, 1, 0, this.game.screen.context, this.game.screen.images, 'right');
-            this.textGameOver = new AnimateObject('textGameOver', this.game.screen.canvas.width/2, this.game.screen.canvas.height/7, 0, 0, this.game.screen.context, this.game.screen.images);
-
         }
     }
 

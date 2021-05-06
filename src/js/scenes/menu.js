@@ -25,6 +25,22 @@ export class Menu extends Scene {
     }
 
     init() {
+        super.init();
+        this.sky1 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2, 1, 0, this.game.screen.context, this.game.screen.images);
+        this.logo =  new AnimateObject('logo', this.game.screen.width/2, this.game.screen.height/3, 1, 0, this.game.screen.context, this.game.screen.images);
+        this.sky3 = new AnimateObject('sky3', this.game.screen.canvas.width, this.game.screen.images.sky1.height, 1, 0, this.game.screen.context, this.game.screen.images);
+        this.sky4 = new AnimateObject('sky1', this.game.screen.canvas.width,  this.game.screen.canvas.height - this.game.screen.images.sky1.height/2 , 1, 0, this.game.screen.context, this.game.screen.images);
+        this.logoCloud = new AnimateObject('cloudLogo', this.game.screen.canvas.width, this.game.screen.canvas.height/2 , 1, 0, this.game.screen.context, this.game.screen.images);
+        this.obstacle1 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 50, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
+        this.obstacle2 = new AnimateObject('obstacles', 20, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
+        this.obstacle3 = new AnimateObject('obstacles', 40, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
+        this.obstacle4 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 90, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
+        this.obstacle5 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 150, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
+        this.obstacle6 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 80, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
+        this.obstacle7 = new AnimateObject('obstacles', this.game.screen.images.sky1.width - 70, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
+        this.lama = new AnimateObject('menuLama', 0, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.2, 1, 0, this.game.screen.context, this.game.screen.images, 'right');
+        this.game.screen.audios.intro.loop = true;
+        this.game.screen.audios.intro.play();
         this.btnStart = new Button(this.game.screen.canvas.width/2-this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 100-this.game.screen.images.btnStart.height, this.game.screen.images.btnStart.width, this.game.screen.images.btnStart.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
             this.game.screen.audios.jump.play();
@@ -32,28 +48,12 @@ export class Menu extends Scene {
                 this.isStopAnimation = true;
             }
         }, false);
-        super.init();
     }
 
     update(time) {
         if(Object.keys(this.sky2.images).length <=0) {
             this.sky2.images = this.game.screen.images;
             this.sky2.context = this.game.screen.context;
-        }
-        if(this.sky1 === null) {
-            this.sky1 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2, 1, 0, this.game.screen.context, this.game.screen.images);
-            this.logo =  new AnimateObject('logo', this.game.screen.width/2, this.game.screen.height/3, 1, 0, this.game.screen.context, this.game.screen.images);
-            this.sky3 = new AnimateObject('sky3', this.game.screen.canvas.width, this.game.screen.images.sky1.height, 1, 0, this.game.screen.context, this.game.screen.images);
-            this.sky4 = new AnimateObject('sky1', this.game.screen.canvas.width,  this.game.screen.canvas.height - this.game.screen.images.sky1.height/2 , 1, 0, this.game.screen.context, this.game.screen.images);
-            this.logoCloud = new AnimateObject('cloudLogo', this.game.screen.canvas.width, this.game.screen.canvas.height/2 , 1, 0, this.game.screen.context, this.game.screen.images);
-            this.obstacle1 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 50, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
-            this.obstacle2 = new AnimateObject('obstacles', 20, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
-            this.obstacle3 = new AnimateObject('obstacles', 40, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
-            this.obstacle4 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 90, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
-            this.obstacle5 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 150, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
-            this.obstacle6 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 80, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
-            this.obstacle7 = new AnimateObject('obstacles', this.game.screen.images.sky1.width - 70, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
-            this.lama = new AnimateObject('menuLama', 0, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.2, 1, 0, this.game.screen.context, this.game.screen.images, 'right');
         }
 
         if (this.obstacle7.vector1.y > this.game.screen.canvas.height && this.sky4.vector1.x < 0 && this.isStopAnimation ) {
