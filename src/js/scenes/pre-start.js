@@ -31,13 +31,13 @@ export class PreStart extends Scene {
                 this.game.screen.audios.intro.pause();
                 this.game.screen.audios.main.volume = 0;
                 let interval = setInterval(()=> {
-                    if (this.game.screen.audios.main.volume < 0.9) {
-                        this.game.screen.audios.main.volume += 0.05;
+                    if (this.game.screen.audios.main.volume < 0.96) {
+                        this.game.screen.audios.main.volume += 0.01;
                     } else {
                         this.game.screen.audios.main.volume = 1;
                         clearInterval(interval)
                     }
-                }, 100);
+                }, 200);
                 this.game.screen.audios.main.loop = true;
                 this.game.screen.audios.main.play();
                 this.finish(Scene.START_GAME)

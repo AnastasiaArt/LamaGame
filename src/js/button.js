@@ -11,6 +11,5 @@ export class Button {
         return e.offsetX >= this.x && e.offsetX < this.x + this.width && e.offsetY >= this.y && e.offsetY < this.y + this.height;
 
     }
-
 }
 

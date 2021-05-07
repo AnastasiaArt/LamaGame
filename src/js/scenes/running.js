@@ -67,7 +67,7 @@ export class Running extends Scene {
         this.game.isRetry = false;
         this.player.deadCount = 0;
         this.player.jumpAudio = this.game.screen.audios.jump;
-        this.player.view.x = this.game.screen.canvas.width / 2 - this.player.view.width / 2 ;
+        this.player.view.x = this.game.screen.canvas.width / 2 - this.player.view.width;
         this.player.view.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
         this.player.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
         this.player.startPosY = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
