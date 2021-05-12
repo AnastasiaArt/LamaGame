@@ -26,11 +26,11 @@ export class Menu extends Scene {
 
     init() {
         super.init();
-        this.sky1 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2, 1, 0, this.game.screen.context, this.game.screen.images);
+        this.sky1 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2, 1, 0, this.game.screen.context, this.game.screen.images, 'left', 50);
         this.logo =  new AnimateObject('logo', this.game.screen.canvas.width/2, this.game.screen.canvas.height/3, 1, 0, this.game.screen.context, this.game.screen.images);
-        this.sky3 = new AnimateObject('sky3', this.game.screen.canvas.width, this.game.screen.images.sky1.height, 1, 0, this.game.screen.context, this.game.screen.images);
-        this.sky4 = new AnimateObject('sky1', this.game.screen.canvas.width,  this.game.screen.canvas.height - this.game.screen.images.sky1.height/2 , 1, 0, this.game.screen.context, this.game.screen.images);
-        this.logoCloud = new AnimateObject('cloudLogo', this.game.screen.canvas.width, this.game.screen.canvas.height/2 , 1, 0, this.game.screen.context, this.game.screen.images);
+        this.sky3 = new AnimateObject('sky3', this.game.screen.canvas.width, this.game.screen.images.sky1.height, 1, 0, this.game.screen.context, this.game.screen.images, 'left', this.game.screen.canvas.width - this.game.screen.images.sky1.width/2);
+        this.sky4 = new AnimateObject('sky1', this.game.screen.canvas.width,  this.game.screen.canvas.height - this.game.screen.images.sky1.height/2 , 1, 0, this.game.screen.context, this.game.screen.images, 'left', this.game.screen.canvas.width - this.game.screen.images.sky1.width);
+        this.logoCloud = new AnimateObject('cloudLogo', this.game.screen.canvas.width, this.game.screen.canvas.height/2 , 1, 0, this.game.screen.context, this.game.screen.images, 'left', this.game.screen.canvas.width - this.game.screen.images.cloudLogo.width);
         this.obstacle1 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 50, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
         this.obstacle2 = new AnimateObject('obstacles', 20, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
         this.obstacle3 = new AnimateObject('obstacles', 40, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
@@ -38,8 +38,9 @@ export class Menu extends Scene {
         this.obstacle5 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 150, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
         this.obstacle6 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 80, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
         this.obstacle7 = new AnimateObject('obstacles', this.game.screen.images.sky1.width - 70, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down');
-        this.lama = new AnimateObject('menuLama', 0, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.2, 1, 0, this.game.screen.context, this.game.screen.images, 'right');
+        this.lama = new AnimateObject('menuLama', 0, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.2, 1, 0, this.game.screen.context, this.game.screen.images, 'right', this.game.screen.canvas.width/6, );
         this.game.screen.audios.intro.play();
+        this.game.screen.audios.intro.volume = 0.8;
         this.game.screen.audios.intro.loop = true;
         this.btnStart = new Button(this.game.screen.canvas.width/2-this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 100-this.game.screen.images.btnStart.height, this.game.screen.images.btnStart.width, this.game.screen.images.btnStart.height);
 
@@ -76,49 +77,50 @@ export class Menu extends Scene {
         } else {
             this.sky2.levitation(20, 0, 1, 40, 0.3);
         }
-        if(this.sky1.vector1.x >= 50 && !this.sky1.isLevitation || this.isStopAnimation) {
+        if(this.sky1.vector1.x >= this.sky1.endX && !this.sky1.isLevitation || this.isStopAnimation) {
             this.sky1.run()
         } else {
-            this.sky1.levitation(50, this.game.screen.canvas.height/2, 1, 40, 0.3);
+            this.sky1.levitation(this.sky1.endX, this.sky1.endY, 1, 40, 0.3);
         }
-        if(this.sky3.vector1.x > this.game.screen.canvas.width - this.game.screen.images.sky1.width/2 && !this.sky3.isLevitation || this.isStopAnimation ) {
+        if(this.sky3.vector1.x > this.sky3.endX && !this.sky3.isLevitation || this.isStopAnimation ) {
             this.sky3.run()
         } else {
-            this.sky3.levitation(this.game.screen.canvas.width - this.game.screen.images.sky1.width/2 , this.game.screen.images.sky1.height, 1, 40, 0.3);
+            this.sky3.levitation(this.sky3.endX , this.sky3.endY, 1, 40, 0.3);
         }
-        if(this.obstacle1.vector1.y <= this.game.screen.canvas.height/2 && !this.obstacle1.isRotation || this.isStopAnimation) {
+        if(this.obstacle1.vector1.y <= this.game.screen.canvas.height/1.5 && !this.obstacle1.isRotation || this.isStopAnimation) {
             this.obstacle1.runSprite(400, 320, 80, 80, 80, 80)
         } else {
             this.obstacle1.drawImageSpriteRotated(this.game.screen.canvas.width / 2 + 50, this.game.screen.canvas.height / 1.5, 0, -2, 0.002, 400, 320, 80, 80, 80, 80)
         }
-        if(this.logoCloud.vector1.x >= this.game.screen.canvas.width - this.game.screen.images.cloudLogo.width && !this.logoCloud.isLevitation || this.isStopAnimation) {
+        if(this.logoCloud.vector1.x >= this.logoCloud.endX && !this.logoCloud.isLevitation || this.isStopAnimation) {
             this.logoCloud.run()
         } else {
-            this.logoCloud.levitation(this.game.screen.canvas.width - this.game.screen.images.cloudLogo.width, this.game.screen.canvas.height/2, 1, 40, 0.3);
+            this.logoCloud.levitation(this.logoCloud.endX, this.logoCloud.endY, 1, 40, 0.3);
         }
         if (this.scale < 1 && !this.isStopAnimation) {
             this.scale +=0.05;
-            this.logo.drawImageScale(this.game.screen.canvas.width/2, this.game.screen.canvas.height/3, this.scale)
+            this.logo.drawImageScale(this.logo.vector1.x, this.logo.vector1.y, this.scale)
         } else if(!this.isStopAnimation) {
-            this.logo.drawImageRotated(this.game.screen.canvas.width/2, this.game.screen.canvas.height/3, '1.000', '0.800', 0.002, 0, false)
+            this.logo.drawImageRotated(this.logo.vector1.x, this.logo.vector1.y, '1.000', '0.800', 0.002, 0, false)
         }
         if (this.isStopAnimation && this.scale >= 0) {
             this.scale -= 0.05;
-            this.logo.drawImageScale(this.game.screen.canvas.width / 2, this.game.screen.canvas.height / 3, this.scale)
+            this.logo.drawImageScale(this.logo.vector1.x, this.logo.vector1.y, this.scale)
         }
-        if(this.sky4.vector1.x >= this.game.screen.canvas.width - this.game.screen.images.sky1.width && !this.sky4.isLevitation || this.isStopAnimation) {
+        if(this.sky4.vector1.x >= this.sky4.endX && !this.sky4.isLevitation || this.isStopAnimation) {
             this.sky4.run()
         } else {
-            this.sky4.levitation(this.game.screen.canvas.width - this.game.screen.images.sky1.width, this.game.screen.canvas.height - this.game.screen.images.sky1.height/2, 1, 30, 0.3);
+            this.sky4.levitation(this.sky4.endX, this.sky4.endY, 1, 30, 0.3);
         }
 
-        if(this.lama.vector1.x <= this.game.screen.canvas.width/6 && !this.sky4.isLevitation || this.isStopAnimation) {
+        if(this.lama.vector1.x <= this.lama.endX && !this.sky4.isLevitation || this.isStopAnimation) {
             this.lama.run()
         } else {
-            this.lama.levitation(this.game.screen.canvas.width/6, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.2, 1, 40, 0.3)
+            this.lama.levitation(this.lama.endX, this.lama.endY, 1, 40, 0.3)
         }
 
         this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 100 - this.game.screen.images.btnStart.height , 'btnStart');
+
         if(this.obstacle2.vector1.y <= this.game.screen.canvas.height/3 && !this.obstacle2.isRotation || this.isStopAnimation) {
             this.obstacle2.runSprite(320, 320, 80, 80, 80, 80)
         } else {

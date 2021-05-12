@@ -43,7 +43,6 @@ export class Obstacle {
             }
 
             this.x += (time - this.lastTime) * (this.velocity.x / 1000);
-            console.log(this.x)
             this.y += (time - this.lastTime) * (this.velocity.y / 1000);
             this.lastTime = time;
             this.view.setXY(Math.trunc(this.x), Math.trunc(this.y));

@@ -130,9 +130,10 @@ export class GameOver extends Scene {
         } else if (this.scale.toFixed(1) === '1.5') {
             this.isChangeScale =true;
         }
-        if (this.isChangeScale && this.scale > 1 && this.textGameOverY >= this.game.screen.canvas.height/7 ) {
+        
+        if (this.isChangeScale && this.scale > 1.2 && this.textGameOverY >= this.game.screen.canvas.height/7 ) {
             this.scale -=0.02;
-            this.textGameOverY -=10;
+            this.textGameOverY -=16;
         }
         this.textGameOver.drawImageScale(this.game.screen.canvas.width/2, this.textGameOverY, this.scale)
         this.player.view.onEnd = () => {
@@ -144,7 +145,7 @@ export class GameOver extends Scene {
             this.game.screen.drawSprite(this.player.view);
         }
         super.render(time);
-        if (this.isChangeScale && this.scale <=1 ) {
+        if (this.isChangeScale && this.scale <=1.2 ) {
             if (!this.isShowModal) {
                 this.game.screen.context.globalAlpha = 1;
                 this.drawText();

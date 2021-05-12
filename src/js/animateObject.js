@@ -1,7 +1,7 @@
 import {Vector} from "@/js/vector";
 
 export class AnimateObject  {
-    constructor(imageName, x, y, scale= 1, deg=0, context ={}, images={}, direction ='left') {
+    constructor(imageName, x, y, scale= 1, deg= 0, context = {}, images= {}, direction ='left',endX = x, endY = y,) {
         this.scale = scale;
         this.deg = deg;
         this.isChangeScale1 = false;
@@ -10,7 +10,9 @@ export class AnimateObject  {
         this.vector1 = {
             x:x,
             y:y
-        }
+        },
+        this.endX = endX,
+        this.endY = endY,
         this.isChangeVectorX1 =false;
         this.isChangeVectorY1 = false;
         this.imageName1 = imageName;
