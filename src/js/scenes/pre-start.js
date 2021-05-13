@@ -60,6 +60,18 @@ export class PreStart extends Scene {
         this.game.screen.printText(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, ' С возвращением!', '#000000');
     }
 
+    // showModalStart() {
+    //     this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 220, this.game.screen.canvas.height/2 - 200, 0, 0, 82, 108, 440, 380);
+    //     this.game.screen.drawImage(this.game.screen.canvas.width/2 + 170 - this.game.screen.images.btnClose.width - 20, this.game.screen.canvas.height/2 - 200 + 20, 'btnClose');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 90, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Привет, я Лама.', '#000000');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 140, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, 'Давай играть и засыпать!', '#000000');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 190, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 140, 'Перепрыгивай через препятствия', '#000000');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 200, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 180, 'Помоги мне заснуть (или наоборот)', '#000000');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 190, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 220, 'Заглядывай в рейтинг ламопрыгов', '#000000');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 260, ' и будь первым!', '#000000');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 60, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 300, 'Поехали!', '#000000');
+    // }
+
     render(time) {
         this.update(time);
         this.game.screen.drawImageFullScreen(0, 0, 'bg1');
