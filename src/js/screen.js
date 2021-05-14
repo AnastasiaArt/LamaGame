@@ -72,7 +72,7 @@ export class Screen {
         })
     }
 
-    printText(x, y, text, color = "#ffffff") {
+    printText(x, y, text, color = "#000000") {
         this.context.fillStyle = color;
         this.context.font = '23px CeraRoundPro';
         this.context.fillText(text, x, y);
