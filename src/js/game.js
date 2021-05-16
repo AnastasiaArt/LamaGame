@@ -28,6 +28,7 @@ export class Game {
             tree5: 'img/bg/tree5.png',
             ground: 'img/bg/ground.png',
             sun: 'img/sun_rays.png',
+            sunBlur: 'img/sun_rays_blur.png',
             bird: 'img/birds.png',
             mouse: 'img/mouse.png',
             gameOverPlayer: 'img/game-over-player.png',
@@ -41,7 +42,8 @@ export class Game {
             btnRetry: 'img/btns/retry-btn.png',
             btnClose: 'img/btns/close-btn.png',
             btnStats: 'img/btns/stat-btn.png',
-            textGameOver: 'img/game-over-text.png',
+            textGameOver: 'img/text/game-over-text.png',
+            textCount: 'img/text/count-text.png',
             menuLama: 'img/menu-lama.png',
             collideText1: 'img/text/aych.png',
             collideText2: 'img/text/oh-oh-oh.png',
@@ -57,8 +59,8 @@ export class Game {
         });
         this.screen.loadAudio({
             crash1: 'sound/Oi.mp3',
-            crash2: 'sound/Oops.mp3',
-            crash3: 'sound/crash3.mp3',
+            crash2: 'sound/crash3.mp3',
+            start: 'sound/Start_Button.mp3',
             jump: 'sound/Pryzhok.mp3',
             intro: 'sound/Lama_Intro.mp3',
             main: 'sound/Lama_Main.mp3',

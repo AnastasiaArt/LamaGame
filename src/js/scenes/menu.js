@@ -42,10 +42,10 @@ export class Menu extends Scene {
         this.game.screen.audios.intro.play();
         this.game.screen.audios.intro.volume = 0.8;
         this.game.screen.audios.intro.loop = true;
-        this.btnStart = new Button(this.game.screen.canvas.width/2-this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 100-this.game.screen.images.btnStart.height, this.game.screen.images.btnStart.width, this.game.screen.images.btnStart.height);
+        this.btnStart = new Button(this.game.screen.canvas.width/2-this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 130, this.game.screen.images.btnStart.width, this.game.screen.images.btnStart.height);
 
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
-            this.game.screen.audios.jump.play();
+            this.game.screen.audios.start.play();
             if (this.btnStart.checkCollision(e)) {
                 this.isStopAnimation = true;
             }
@@ -156,8 +156,7 @@ export class Menu extends Scene {
         }
 
         this.renderLama();
-
-        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 100 - this.game.screen.images.btnStart.height , 'btnStart');
+        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 130 , 'btnStart');
 
         this.renderFrontObstacles();
         super.render(time)

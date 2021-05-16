@@ -75,7 +75,7 @@ export class Player {
             i.isStoped = true;
         });
         obstacle.x = 0 - obstacle.view.width;
-        obstacle.view.setXY(Math.trunc(obstacle.x), Math.trunc(obstacle.x));
+        obstacle.view.setXY(Math.trunc(obstacle.x), Math.trunc(obstacle.y));
         this.view.onEnd = () => {
             this.isStoped = false;
             obstacles.forEach(i => {
@@ -83,6 +83,7 @@ export class Player {
             })
             this.walk();
             this.deadCount++;
+            obstacle.isCrash = true;
         }
         this.view.run();
     }

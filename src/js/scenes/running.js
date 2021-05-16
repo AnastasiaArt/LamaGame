@@ -42,7 +42,7 @@ export class Running extends Scene {
         this.count = 0;
         this.hit = false;
         this.lastTime = 0;
-        this.duration = getRandomInt(6000, 6000);
+        this.duration = 5000;
         this.bird = new FlyElement(this.game.screen.canvas.width,200,'bird', 400, 100, 100, 100);
         this.bird.x = this.game.screen.canvas.width;
         this.bird.y = 200;
@@ -56,9 +56,10 @@ export class Running extends Scene {
         this.lastTimeCountText = 0;
         this.sunHeight = this.game.screen.canvas.height;
         this.isSunRays = false;
-        this.crashAudios = ['crash1', 'crash2', 'crash3'];
+        this.crashAudios = ['crash1', 'crash2'];
         this.player = new Player(this.game.control);
         this.player.x = this.game.screen.canvas.width / 2 - this.player.view.width;
+        this.startPosXCountText = innerWidth > 700 ? 20 : (700 - innerWidth) /2 + 20;
     }
 
     init() {
@@ -87,7 +88,7 @@ export class Running extends Scene {
     }
 
     collide(time) {
-        const audio = this.crashAudios[Math.floor(Math.random() * 3)];
+        const audio = this.crashAudios[Math.floor(Math.random() * 2)];
         this.game.screen.audios[audio].play();
         this.isCollide = true;
         if(this.player.deadCount + 1 < 4) {
@@ -127,7 +128,7 @@ export class Running extends Scene {
             // добавить проверку у обсталес из нот стопед
             this.addNewObstacle();
             this.lastTime = time;
-            this.duration = getRandomInt(1500, 5000);
+            this.duration = getRandomInt(1200, 4500);
         }
 
         this.obstacles.forEach((i) => {
@@ -141,7 +142,7 @@ export class Running extends Scene {
                 this.collide(time);
                 return;
             } else {
-                if (Math.round(i.x) === this.player.x + 1) {
+                if (i.dead && !i.isCrash) {
                    this.addCount(time);
                 }
                 i.update(time)
@@ -171,10 +172,10 @@ export class Running extends Scene {
     }
 
     renderClouds() {
+        this.game.screen.drawScaleImage('sky1', this.position.x, 20, 0,0, 301, 181, 180, 100 );
+        this.game.screen.drawScaleImage('sky2',this.position.x - 20, this.game.screen.images.sky1.height, 0,0, 225, 120, 150, 80);
+        this.game.screen.drawScaleImage( 'sky3',this.position.x - 20 + this.game.screen.images.sky1.width, this.game.screen.images.sky1.height - 40, 0,0, 177, 100, 142, 80);
         this.position.x < 0 - this.game.screen.images.sky1.width - this.game.screen.images.sky2.width - this.game.screen.images.sky3.width - 160 ? this.position.x = this.game.screen.canvas.width : this.position.x -= 2;
-        this.game.screen.drawScaleImage('sky1', this.position.x, 20, 0,0, 301, 181, 233, 140 );
-        this.game.screen.drawScaleImage('sky2',this.position.x - 20, 20 + this.game.screen.images.sky1.height, 0,0, 225, 120, 188, 100);
-        this.game.screen.drawScaleImage( 'sky3',this.position.x + this.game.screen.images.sky1.width + 10, this.game.screen.images.sky1.height - 10, 0,0, 177, 100, 142, 80);
     }
 
     renderMoon() {
@@ -198,8 +199,10 @@ export class Running extends Scene {
             if (this.player.deadCount >= 4 &&  this.sunHeight < 1200) {
                 this.sunHeight += 1;
             }
-            this.game.screen.context.globalAlpha = this.isSunRays ? 0.5 : 1;
-            this.game.screen.drawImageRotated('sun', this.game.screen.canvas.width / 2, this.sunHeight, this.game.screen.changeScale('1.000', '0.800', 0.002), time / 9000);
+
+            this.isSunRays ?
+                this.game.screen.drawImageRotated('sunBlur', this.game.screen.canvas.width / 2, this.sunHeight, this.game.screen.changeScale('1.000', '0.800', 0.002), time / 9000) :
+                this.game.screen.drawImageRotated('sun', this.game.screen.canvas.width / 2, this.sunHeight, this.game.screen.changeScale('1.000', '0.800', 0.002), time / 9000);
         }
     }
 
@@ -208,8 +211,8 @@ export class Running extends Scene {
             if (this.positionText.x >= this.game.screen.canvas.width/2 ) {
                 this.positionText.x -= 10;
             }
-            this.game.screen.drawImage(this.positionText.x - this.game.screen.images.cloudText.width/ 2,this.game.screen.canvas.height/4 - this.game.screen.images.cloudText.height/ 3, 'cloudText')
-            this.game.screen.drawImage(this.positionText.x - this.game.screen.images[this.imgText].width/ 2, this.game.screen.canvas.height/4, this.imgText)
+            this.game.screen.drawImage(this.positionText.x - this.game.screen.images.cloudText.width/ 2,this.game.screen.canvas.height/4 - this.game.screen.images.cloudText.height/2, 'cloudText')
+            this.game.screen.drawImage(this.positionText.x - this.game.screen.images[this.imgText].width/ 2, this.game.screen.canvas.height/4 - this.game.screen.images[this.imgText].height/2, this.imgText)
         } else {
             this.positionText.x = this.game.screen.canvas.width;
         }
@@ -219,7 +222,7 @@ export class Running extends Scene {
         this.update(time);
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
         this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.tree1.height, this.backgroundsTree[0]);
-        //  плавная смена фона
+         // плавная смена фона
         this.game.screen.context.globalAlpha = 1 - this.opacity;
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
         this.game.screen.context.globalAlpha = this.opacity;
@@ -255,6 +258,8 @@ export class Running extends Scene {
         this.obstacles.forEach((i) => {
             this.game.screen.drawSprite(i.view);
         })
-        this.game.screen.printText(20, 50, `Счет: ${this.count}`);
+        console.log(this.game.screen.images.textCount.height)
+        this.game.screen.drawImage( this.startPosXCountText, 20, 'textCount');
+        this.game.screen.printText(this.startPosXCountText + this.game.screen.images.textCount.width + 20, this.game.screen.images.textCount.height + 12, this.count, '24px');
     }
 }

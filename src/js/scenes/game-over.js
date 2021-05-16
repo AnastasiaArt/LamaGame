@@ -44,20 +44,20 @@ export class GameOver extends Scene {
     // тест при геймовере
     drawText() {
         // this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height/2 - 300, 0, 0, 82, 108, 300, 300);
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 30, this.game.screen.canvas.height/2 - 300 + 100, 'Упс!');
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 90, this.game.screen.canvas.height/2 - 300 + 130,  'Лама заснула!')
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 110, this.game.screen.canvas.height/2 - 300 + 160, 'Встретимся завтра');
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 110, this.game.screen.canvas.height/2 - 300 + 190, 'или ещё поиграем?');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 30, this.game.screen.canvas.height/2 - 280 + 100, 'Упс!');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 90, this.game.screen.canvas.height/2 - 280 + 130,  'Лама заснула!')
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 110, this.game.screen.canvas.height/2 - 280 + 160, 'Встретимся завтра');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 110, this.game.screen.canvas.height/2 - 280 + 190, 'или ещё поиграем?');
     }
 
     showModalRetry() {
-        this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height/2 - 300, 0, 0, 82, 108, 300, 300);
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 - 300 + 100, 'Лучший результат:');
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 10, this.game.screen.canvas.height/2 - 300+ 130, this.game.count);
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 80, this.game.screen.canvas.height/2 - 300 + 160, 'Ваш результат:');
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 10, this.game.screen.canvas.height/2 - 300 + 190, this.game.count);
-        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10, this.game.screen.canvas.height/2 - 300 + 230, 'btnRetry');
-        this.game.screen.drawImage(this.game.screen.canvas.width/2 + 10, this.game.screen.canvas.height/2 - 300 + 230, 'btnStats');
+        this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height/2 - 300, 0, 0, 82, 108, 300, 340);
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 - 300 + 120, 'Лучший результат:');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 10, this.game.screen.canvas.height/2 - 300+ 160, this.game.count, '28px');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 80, this.game.screen.canvas.height/2 - 300 + 200, 'Ваш результат:');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 10, this.game.screen.canvas.height/2 - 300 + 240, this.game.count, '28px');
+        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10, this.game.screen.canvas.height/2 - 300 +  260, 'btnRetry');
+        this.game.screen.drawImage(this.game.screen.canvas.width/2 + 10, this.game.screen.canvas.height/2 - 300 +  260 , 'btnStats');
         this.textGameOver.drawImageScale(this.game.screen.canvas.width/2, this.textGameOverY, this.scale)
     }
 
@@ -72,7 +72,7 @@ export class GameOver extends Scene {
         this.textGameOver = new AnimateObject('textGameOver', this.game.screen.canvas.width/2, this.game.screen.canvas.height/7, 0, 0, this.game.screen.context, this.game.screen.images);
 
         setTimeout(()=> { this.isShowModal = true;}, 5000);
-        this.btnRetry = new Button(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10, this.game.screen.canvas.height/2 - 300 + 230, this.game.screen.images.btnRetry.width, this.game.screen.images.btnRetry.height);
+        this.btnRetry = new Button(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10, this.game.screen.canvas.height/2 - 300 +  260, this.game.screen.images.btnRetry.width, this.game.screen.images.btnRetry.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
             this.retry(e);
         }, false);
@@ -134,7 +134,7 @@ export class GameOver extends Scene {
 
         if (this.isChangeScale && this.scale > 1.2 && this.textGameOverY >= this.game.screen.canvas.height/7 ) {
             this.scale -=0.02;
-            this.textGameOverY -=16;
+            this.textGameOverY -=15;
         }
         this.textGameOver.drawImageScale(this.game.screen.canvas.width/2, this.textGameOverY, this.scale);
     }

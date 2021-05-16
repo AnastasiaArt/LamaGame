@@ -75,9 +75,9 @@ export class PreStart extends Scene {
     // }
 
     renderClouds() {
-        this.game.screen.drawScaleImage('sky1', this.position.x, 20, 0,0, 301, 181, 233, 140 );
-        this.game.screen.drawScaleImage('sky2',this.position.x - 20, 20 + this.game.screen.images.sky1.height, 0,0, 225, 120, 188, 100);
-        this.game.screen.drawScaleImage( 'sky3',this.position.x + this.game.screen.images.sky1.width + 10, this.game.screen.images.sky1.height - 10, 0,0, 177, 100, 142, 80);
+        this.game.screen.drawScaleImage('sky1', this.position.x, 20, 0,0, 301, 181, 180, 100 );
+        this.game.screen.drawScaleImage('sky2',this.position.x - 20, this.game.screen.images.sky1.height, 0,0, 225, 120, 150, 80);
+        this.game.screen.drawScaleImage( 'sky3',this.position.x - 20 + this.game.screen.images.sky1.width, this.game.screen.images.sky1.height - 40, 0,0, 177, 100, 142, 80);
         this.position.x < 0 - this.game.screen.images.sky1.width - this.game.screen.images.sky2.width - this.game.screen.images.sky3.width - 160 ? this.position.x = this.game.screen.canvas.width : this.position.x -= 2;
     }
 

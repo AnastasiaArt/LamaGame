@@ -20,6 +20,7 @@ export class Obstacle {
         this.x = 0;
         this.y = 0;
         this.dead = false;
+        this.isCrash = false;
         // по умолчанию персонаж идет влево
         this.walk();
     }

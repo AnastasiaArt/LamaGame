@@ -54,7 +54,7 @@ export class Screen {
     }
 
     loadImages(imageFiles) {
-        let f = new FontFace('CeraRoundPro', 'url(fonts/CeraRoundProDEMO-Regular.woff2)');
+        let f = new FontFace('Comic', 'url(fonts/Comic.woff2)');
         f.load();
         const loader = new ImageLoader(imageFiles);
         loader.load().then((names) => {
@@ -72,9 +72,9 @@ export class Screen {
         })
     }
 
-    printText(x, y, text, color = "#000000") {
+    printText(x, y, text, size = '23px', color = "#000000") {
         this.context.fillStyle = color;
-        this.context.font = '23px CeraRoundPro';
+        this.context.font = `${size} Comic`;
         this.context.fillText(text, x, y);
     }
 
