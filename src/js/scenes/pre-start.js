@@ -61,8 +61,8 @@ export class PreStart extends Scene {
     showModalStart() {
         this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height/2 - 200, 0, 0, 82, 108, 300, 200);
         this.game.screen.drawImage(this.game.screen.canvas.width/2 + 150 - this.game.screen.images.btnClose.width - 20, this.game.screen.canvas.height/2 - 200 + 20, 'btnClose');
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 120, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Привет, ламопрыг!');
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 110, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, ' С возвращением!');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 90, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Ты снова здесь!');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 40, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, ' Ура!');
     }
 
 
