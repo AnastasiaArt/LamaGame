@@ -26,7 +26,9 @@ export class PreStart extends Scene {
         this.player.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
         this.btnClose = new Button(this.game.screen.canvas.width/2 + 150 - this.game.screen.images.btnClose.width - 20,this.game.screen.canvas.height/2 - 200 + 20, this.game.screen.images.btnClose.width, this.game.screen.images.btnClose.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
-            this.game.screen.audios.jump.play();
+            if (!this.game.isMute) {
+                this.game.screen.audios.jump.play();
+            }
             if (this.btnClose.checkCollision(e)) {
                 this.changeScene();
             }
@@ -34,18 +36,20 @@ export class PreStart extends Scene {
     }
 
     changeScene() {
-        this.game.screen.audios.intro.pause();
-        this.game.screen.audios.main.volume = 0;
-        let interval = setInterval(()=> {
-            if (this.game.screen.audios.main.volume < 0.8) {
-                this.game.screen.audios.main.volume += 0.009;
-            } else {
-                this.game.screen.audios.main.volume = 0.8;
-                clearInterval(interval)
-            }
-        }, 200);
-        this.game.screen.audios.main.loop = true;
-        this.game.screen.audios.main.play();
+        if (!this.game.isMute) {
+            this.game.screen.audios.intro.pause();
+            this.game.screen.audios.main.volume = 0;
+            let interval = setInterval(() => {
+                if (this.game.screen.audios.main.volume < 0.8) {
+                    this.game.screen.audios.main.volume += 0.009;
+                } else {
+                    this.game.screen.audios.main.volume = 0.8;
+                    clearInterval(interval)
+                }
+            }, 200);
+            this.game.screen.audios.main.loop = true;
+            this.game.screen.audios.main.play();
+        }
         this.finish(Scene.START_GAME)
     }
 

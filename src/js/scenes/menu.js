@@ -40,11 +40,15 @@ export class Menu extends Scene {
         this.obstacle7 = new AnimateObject('obstacles', this.game.screen.images.sky1.width - 70, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down', this.game.screen.images.sky1.width - 70);
         this.lama = new AnimateObject('menuLama', 0, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.2, 1, 0, this.game.screen.context, this.game.screen.images, 'right', this.game.screen.canvas.width/6, );
         this.btnStart = new Button(this.game.screen.canvas.width/2-this.game.screen.images.btnStart.width/2, this.game.screen.canvas.height - 130, this.game.screen.images.btnStart.width, this.game.screen.images.btnStart.height);
-        this.game.screen.audios.intro.play();
+        if (!this.game.isMute) {
+            this.game.screen.audios.intro.play();
+        }
         this.game.screen.audios.intro.volume = 0.8;
         this.game.screen.audios.intro.loop = true;
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
-            this.game.screen.audios.start.play();
+            if (!this.game.isMute) {
+                this.game.screen.audios.start.play();
+            }
             if (this.btnStart.checkCollision(e)) {
                 this.isStopAnimation = true;
             }
@@ -52,7 +56,9 @@ export class Menu extends Scene {
     }
 
     startGame(e) {
-        this.game.screen.audios.start.play();
+        if (!this.game.isMute) {
+            this.game.screen.audios.start.play();
+        }
             this.isStopAnimation = true;
     }
 

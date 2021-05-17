@@ -83,7 +83,9 @@ export class Running extends Scene {
         this.addNewObstacle();
         this.game.isRetry = false;
         this.player.deadCount = 0;
-        this.player.jumpAudio = this.game.screen.audios.jump;
+        if (!this.game.isMute) {
+            this.player.jumpAudio = this.game.screen.audios.jump;
+        }
         this.player.view.x = this.game.screen.canvas.width / 2 - this.player.view.width;
         this.player.view.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
         this.player.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
@@ -112,6 +114,7 @@ export class Running extends Scene {
     collide(time) {
         const audio = this.crashAudios[Math.floor(Math.random() * 2)];
         this.game.screen.audios[audio].play();
+
         this.isCollide = true;
         if(this.player.deadCount + 1 < 4) {
             this.imgText = this.collideText[Math.floor(Math.random() * 4)];

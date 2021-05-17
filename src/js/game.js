@@ -42,6 +42,8 @@ export class Game {
             btnRetry: 'img/btns/retry-btn.png',
             btnClose: 'img/btns/close-btn.png',
             btnStats: 'img/btns/stat-btn.png',
+            btnMute: 'img/btns/mute-on.png',
+            btnMuteOff: 'img/btns/mute-off.png',
             textGameOver: 'img/text/game-over-text.png',
             textCount: 'img/text/count-text.png',
             menuLama: 'img/menu-lama.png',
@@ -77,6 +79,7 @@ export class Game {
         this.isRetry = isRetry;
         this.currentScene = this.scenes.loading;
         this.currentScene.init();
+        this.isMute = false;
     }
 
     resize() {
