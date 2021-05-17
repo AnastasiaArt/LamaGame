@@ -28,6 +28,22 @@ export class Running extends Scene {
             x: this.game.screen.canvas.width,
             y: 0,
         };
+        this.positionGround = {
+            x: 0,
+            y:  this.game.screen.canvas.height
+        }
+        this.positionGround1 = {
+            x: 0,
+            y:  this.game.screen.canvas.height
+        }
+        this.positionTree = {
+                x: 0,
+                y:  this.game.screen.canvas.height
+        }
+        this.positionTree1 = {
+            x: 0,
+            y:  this.game.screen.canvas.height
+        }
         this.positionMoon = {
             x: this.game.screen.canvas.width,
             y: this.game.screen.canvas.height/2,
@@ -76,6 +92,12 @@ export class Running extends Scene {
         this.bird.view.y = 200;
         this.mouse.view.x = 0;
         this.mouse.view.y = 200;
+        this.positionGround.y =  this.game.screen.canvas.height - this.game.screen.images.ground.height;
+        this.positionGround1.y =  this.game.screen.canvas.height - this.game.screen.images.ground.height;
+        this.positionGround1.x =  this.game.screen.images.ground.width;
+        this.positionTree1.x = this.game.screen.images[this.backgroundsTree[0]].width;
+        this.positionTree.y = this.game.screen.canvas.height - this.game.screen.images.tree1.height;
+        this.positionTree1.y = this.game.screen.canvas.height - this.game.screen.images.tree1.height;
     }
 
     addNewObstacle() {
@@ -220,8 +242,9 @@ export class Running extends Scene {
 
     render(time) {
         this.update(time);
-        this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
-        this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.tree1.height, this.backgroundsTree[0]);
+        // this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
+        // this.game.screen.drawImage(this.positionTree.x, this.positionTree.y, this.backgroundsTree[0]);
+        // this.game.screen.drawImage(this.positionTree1.x, this.positionTree1.y, this.backgroundsTree[0]);
          // плавная смена фона
         this.game.screen.context.globalAlpha = 1 - this.opacity;
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
@@ -234,17 +257,53 @@ export class Running extends Scene {
 
         // плавная смена деревьев
         this.game.screen.context.globalAlpha = 1 - this.opacity;
-        this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.tree1.height, this.backgroundsTree[0]);
+        this.game.screen.drawImage(this.positionTree.x, this.positionTree.y, this.backgroundsTree[0]);
+        this.game.screen.drawImage(this.positionTree1.x, this.positionTree1.y, this.backgroundsTree[0]);
         this.game.screen.context.globalAlpha = this.opacity;
-        this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.tree1.height, this.backgroundsTree[1]);
+        this.game.screen.drawImage(this.positionTree.x, this.positionTree.y, this.backgroundsTree[1]);
+        this.game.screen.drawImage(this.positionTree1.x, this.positionTree1.y, this.backgroundsTree[1]);
+        // теперь проверим, не ушел ли объект фона «за кадр»
+        // if (this.positionTree.x + this.game.screen.images[this.backgroundsTree[0]].width < 0) { // если ушел
+        //     this.positionTree.x = this.positionTree1.x + this.game.screen[this.backgroundsTree[0]].width; // перемещаем его сразу за вторым
+        // }
+        // // аналогично для второго
+        // if (this.positionTree1.x + this.game.screen.images[this.backgroundsTree[0]].width < 0) { // если ушел
+        //     this.positionTree1.x = this.positionTree.x + this.game.screen[this.backgroundsTree[0]].width; // перемещаем его сразу за вторым
+        // }
+        // теперь проверим, не ушел ли объект фона «за кадр»
+        if (this.positionTree.x + this.game.screen.images[this.backgroundsTree[1]].width < 0) { // если ушел
+            this.positionTree.x = this.positionTree1.x + this.game.screen.images[this.backgroundsTree[1]].width; // перемещаем его сразу за вторым
+        }
+        // аналогично для второго
+        if (this.positionTree1.x + this.game.screen.images[this.backgroundsTree[1]].width < 0) { // если ушел
+            this.positionTree1.x = this.positionTree.x + this.game.screen.images[this.backgroundsTree[1]].width; // перемещаем его сразу за вторым
+        }
+
 
         this.game.screen.context.globalAlpha = 1;
-        this.game.screen.drawImage(0, this.game.screen.canvas.height - this.game.screen.images.ground.height, 'ground');
+        this.game.screen.drawImage(this.positionGround.x, this.positionGround.y, 'ground');
+        this.game.screen.drawImage(this.positionGround1.x , this.positionGround.y, 'ground');
+        if (!this.isCollide) {
+            this.positionGround.x -= 2;
+            this.positionGround1.x -= 2;
+            this.positionTree.x -=1;
+            this.positionTree1.x -=1;
+            // теперь проверим, не ушел ли объект фона «за кадр»
+            if (this.positionGround.x + this.game.screen.images.ground.width < 0) { // если ушел
+                this.positionGround.x = this.positionGround1.x + this.game.screen.images.ground.width; // перемещаем его сразу за вторым
+            }
+
+            // аналогично для второго
+            if (this.positionGround1.x + this.game.screen.images.ground.width < 0) {
+                this.positionGround1.x = this.positionGround.x + this.game.screen.images.ground.width; // позиционируем за первым
+            }
+        }
+
 
         // отрисовка элементов неба(облака, птичка, мышь)
         if (this.player.deadCount <= 2) {
             this.renderClouds();
-            this.game.screen.drawSprite(this.bird.view);
+            this.game.screen.drawSprite(this.bird.view)
         } else if (this.player.deadCount >= 4) {
             this.game.screen.drawSprite(this.mouse.view);
         }
@@ -258,7 +317,6 @@ export class Running extends Scene {
         this.obstacles.forEach((i) => {
             this.game.screen.drawSprite(i.view);
         })
-        console.log(this.game.screen.images.textCount.height)
         this.game.screen.drawImage( this.startPosXCountText, 20, 'textCount');
         this.game.screen.printText(this.startPosXCountText + this.game.screen.images.textCount.width + 20, this.game.screen.images.textCount.height + 12, this.count, '24px');
     }

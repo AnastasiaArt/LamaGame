@@ -14,8 +14,9 @@ export class Loading extends Scene {
     update(time) {
         if (this.loadedAt === 0 && this.game.screen.isImagesLoaded && this.game.screen.isAudiosLoaded ) {
             this.loadedAt = time;
+            this.game.screen.audios.intro.muted = true;
         }
-        if (this.loadedAt !== 0 && (time - this.loadedAt) > 500) {
+        if (this.loadedAt !== 0 && (time - this.loadedAt) > 2000) {
             this.finish(Scene.LOADED);
         }
     }
@@ -23,7 +24,7 @@ export class Loading extends Scene {
     render(time) {
         this.update(time);
         this.game.screen.fill('#00000');
-        this.game.screen.printText(100, 100, "Loading.....")
+        this.game.screen.printText(100, 100, "Loading.....",'30px', '#ffffff')
         super.render(time)
     }
 }

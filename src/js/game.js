@@ -8,7 +8,7 @@ import {Running} from "./scenes/running.js";
 import {PreStart} from "./scenes/pre-start.js";
 
 export class Game {
-    // ширина и высота по умолчанию 640
+    // ширина и высота по умолчанию 700, aspect-ratio:1/1
     constructor({width = 700, height = 700, isRetry = false} = {}) {
         this.screen = new Screen(width, width);
         this.screen.loadImages({

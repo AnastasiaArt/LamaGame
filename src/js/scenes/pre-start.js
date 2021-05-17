@@ -57,21 +57,20 @@ export class PreStart extends Scene {
     showModalStart() {
         this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height/2 - 200, 0, 0, 82, 108, 300, 200);
         this.game.screen.drawImage(this.game.screen.canvas.width/2 + 150 - this.game.screen.images.btnClose.width - 20, this.game.screen.canvas.height/2 - 200 + 20, 'btnClose');
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Привет, ламопрыг!');
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, ' С возвращением!');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 120, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Привет, ламопрыг!');
+        this.game.screen.printText(this.game.screen.canvas.width/2 - 110, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, ' С возвращением!');
     }
 
-    // отрисовка окна для нового юзера
+
+    // // отрисовка окна для нового юзера
     // showModalStart() {
-    //     this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 220, this.game.screen.canvas.height/2 - 200, 0, 0, 82, 108, 440, 380);
-    //     this.game.screen.drawImage(this.game.screen.canvas.width/2 + 170 - this.game.screen.images.btnClose.width - 20, this.game.screen.canvas.height/2 - 200 + 20, 'btnClose');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 90, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Привет, я Лама.');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 140, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, 'Давай играть и засыпать!');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 190, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 140, 'Перепрыгивай через препятствия');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 200, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 180, 'Помоги мне заснуть (или наоборот)');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 190, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 220, 'Заглядывай в рейтинг ламопрыгов');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 100, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 260, ' и будь первым!');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 60, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 300, 'Поехали!');
+    //     this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 248, this.game.screen.canvas.height/2 - 200, 0, 0, 82, 108, 500, 300);
+    //     this.game.screen.drawImage(this.game.screen.canvas.width/2 + 238 - this.game.screen.images.btnClose.width - 20, this.game.screen.canvas.height/2 - 200 + 20, 'btnClose');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 90, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Привет, я Лама!');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 225, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, 'Нажимай пробел для прыжка и помни,');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 160, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 140, 'что через пять столкновений');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 40, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 180, 'я засну.');
+    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 210, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 220, 'Тогда придётся начать путь заново!');
     // }
 
     renderClouds() {
