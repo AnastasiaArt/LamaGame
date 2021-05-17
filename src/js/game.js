@@ -48,7 +48,7 @@ export class Game {
             collideText1: 'img/text/aych.png',
             collideText2: 'img/text/oh-oh-oh.png',
             collideText3: 'img/text/ups.png',
-            collideText4: 'img/text/upsy.png',
+            collideText4: 'img/text/sorry.png',
             countText1: 'img/text/bombastic.png',
             countText2: 'img/text/fast.png',
             countText3: 'img/text/fluffy.png',
