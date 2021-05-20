@@ -56,8 +56,9 @@ export class GameOver extends Scene {
         this.game.screen.printText(this.game.screen.canvas.width/2 - 10, this.game.screen.canvas.height/2 - 300+ 160, this.game.count, '28px');
         this.game.screen.printText(this.game.screen.canvas.width/2 - 80, this.game.screen.canvas.height/2 - 300 + 200, 'Ваш результат:');
         this.game.screen.printText(this.game.screen.canvas.width/2 - 10, this.game.screen.canvas.height/2 - 300 + 240, this.game.count, '28px');
-        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10, this.game.screen.canvas.height/2 - 300 +  260, 'btnRetry');
-        this.game.screen.drawImage(this.game.screen.canvas.width/2 + 10, this.game.screen.canvas.height/2 - 300 +  260 , 'btnStats');
+        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10 - this.game.screen.images.btnStats.width/2, this.game.screen.canvas.height/2 - 300 +  260, 'btnRetry');
+        this.game.screen.drawImage(this.game.screen.canvas.width/2 - this.game.screen.images.btnStats.width/2, this.game.screen.canvas.height/2 - 300 +  260 , 'btnStats');
+        this.game.screen.drawScaleImage('btnShare',this.game.screen.canvas.width/2 + this.game.screen.images.btnStats.width/2 + 10, this.game.screen.canvas.height/2 - 300 +  260 , 0,0, 60,57, 52, 49);
         this.textGameOver.drawImageScale(this.game.screen.canvas.width/2, this.textGameOverY, this.scale)
     }
 
@@ -72,7 +73,7 @@ export class GameOver extends Scene {
         this.textGameOver = new AnimateObject('textGameOver', this.game.screen.canvas.width/2, this.game.screen.canvas.height/7, 0, 0, this.game.screen.context, this.game.screen.images);
 
         setTimeout(()=> { this.isShowModal = true;}, 5000);
-        this.btnRetry = new Button(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10, this.game.screen.canvas.height/2 - 300 +  260, this.game.screen.images.btnRetry.width, this.game.screen.images.btnRetry.height);
+        this.btnRetry = new Button(this.game.screen.canvas.width/2 - this.game.screen.images.btnRetry.width - 10 - this.game.screen.images.btnStats.width/2, this.game.screen.canvas.height/2 - 300 +  260, this.game.screen.images.btnRetry.width, this.game.screen.images.btnRetry.height);
         this.game.screen.canvas.addEventListener("mousedown",  (e) => {
             this.retry(e);
         }, false);

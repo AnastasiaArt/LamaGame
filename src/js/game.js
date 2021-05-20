@@ -45,6 +45,7 @@ export class Game {
             btnStats: 'img/btns/stat-btn.png',
             btnMute: 'img/btns/mute-on.png',
             btnMuteOff: 'img/btns/mute-off.png',
+            btnShare: 'img/btns/share-btn.png',
             textGameOver: 'img/text/game-over-text.png',
             textCount: 'img/text/count-text.png',
             menuLama: 'img/menu-lama.png',
@@ -60,6 +61,7 @@ export class Game {
             textBg: 'img/text-bg.png',
             cloudText: 'img/text/cloud-text.png',
             progress: 'img/scenes/loading/progress.png',
+            progressStart: 'img/scenes/loading/progress-start.png',
             progressWrap: 'img/scenes/loading/progress-wrap.png',
             progressLama: 'img/scenes/loading/progress-lama.png',
         });

@@ -245,9 +245,6 @@ export class Running extends Scene {
 
     render(time) {
         this.update(time);
-        // this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
-        // this.game.screen.drawImage(this.positionTree.x, this.positionTree.y, this.backgroundsTree[0]);
-        // this.game.screen.drawImage(this.positionTree1.x, this.positionTree1.y, this.backgroundsTree[0]);
          // плавная смена фона
         this.game.screen.context.globalAlpha = 1 - this.opacity;
         this.game.screen.drawImageFullScreen(0, 0, this.backgrounds[0]);
@@ -266,14 +263,6 @@ export class Running extends Scene {
         this.game.screen.drawImage(this.positionTree.x, this.positionTree.y, this.backgroundsTree[1]);
         this.game.screen.drawImage(this.positionTree1.x, this.positionTree1.y, this.backgroundsTree[1]);
         // теперь проверим, не ушел ли объект фона «за кадр»
-        // if (this.positionTree.x + this.game.screen.images[this.backgroundsTree[0]].width < 0) { // если ушел
-        //     this.positionTree.x = this.positionTree1.x + this.game.screen[this.backgroundsTree[0]].width; // перемещаем его сразу за вторым
-        // }
-        // // аналогично для второго
-        // if (this.positionTree1.x + this.game.screen.images[this.backgroundsTree[0]].width < 0) { // если ушел
-        //     this.positionTree1.x = this.positionTree.x + this.game.screen[this.backgroundsTree[0]].width; // перемещаем его сразу за вторым
-        // }
-        // теперь проверим, не ушел ли объект фона «за кадр»
         if (this.positionTree.x + this.game.screen.images[this.backgroundsTree[1]].width < 0) { // если ушел
             this.positionTree.x = this.positionTree1.x + this.game.screen.images[this.backgroundsTree[1]].width; // перемещаем его сразу за вторым
         }
@@ -281,7 +270,6 @@ export class Running extends Scene {
         if (this.positionTree1.x + this.game.screen.images[this.backgroundsTree[1]].width < 0) { // если ушел
             this.positionTree1.x = this.positionTree.x + this.game.screen.images[this.backgroundsTree[1]].width; // перемещаем его сразу за вторым
         }
-
 
         this.game.screen.context.globalAlpha = 1;
         this.game.screen.drawImage(this.positionGround.x, this.positionGround.y, 'ground');
@@ -301,7 +289,6 @@ export class Running extends Scene {
                 this.positionGround1.x = this.positionGround.x + this.game.screen.images.ground.width; // позиционируем за первым
             }
         }
-
 
         // отрисовка элементов неба(облака, птичка, мышь)
         if (this.player.deadCount <= 2) {

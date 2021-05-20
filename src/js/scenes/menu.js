@@ -153,7 +153,7 @@ export class Menu extends Scene {
             this.obstacle1.drawImageSpriteRotated(this.obstacle1.endX, this.obstacle1.endY, 0, -2, 0.002, 400, 320)
         }
         if(this.logoCloud.vector1.x >= this.logoCloud.endX && !this.logoCloud.isLevitation || this.isStopAnimation) {
-            this.logoCloud.run()
+            this.logoCloud.run();
         } else {
             this.logoCloud.levitation(this.logoCloud.endX, this.logoCloud.endY);
         }
