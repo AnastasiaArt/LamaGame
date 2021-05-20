@@ -21,6 +21,7 @@ export class Game {
             bg3: 'img/bg/Bg3(pre_evening).png',
             bg4: 'img/bg/Bg4(evening).png',
             bg5: 'img/bg/Bg5(night).png',
+            bgLoading: 'img/scenes/loading/bg.png',
             tree1: 'img/bg/tree1.png',
             tree2: 'img/bg/tree2.png',
             tree3: 'img/bg/tree3.png',
@@ -58,6 +59,9 @@ export class Game {
             sleepText: 'img/text/sleeping.png',
             textBg: 'img/text-bg.png',
             cloudText: 'img/text/cloud-text.png',
+            progress: 'img/scenes/loading/progress.png',
+            progressWrap: 'img/scenes/loading/progress-wrap.png',
+            progressLama: 'img/scenes/loading/progress-lama.png',
         });
         this.screen.loadAudio({
             crash1: 'sound/Oi.mp3',

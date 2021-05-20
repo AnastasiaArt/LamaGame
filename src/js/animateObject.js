@@ -60,6 +60,9 @@ export class AnimateObject  {
         this.context.setTransform(1, 0, 0, 1, 0, 0);
     }
 
+
+     // TODO
+    //  объединить в одну все 4 функции
     changeVectorX(start, end, step) {
         if(Math.round(this.vector1.x)  === Math.round(start) ) {
             this.isChangeVectorX1 = false;
