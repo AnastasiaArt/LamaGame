@@ -42,7 +42,7 @@ export class Loading extends Scene {
         this.game.screen.drawScaleImage('progressWrap', width , height, 0,0, 300, 36, this.progressWidth, 36);
         this.game.screen.drawImage(width , height, 'progressStart');
         this.game.screen.drawScaleImage('progress', width+22, height, 0,0, 285, 36, this.persent, 36 );
-        this.game.screen.drawImage(width + this.persent - 50 , height -  this.game.screen.images.progressLama.height/2, 'progressLama');
+        this.game.screen.drawScaleImage('progressLama',width + this.persent - 50 , height -  50, 0,0,232,232,100,100);
         this.game.screen.printText(width + this.progressWidth + 50, height + 27, `${Math.floor(this.persent/3)} %`,'23px', '#ffffff')
     }
 
