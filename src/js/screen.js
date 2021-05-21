@@ -57,17 +57,11 @@ export class Screen {
         let f = new FontFace('Comic', 'url(fonts/Comic.woff2)');
         f.load();
         const loader = new ImageLoader(imageFiles);
-        console.log('3')
-        console.log(this.isImagesLoaded)
         loader.load().then((names) => {
             this.images = Object.assign(this.images, loader.images);
             this.isImagesLoaded = true;
-            console.log('4')
-            console.log(this.isImagesLoaded)
 
         });
-        console.log('5')
-        console.log(this.isImagesLoaded)
     }
 
     loadAudio(audioFiles) {

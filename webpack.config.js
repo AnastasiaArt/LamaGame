@@ -4,6 +4,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+    stats: {
+        children: true,
+    },
     context: path.resolve(__dirname, 'src'),
     mode: "development",
     entry: ['@babel/polyfill', './js/index.js'],
@@ -49,14 +52,25 @@ module.exports = {
                 use: [ MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
-                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                test: /\.(ttf|eot|woff|woff2|svg|gif|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i,
                 use: [{
                     loader: 'file-loader',
                 options: {
                     name: '[name].[ext]',
                     outputPath: 'fonts/',
-                    publicPath: 'sound/',
+                    publicPath: 'fonts/',
                 }
+                }]
+            },
+            {
+                test: /\.(jpe?g|png|gif|mp3)$/i,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'img/',
+                        publicPath: 'img/',
+                    }
                 }]
             },
             {

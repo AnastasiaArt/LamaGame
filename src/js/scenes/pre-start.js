@@ -1,6 +1,5 @@
 import {Scene} from '../scene.js'
 import {Player} from "../player.js";
-import {Button} from "@/js/button";
 
 export class PreStart extends Scene {
     constructor(game) {
@@ -17,6 +16,8 @@ export class PreStart extends Scene {
 
         this.player = new Player(this.game.control, this.game.screen.canvas.height - 300,100);
         this.player.x = 0 - this.player.view.width / 2;
+        this.modal = document.getElementById('modal');
+        this.modalText = document.getElementById('modal-text');
     }
 
     init() {
@@ -24,15 +25,14 @@ export class PreStart extends Scene {
         this.player.view.x = 500;
         this.player.view.y = 500;
         this.player.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
-        this.btnClose = new Button(this.game.screen.canvas.width/2 + 150 - this.game.screen.images.btnClose.width - 20,this.game.screen.canvas.height/2 - 200 + 20, this.game.screen.images.btnClose.width, this.game.screen.images.btnClose.height);
-        this.game.screen.canvas.addEventListener("mousedown",  (e) => {
+    }
+
+    setCloseBtn() {
             if (!this.game.isMute) {
                 this.game.screen.audios.jump.play();
             }
-            if (this.btnClose.checkCollision(e)) {
-                this.changeScene();
-            }
-        }, false);
+            this.changeScene();
+            this.modal.style.display = 'none';
     }
 
     changeScene() {
@@ -59,15 +59,15 @@ export class PreStart extends Scene {
 
     // отрисовка окна для старого юзера
     showModalStart() {
-        this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height/2 - 200, 0, 0, 82, 108, 300, 200);
-        this.game.screen.drawImage(this.game.screen.canvas.width/2 + 150 - this.game.screen.images.btnClose.width - 20, this.game.screen.canvas.height/2 - 200 + 20, 'btnClose');
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 90, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Ты снова здесь!');
-        this.game.screen.printText(this.game.screen.canvas.width/2 - 40, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, ' Ура!');
+        this.modal.style.display = "block";
+        this.modalText.innerHTML = 'Ты снова здесь!<br> Ура!';
     }
 
 
-    // // отрисовка окна для нового юзера
+    // отрисовка окна для нового юзера
     // showModalStart() {
+    //     this.modal.style.display = "block";
+    //     this.modalText.innerHTML = 'Привет, я Лама! <br> Нажимай пробел для прыжка и помни,<br>что через пять столкновений <br>я засну.<br>Тогда придётся начать путь заново!'
     //     this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 248, this.game.screen.canvas.height/2 - 200, 0, 0, 82, 108, 500, 300);
     //     this.game.screen.drawImage(this.game.screen.canvas.width/2 + 238 - this.game.screen.images.btnClose.width - 20, this.game.screen.canvas.height/2 - 200 + 20, 'btnClose');
     //     this.game.screen.printText(this.game.screen.canvas.width/2 - 90, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Привет, я Лама!');
@@ -104,6 +104,7 @@ export class PreStart extends Scene {
             if (this.player.x <= this.game.screen.canvas.width / 2 - this.player.view.width) {
                 this.player.x+= 2;
             } else {
+                this.modal.style.display="block";
                 this.showModalStart();
             }
         }
