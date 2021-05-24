@@ -112,12 +112,18 @@ canvas {
      padding-top: 50px;
      margin: 0;
  }
-
- #modal-game-over {
-     top: 12%;
-     text-align: center;
-     transition:  all 4s ease-in;
- }
+#modal-game-over {
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+@media (max-width: 600px) {
+    #modal-game-over {
+        top: 12%;
+        text-align: center;
+        transform: translate(-50%, 0);
+        transition: all 4s ease-in;
+    }
+}
 
 #modal-game-over  img {
     width: 281px;

@@ -22,7 +22,7 @@ export class PreStart extends Scene {
 
     init() {
         super.init();
-        this.player.view.x = 0 - this.player.view.width / 2;
+        this.player.view.x = 500;
         this.player.view.y = 500;
         this.player.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
     }
@@ -101,7 +101,7 @@ export class PreStart extends Scene {
         this.renderBottomGround();
         if (this.position1.x < 0) {
             this.game.screen.drawSprite(this.player.view);
-            if (this.player.x <= 150) {
+            if (this.player.x <= this.game.screen.canvas.width / 2 - this.player.view.width) {
                 this.player.x+= 2;
             } else {
                 this.modal.style.display="block";

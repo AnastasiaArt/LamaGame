@@ -74,8 +74,8 @@ export class Running extends Scene {
         this.isSunRays = false;
         this.crashAudios = ['crash1', 'crash2'];
         this.player = new Player(this.game.control);
-        this.player.x = 150;
-        this.startPosXCountText = innerWidth > 700 ? 20 : (700 - innerWidth) /2 ;
+        this.player.x = this.game.screen.canvas.width / 2 - this.player.view.width;
+        this.startPosXCountText = innerWidth > 700 ? 20 : (700 - innerWidth) /2 + 20;
     }
 
     init() {
@@ -86,7 +86,7 @@ export class Running extends Scene {
         if (!this.game.isMute) {
             this.player.jumpAudio = this.game.screen.audios.jump;
         }
-        this.player.view.x = 150;
+        this.player.view.x = this.game.screen.canvas.width / 2 - this.player.view.width;
         this.player.view.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
         this.player.y = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;
         this.player.startPosY = this.game.screen.canvas.height - this.game.screen.images.ground.height/2 - this.player.view.height;

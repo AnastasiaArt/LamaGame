@@ -69,6 +69,7 @@ export class GameOver extends Scene {
     }
 
     retry(){
+            this.modalGameOver.style.display = "none";
             this.isShowModal = false;
             this.game.currentScene = new Running(this.game);
             this.game.currentScene.init();

@@ -22,6 +22,8 @@ export class FlyElement {
         this.isJumping ? this.jump() : this.walk();
         this.startPosY = y
         this.isStoped = false;
+        this.startFly = getRandomInt(this.startPosX + 300, this.startPosX + 700);
+        this.startWaveFly =  0 - this.tile.spriteWidth;
     }
 
     // идти
@@ -66,7 +68,7 @@ export class FlyElement {
             this.y += (time - this.lastTime) * (this.velocity.y / 1000);
             this.velocity.y -= 2;
         } else {
-            this.x = getRandomInt(this.startPosX + 300, this.startPosX + 700)
+            this.x = this.startFly;
             this.y = getRandomInt(100, 150) + this.x/4;
             this.velocity.y = 0;
         }
@@ -81,7 +83,7 @@ export class FlyElement {
 
         if (this.isJumping) {
             if (this.x >= this.startPosX) {
-                this.x = 0 - this.tile.spriteWidth;
+                this.x = this.startWaveFly;
                 this.y = 200;
             }
             this.waveFly(time);

@@ -20,15 +20,11 @@ export class Screen {
         let elements = document.getElementsByTagName('canvas');
         let canvas = elements[0] || document.createElement('canvas');
         document.body.appendChild(canvas);
-        // canvas.width = innerWidth;
-        // canvas.height = innerHeight;
         canvas.width = width;
         canvas.height = height;
-        const ratio = innerWidth/innerHeight;
-        if(ratio > 1) {
-            canvas.width = innerHeight*ratio;
-            canvas.height = innerHeight;
-        }
+        // const ratio = innerWidth/innerHeight;
+        // canvas.width = innerHeight*ratio;
+        // canvas.height = innerHeight;
         return canvas;
     }
 
