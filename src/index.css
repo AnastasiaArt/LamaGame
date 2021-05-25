@@ -155,3 +155,18 @@ canvas {
         width: 80%;
     }
 }
+
+@media (max-height: 450px) and (orientation: landscape) {
+    #modal-game-over  img {
+        max-width: 300px;
+    }
+    .modal {
+        max-width: 300px;
+        min-width: auto;
+        width: 80%;
+    }
+    #start-btn {
+        width: 150px;
+        height: 50px;
+    }
+}

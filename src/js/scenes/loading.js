@@ -48,7 +48,12 @@ export class Loading extends Scene {
 
     render(time) {
         this.update(time);
-        this.game.screen.drawScaleImage('bgLoading', -(this.game.screen.canvas.height*1-this.game.screen.canvas.width)/2,0, 0,0, 700, 700, 700,700);
+        const ratio = innerWidth/innerHeight;
+        // if(ratio > 1 && innerHeight < 500) {
+        //     this.game.screen.drawScaleImage('bgLoading', -(this.game.screen.canvas.height * ratio - this.game.screen.canvas.width) / 2, -(700 - this.game.screen.canvas.height)/2, 0, 0, 700, 700, this.game.screen.canvas.height * ratio, 700);
+        // } else {
+            this.game.screen.drawScaleImage('bgLoading', -(this.game.screen.canvas.height*1-this.game.screen.canvas.width)/2,0, 0,0, 700, 700, this.game.screen.canvas.height, this.game.screen.canvas.height );
+        // }
         this.renderProgressBar();
         if (!this.isPressed) {
             this.game.screen.printText(this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height - 50, "Нажмите на лю бую  кнопку")

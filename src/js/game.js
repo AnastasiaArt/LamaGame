@@ -125,6 +125,7 @@ export class Game {
     }
 
     run() {
+        const ratio = innerWidth/innerHeight;
         requestAnimationFrame((time) => this.frame(time));
         // window.addEventListener("resize", this.resize);
         // this.resize();

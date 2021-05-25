@@ -25,7 +25,7 @@ export class Screen {
         canvas.width = width;
         canvas.height = height;
         // const ratio = innerWidth/innerHeight;
-        // if(ratio > 1) {
+        // if(ratio > 1 && innerHeight < 500) {
         //     canvas.width = innerHeight*ratio;
         //     canvas.height = innerHeight;
         // }

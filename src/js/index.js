@@ -1,6 +1,21 @@
 import '../index.css';
-import { Game } from "./game.js";
-
+import { Game } from "./game-desctop.js";
+VK.init(function() {
+    init();
+}, function() {
+    alert('Упс, что пошло не так!')
+}, '5.131');
+function init() {
+    console.log('11111111111111111111')
+    VK.api("users.get", {"fields": "first_name, last_name", "v":"5.73"}, function (data) {
+        console.log(data)
+       const user_name = data.response[0].last_name + data.response[0].first_name;
+       console.log(user_name)
+    });
+    VK.api("wall.post", {"message": "Hello!", "v":"5.73"}, function (data) {
+        alert("Post ID:" + data.response.post_id);
+    });
+}
 window.onload = () => {
     const lamaGame = new Game();
     lamaGame.run();

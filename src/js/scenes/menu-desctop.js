@@ -49,8 +49,8 @@ export class Menu extends Scene {
         this.obstacle5 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 150, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down', this.game.screen.canvas.width/2 + 150,this.game.screen.canvas.height/3.3);
         this.obstacle6 = new AnimateObject('obstacles', this.game.screen.canvas.width/2 + 80, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down', this.game.screen.canvas.width/2 + 80, 30);
         this.obstacle7 = new AnimateObject('obstacles', this.game.screen.images.sky1.width - 70, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down', this.game.screen.images.sky1.width - 70);
-        this.lama = new AnimateObject('menuLama', -150, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.2, 1, 0, this.game.screen.context, this.game.screen.images, 'right', -100, );
-        this.lamaSleep = new AnimateObject('menuLamaSleep', this.game.screen.canvas.width , this.game.screen.canvas.height - this.game.screen.images.menuLamaSleep.height/1.2, 1, 0, this.game.screen.context, this.game.screen.images, 'left', this.game.screen.canvas.width - 270);
+        this.lama = new AnimateObject('menuLama', -400, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.5, 1, 0, this.game.screen.context, this.game.screen.images, 'right', -150, );
+        this.lamaSleep = new AnimateObject('menuLamaSleep', this.game.screen.canvas.width , this.game.screen.canvas.height - this.game.screen.images.menuLamaSleep.height/1.5, 1, 0, this.game.screen.context, this.game.screen.images, 'left', this.game.screen.canvas.width - 250);
 
         if (!this.game.isMute) {
             this.game.screen.audios.intro.play();
