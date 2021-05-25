@@ -24,11 +24,11 @@ export class Screen {
         // canvas.height = innerHeight;
         canvas.width = width;
         canvas.height = height;
-        const ratio = innerWidth/innerHeight;
-        if(ratio > 1) {
-            canvas.width = innerHeight*ratio;
-            canvas.height = innerHeight;
-        }
+        // const ratio = innerWidth/innerHeight;
+        // if(ratio > 1) {
+        //     canvas.width = innerHeight*ratio;
+        //     canvas.height = innerHeight;
+        // }
         return canvas;
     }
 

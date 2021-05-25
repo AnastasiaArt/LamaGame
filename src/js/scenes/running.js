@@ -75,7 +75,7 @@ export class Running extends Scene {
         this.crashAudios = ['crash1', 'crash2'];
         this.player = new Player(this.game.control);
         this.player.x = 150;
-        this.startPosXCountText = innerWidth > 700 ? 20 : (700 - innerWidth) /2 ;
+        this.startPosXCountText = innerWidth > 700 ? 20 : (700 - innerWidth) /2 + 20;
     }
 
     init() {
