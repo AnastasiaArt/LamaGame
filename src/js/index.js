@@ -12,8 +12,30 @@ function init() {
        const user_name = data.response[0].last_name + data.response[0].first_name;
        console.log(user_name)
     });
+}
+function publish() {
+    let upload_url = '';
+    VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
+       upload_url = data.response;
+    });
+    const image = {
+        uri: "https://anastasiaart.github.io/img/scenes/loading/bg.png",
+        type: 'image/jpeg',
+        name: 'imgToWall.png'
+    }
+    let xhr  = new XMLHttpRequest();              // create XMLHttpRequest
+    let data = new FormData({});                // create formData object
+    data.append("photo", image)
+    try {
+        xhr.open("post", upload_url);      // open connection
+        xhr.send(data);
+        console.log(data)
+        console.log(xhr.response)
+    } catch(err) {
+        console.log(err)
+    }
     VK.api("wall.post", {"message": "Hello!", "v":"5.73"}, function (data) {
-        alert("Post ID:" + data.response.post_id);
+        console.log("Post ID:" + data.response.post_id);
     });
 }
 window.onload = () => {
