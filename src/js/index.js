@@ -19,6 +19,10 @@ function publish() {
     VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
        upload_url = data.response;
     });
+    VK.api("apps.get", {"v":"5.73"}, function (data) {
+        console.log(data.response);
+    });
+
     const image = {
         uri: "https://anastasiaart.github.io/img/scenes/loading/bg.png",
         type: 'image/jpeg',
