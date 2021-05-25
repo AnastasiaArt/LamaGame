@@ -29,7 +29,7 @@ function publish() {
         name: 'imgToWall.png'
     }
     let xhr  = new XMLHttpRequest();              // create XMLHttpRequest
-    let data = new FormData({});                // create formData object
+    let data = new FormData();                // create formData object
     data.append("photo", image)
     try {
         xhr.open("post", upload_url);      // open connection
