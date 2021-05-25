@@ -2,6 +2,7 @@ import '../index.css';
 import { Game } from "./game-desctop.js";
 VK.init(function() {
     init();
+    publish();
 }, function() {
     alert('Упс, что пошло не так!')
 }, '5.131');
