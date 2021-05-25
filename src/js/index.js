@@ -6,6 +6,7 @@ VK.init(function() {
 }, function() {
     alert('Упс, что пошло не так!')
 }, '5.131');
+let user = null;
 function init() {
     console.log('11111111111111111111')
     VK.api("users.get", {"fields": "first_name, last_name", "v":"5.73"}, function (data) {
@@ -19,9 +20,10 @@ function publish() {
     VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
        upload_url = data.response;
     });
-    VK.api("apps.get", {"v":"5.73"}, function (data) {
+    VK.api("apps.get", {"extended": 1,"v":"5.73"}, function (data) {
         console.log(data.response);
     });
+    let x;
 
     const image = {
         uri: "https://anastasiaart.github.io/img/scenes/loading/bg.png",
@@ -29,10 +31,19 @@ function publish() {
         name: 'imgToWall.png'
     }
     let xhr  = new XMLHttpRequest();              // create XMLHttpRequest
-    let data = new FormData();                // create formData object
-    data.append("photo", image)
+    let data = new FormData();
+    xhr.responseType = "blob";
+    xhr.onload = function() {
+        data.append("imageFile", xhr.response);
+        x = new XMLHttpRequest();
+        x.open("POST",upload_url,true);
+        x.setRequestHeader("Content-type", "multipart/form-data");
+        x.setRequestHeader("Content-Length", data.length);
+        x.send(data);
+    }// create formData object
+    // data.append("photo", image)
     try {
-        xhr.open("post", upload_url);      // open connection
+        xhr.open("GET", "https://anastasiaart.github.io/img/scenes/loading/bg.png");     // open connection
         xhr.send(data);
         console.log(data)
         console.log(xhr.response)
@@ -43,6 +54,30 @@ function publish() {
         console.log("Post ID:" + data.response.post_id);
     });
 }
+
+function getUser() {
+    let user = null;
+    VK.api("users.get", {"fields": "first_name, last_name, user_id", "v":"5.73"}, function (data) {
+        user = data.response[0];
+        console.log(user)
+    });
+    return user;
+}
+export function addCount(value=100) {
+    const user = getUser();
+    VK.api("secure.addAppEvent", {"user_id": user.user_id, "activity_id": 2, "value":  value, "v":"5.73"}, function (data) {
+        console.log(data)
+    });
+}
+export function getCount(value=100) {
+    const user = getUser();
+    let count = 0;
+    VK.api("apps.getScore", {"user_id": user.user_id, "v":"5.73"}, function (data) {
+        count = data;
+        console.log(data)
+    });
+}
+
 window.onload = () => {
     const lamaGame = new Game();
     lamaGame.run();

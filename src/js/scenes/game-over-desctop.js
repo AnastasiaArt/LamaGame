@@ -4,6 +4,7 @@ import {SpriteSheet} from "../sprite-sheet";
 import {AnimateObject} from "@/js/animateObject";
 import {Running} from "@/js/scenes/running";
 import {FlyElement} from "@/js/flyElement";
+import {addCount, getCount} from "@/js/index"
 
 export class GameOver extends Scene {
     constructor(game) {
@@ -42,6 +43,7 @@ export class GameOver extends Scene {
         this.modalGameOver = document.getElementById('modal-game-over');
         this.modalGameOverText = document.getElementById('modal-text-game-over');
         this.modalGameOverBtns = document.getElementById('modal-game-over__btns');
+        this.bestCount = getCount();
         // this.bird = new FlyElement(this.game.screen.canvas.width/2,0,'bird', 400, 100, 100, 100);
         // this.bird.y = this.game.screen.canvas.height/2;
         // this.mouse = new FlyElement(this.game.screen.canvas.width,200,'mouse', 500, 100, 100, 100, true);
@@ -59,7 +61,10 @@ export class GameOver extends Scene {
     showModalRetry() {
         this.modalGameOverBtns.style.display = "flex";
         this.modalGameOver.style.display = "block";
-        this.modalGameOverText.innerHTML = 'Лучший результат: <br>' + this.game.count + '<br> Ваш результат: <br>' + this.game.count;
+        this.modalGameOverText.innerHTML = 'Лучший результат: <br>' + this.bestCount + '<br> Ваш результат: <br>' + this.game.count;
+        if (this.game.count > this.bestCount) {
+            addCount();
+        }
     }
 
     init() {
