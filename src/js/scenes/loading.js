@@ -48,7 +48,7 @@ export class Loading extends Scene {
 
     render(time) {
         this.update(time);
-        this.game.screen.drawScaleImage('bgLoading', -(this.game.screen.canvas.height*1-this.game.screen.canvas.width)/2,0, 0,0, 800, 800, this.game.screen.canvas.height*1, this.game.screen.canvas.height );
+        this.game.screen.drawScaleImage('bgLoading', -(this.game.screen.canvas.height*1-this.game.screen.canvas.width)/2,0, 0,0, 700, 700, 700,700);
         this.renderProgressBar();
         if (!this.isPressed) {
             this.game.screen.printText(this.game.screen.canvas.width/2 - 150, this.game.screen.canvas.height - 50, "Нажмите на лю бую  кнопку")
