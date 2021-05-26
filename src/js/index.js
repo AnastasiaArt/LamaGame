@@ -38,14 +38,11 @@ function publish() {
         x.send(data);
     }// create formData object
     // data.append("photo", image)
-    try {
         xhr.open("GET", "https://anastasiaart.github.io/img/scenes/loading/bg.png");     // open connection
-        xhr.send(data);
+        xhr.send();
         console.log(data)
         console.log(xhr.response)
-    } catch(err) {
-        console.log(err)
-    }
+    console.log(x.response)
     VK.api("wall.post", {"message": "Hello!", "attachments": photo_604,"v":"5.73"}, function (data) {
         console.log("Post ID:" + data.response.post_id);
     });
