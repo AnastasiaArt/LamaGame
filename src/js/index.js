@@ -29,23 +29,23 @@ function publish() {
         console.log(data.response.items[0].screenshots[0])
         photo = data.response.items[0].screenshots[0].id;
     });
-    let x;
-
-    let xhr  = new XMLHttpRequest();              // create XMLHttpRequest
-    let data = new FormData();
-    xhr.responseType = "blob";
-    xhr.onload = function() {
-        data.append("photo", xhr.response);
-        x = new XMLHttpRequest();
-        x.open("POST",upload_url.upload_url,true);
-        x.send(data);
-    }// create formData object
-    // data.append("photo", image)
-        xhr.open("GET", "https://anastasiaart.github.io/img/scenes/loading/bg.png");     // open connection
-        xhr.send();
-        console.log(data)
-        console.log(xhr.response)
-    console.log(x.response)
+    // let x;
+    //
+    // let xhr  = new XMLHttpRequest();              // create XMLHttpRequest
+    // let data = new FormData();
+    // xhr.responseType = "blob";
+    // xhr.onload = function() {
+    //     data.append("photo", xhr.response);
+    //     x = new XMLHttpRequest();
+    //     x.open("POST",upload_url.upload_url,true);
+    //     x.send(data);
+    // }// create formData object
+    // // data.append("photo", image)
+    //     xhr.open("GET", "https://anastasiaart.github.io/img/scenes/loading/bg.png");     // open connection
+    //     xhr.send();
+    //     console.log(data)
+    //     console.log(xhr.response)
+    // console.log(x.response)
 
     VK.api("wall.post", {"message": "Hello!", "attachments": `photo-${userGlobal.id}_${photo}`,"v":"5.73"}, function (data) {
         console.log("Post ID:" + data.response.post_id);
