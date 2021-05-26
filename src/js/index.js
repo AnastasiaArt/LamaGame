@@ -17,7 +17,6 @@ function init() {
        console.log(userGlobal)
         if (data.response) {
            getCount();
-           addCount(100);
         }
 
     });
@@ -47,7 +46,7 @@ function publish() {
     let d = new FormData();
     xhr.responseType = "blob";
     xhr.onload = function() {
-        d.append("photo", xhr.response);
+        d.append("photo", xhr.response, 'upload.png');
         x = new XMLHttpRequest();
         x.open("POST",upload.upload_url,true);
         x.send(d);
