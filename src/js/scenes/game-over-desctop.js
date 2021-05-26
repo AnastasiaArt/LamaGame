@@ -62,7 +62,7 @@ export class GameOver extends Scene {
     showModalRetry() {
         this.modalGameOverBtns.style.display = "flex";
         this.modalGameOver.style.display = "block";
-        this.modalGameOverText.innerHTML = 'Лучший результат: <br>' + this.game.count + '<br> Ваш результат: <br>' + this.game.count;
+        this.modalGameOverText.innerHTML = 'Лучший результат: <br>' + this.bestCount + '<br> Ваш результат: <br>' + this.game.count;
         if (this.game.count > this.bestCount && !this.isFinishGame) {
             try {
                 this.isFinishGame = true;
@@ -75,7 +75,7 @@ export class GameOver extends Scene {
 
     init() {
         super.init();
-        // this.bestCount = getCount();
+        this.bestCount = getCount();
         this.modalGameOverBtns.style.display = "none";
         this.sky1 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2, 1, 0, this.game.screen.context, this.game.screen.images, 'left', this.game.screen.canvas.width/2 - 470);
         this.sky5 = new AnimateObject('sky3', this.game.screen.canvas.width, 50, 1, 0, this.game.screen.context, this.game.screen.images, 'left',  this.game.screen.canvas.width/2 - 50);
