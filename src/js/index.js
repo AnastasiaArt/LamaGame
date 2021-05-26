@@ -22,6 +22,8 @@ function publish() {
        upload_url = data.response;
     });
     VK.api("apps.get", {"extended": 1,"v":"5.73"}, function (data) {
+        console.log(data.response.items[0])
+        console.log(data.response.items[0].screenshots[0])
         photo604 = data.response.items[0].screenshots[0].photo_604;
     });
     let x;
