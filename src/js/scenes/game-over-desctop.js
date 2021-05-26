@@ -43,7 +43,7 @@ export class GameOver extends Scene {
         this.modalGameOver = document.getElementById('modal-game-over');
         this.modalGameOverText = document.getElementById('modal-text-game-over');
         this.modalGameOverBtns = document.getElementById('modal-game-over__btns');
-        this.bestCount = getCount();
+        this.bestCount=0;
         // this.bird = new FlyElement(this.game.screen.canvas.width/2,0,'bird', 400, 100, 100, 100);
         // this.bird.y = this.game.screen.canvas.height/2;
         // this.mouse = new FlyElement(this.game.screen.canvas.width,200,'mouse', 500, 100, 100, 100, true);
@@ -69,6 +69,7 @@ export class GameOver extends Scene {
 
     init() {
         super.init();
+        this.bestCount = getCount();
         this.modalGameOverBtns.style.display = "none";
         this.sky1 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2, 1, 0, this.game.screen.context, this.game.screen.images, 'left', this.game.screen.canvas.width/2 - 470);
         this.sky5 = new AnimateObject('sky3', this.game.screen.canvas.width, 50, 1, 0, this.game.screen.context, this.game.screen.images, 'left',  this.game.screen.canvas.width/2 - 50);

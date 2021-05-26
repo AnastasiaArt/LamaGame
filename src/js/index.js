@@ -7,12 +7,16 @@ VK.init(function() {
     alert('Упс, что пошло не так!')
 }, '5.131');
 let userGlobal = null;
+let globalCount = 0;
 function init() {
     console.log('11111111111111111111')
     VK.api("users.get", {"fields": "first_name, last_name, id", "v":"5.73"}, function (data) {
         console.log(data)
         userGlobal = data.response[0];
        console.log(userGlobal)
+        if (data.response) {
+           getCount();
+        }
 
     });
 }
@@ -61,20 +65,19 @@ function getUser() {
     });
     return user;
 }
-export function addCount(value=100) {
-    const user = getUser();
-    VK.api("secure.addAppEvent", {"user_id": user.id, "activity_id": 2, "value":  value, "v":"5.73"}, function (data) {
+export function addCount(value=100) {;
+    VK.api("secure.addAppEvent", {"user_id": userGlobal.id, "activity_id": 2, "value":  value, "v":"5.73"}, function (data) {
         console.log(data)
         console.log(data)
     });
 }
-export function getCount(value=100) {
-    const user = getUser();
-    let count = 0;
-    VK.api("apps.getScore", {"user_id": user.id, "v":"5.73"}, function (data) {
-        count = data;
+export function getCount() {
+    VK.api("apps.getScore", {"user_id": userGlobal.id, "v": "5.73"}, function (data) {
+        globalCount = data;
         console.log(data)
     });
+    return  globalCount;
+
 }
 
 window.onload = () => {
