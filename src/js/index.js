@@ -27,7 +27,7 @@ function publish() {
     let owner_id = '';
     VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
         console.log(data)
-       upload = data.response;
+       upload = data;
        console.log(upload)
     });
     VK.api("apps.get", {"extended": 1,"v":"5.73"}, function (data) {
@@ -48,7 +48,7 @@ function publish() {
     xhr.onload = function() {
         d.append("photo", xhr.response, 'upload.png');
         x = new XMLHttpRequest();
-        x.open("POST",upload.upload_url,true);
+        x.open("POST",upload,true);
         x.send(d);
     }// create formData object
     // data.append("photo", image)
