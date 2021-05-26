@@ -4,7 +4,7 @@ import {SpriteSheet} from "../sprite-sheet";
 import {AnimateObject} from "@/js/animateObject";
 import {Running} from "@/js/scenes/running";
 import {FlyElement} from "@/js/flyElement";
-// import {addCount, getCount} from "@/js/index"
+import {addCount, getCount} from "@/js/index"
 
 export class GameOver extends Scene {
     constructor(game) {
@@ -63,15 +63,14 @@ export class GameOver extends Scene {
         this.modalGameOverBtns.style.display = "flex";
         this.modalGameOver.style.display = "block";
         this.modalGameOverText.innerHTML = 'Лучший результат: <br>' + this.game.count + '<br> Ваш результат: <br>' + this.game.count;
-        // if (this.game.count > this.bestCount && !this.isFinishGame) {
-        //     try {
-        //         this.isFinishGame = true;
-        //         console.log('12222222222222222')
-        //         addCount(this.game.count);
-        //     } catch(err) {
-        //         console.log(err)
-        //     }
-        // }
+        if (this.game.count > this.bestCount && !this.isFinishGame) {
+            try {
+                this.isFinishGame = true;
+                addCount(this.game.count);
+            } catch(err) {
+                console.log(err)
+            }
+        }
     }
 
     init() {
