@@ -20,6 +20,7 @@ function publish() {
     let photo604='';
     VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
        upload_url = data.response;
+       console.log(upload_url)
     });
     VK.api("apps.get", {"extended": 1,"v":"5.73"}, function (data) {
         console.log(data.response.items[0])
@@ -34,7 +35,7 @@ function publish() {
     xhr.onload = function() {
         data.append("photo", xhr.response);
         x = new XMLHttpRequest();
-        x.open("POST",upload_url,true);
+        x.open("POST",upload_url.upload_url,true);
         x.send(data);
     }// create formData object
     // data.append("photo", image)
