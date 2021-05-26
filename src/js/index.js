@@ -73,7 +73,7 @@ export function addCount(value=100) {;
 }
 export function getCount() {
     VK.api("apps.getScore", {"user_id": userGlobal.id, "v": "5.73"}, function (data) {
-        globalCount = data;
+        globalCount = data.response;
         console.log(data)
     });
     return  globalCount;
