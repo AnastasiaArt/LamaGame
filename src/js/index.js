@@ -71,7 +71,7 @@ export function addCount(value=100) {
 export function getCount(value=100) {
     const user = getUser();
     let count = 0;
-    VK.api("apps.getScore", {"user_id": user.user_id, "v":"5.73"}, function (data) {
+    VK.api("apps.getScore", {"user_id": user.id, "v":"5.73"}, function (data) {
         count = data;
         console.log(data)
     });
