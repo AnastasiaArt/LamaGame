@@ -6,18 +6,19 @@ VK.init(function() {
 }, function() {
     alert('Упс, что пошло не так!')
 }, '5.131');
-let user = null;
+let userGlobal = null;
 function init() {
     console.log('11111111111111111111')
-    VK.api("users.get", {"fields": "first_name, last_name", "v":"5.73"}, function (data) {
+    VK.api("users.get", {"fields": "first_name, last_name, id", "v":"5.73"}, function (data) {
         console.log(data)
-       const user_name = data.response[0].last_name + data.response[0].first_name;
-       console.log(user_name)
+        userGlobal = data.response[0];
+       console.log(userGlobal)
+
     });
 }
 function publish() {
     let upload_url = '';
-    let photo604='';
+    let photo='';
     VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
         console.log(data)
        upload_url = data.response;
@@ -26,7 +27,7 @@ function publish() {
     VK.api("apps.get", {"extended": 1,"v":"5.73"}, function (data) {
         console.log(data.response.items[0])
         console.log(data.response.items[0].screenshots[0])
-        photo604 = data.response.items[0].screenshots[0].photo_604;
+        photo = data.response.items[0].screenshots[0].id;
     });
     let x;
 
@@ -45,14 +46,15 @@ function publish() {
         console.log(data)
         console.log(xhr.response)
     console.log(x.response)
-    VK.api("wall.post", {"message": "Hello!", "attachments": photo_604,"v":"5.73"}, function (data) {
+
+    VK.api("wall.post", {"message": "Hello!", "attachments": `photo-${userGlobal.id}_${photo}`,"v":"5.73"}, function (data) {
         console.log("Post ID:" + data.response.post_id);
     });
 }
 
 function getUser() {
     let user = null;
-    VK.api("users.get", {"fields": "first_name, last_name, user_id", "v":"5.73"}, function (data) {
+    VK.api("users.get", {"fields": "first_name, last_name, id", "v":"5.73"}, function (data) {
         user = data.response[0];
         console.log(user)
     });
@@ -60,7 +62,8 @@ function getUser() {
 }
 export function addCount(value=100) {
     const user = getUser();
-    VK.api("secure.addAppEvent", {"user_id": user.user_id, "activity_id": 2, "value":  value, "v":"5.73"}, function (data) {
+    VK.api("secure.addAppEvent", {"user_id": user.id, "activity_id": 2, "value":  value, "v":"5.73"}, function (data) {
+        console.log(data)
         console.log(data)
     });
 }
