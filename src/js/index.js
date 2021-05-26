@@ -8,6 +8,7 @@ VK.init(function() {
 }, '5.131');
 let userGlobal = null;
 let globalCount = 0;
+
 function init() {
     console.log('11111111111111111111')
     VK.api("users.get", {"fields": "first_name, last_name, id", "v":"5.73"}, function (data) {
@@ -99,7 +100,7 @@ window.onload = () => {
     const retryBtn = document.getElementById('retry-btn');
     retryBtn.addEventListener("mousedown",  (e) => {
         lamaGame.scenes.gameOver.retry()}, false);
-    const shareBtn = document.getElementById('retry-btn');
+    const shareBtn = document.getElementById('share-btn');
     shareBtn.addEventListener("mousedown",  (e) => {
         publish()}, false);
 

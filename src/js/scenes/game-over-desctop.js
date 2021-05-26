@@ -44,6 +44,7 @@ export class GameOver extends Scene {
         this.modalGameOverText = document.getElementById('modal-text-game-over');
         this.modalGameOverBtns = document.getElementById('modal-game-over__btns');
         this.bestCount=0;
+        this.isFinishGame = false;
         // this.bird = new FlyElement(this.game.screen.canvas.width/2,0,'bird', 400, 100, 100, 100);
         // this.bird.y = this.game.screen.canvas.height/2;
         // this.mouse = new FlyElement(this.game.screen.canvas.width,200,'mouse', 500, 100, 100, 100, true);
@@ -62,9 +63,14 @@ export class GameOver extends Scene {
         this.modalGameOverBtns.style.display = "flex";
         this.modalGameOver.style.display = "block";
         this.modalGameOverText.innerHTML = 'Лучший результат: <br>' + this.bestCount + '<br> Ваш результат: <br>' + this.game.count;
-        console.log('12222222222222222')
-        if (this.game.count > this.bestCount) {
-            addCount(this.game.count);
+        if (this.game.count > this.bestCount && !this.isFinishGame) {
+            try {
+                this.isFinishGame = true;
+                console.log('12222222222222222')
+                addCount(this.game.count);
+            } catch(err) {
+                console.log(err)
+            }
         }
     }
 
@@ -91,6 +97,10 @@ export class GameOver extends Scene {
         this.textGameOver = new AnimateObject('textGameOver', this.game.screen.canvas.width/2, this.game.screen.canvas.height/7, 0, 0, this.game.screen.context, this.game.screen.images);
 
         setTimeout(()=> { this.isShowModal = true;}, 5000);
+        // document.addEventListener("mousedown",  (e) => {
+        //    if(this.isFinishGame) {
+        //        addCount(this.game.count)
+        //    }}, false);
     }
 
     retry(){
