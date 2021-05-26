@@ -19,6 +19,7 @@ function publish() {
     let upload_url = '';
     let photo604='';
     VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
+        console.log(data)
        upload_url = data.response;
        console.log(upload_url)
     });
