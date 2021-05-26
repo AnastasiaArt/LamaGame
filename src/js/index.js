@@ -23,6 +23,7 @@ function init() {
 function publish() {
     let upload_url = '';
     let photo='';
+    let owner_id = '';
     // VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
     //     console.log(data)
     //    upload_url = data.response;
@@ -32,7 +33,10 @@ function publish() {
         console.log(data.response.items[0])
         console.log(data.response.items[0].screenshots[0])
         photo = data.response.items[0].screenshots[0].id;
+        owner_id = data.response.items[0].screenshots[0].owner_id
+
         console.log(photo)
+        console.log(owner_id)
     });
     // let x;
     //
@@ -51,8 +55,8 @@ function publish() {
     //     console.log(data)
     //     console.log(xhr.response)
     // console.log(x.response)
-    console.log(`photo-${userGlobal.id}_${photo}`)
-    VK.api("wall.post", {"message": "Hello!", "attachments": `photo-${userGlobal.id}_${photo}`,"v":"5.73"}, function (data) {
+    console.log(`photo-${owner_id}_${photo}`)
+    VK.api("wall.post", {"message": "Hello!", "attachments": `photo${owner_id}_${photo}`,"v":"5.73"}, function (data) {
         console.log("Post ID:" + data.response.post_id);
     });
 }
