@@ -32,7 +32,7 @@ function publish() {
     let data = new FormData();
     xhr.responseType = "blob";
     xhr.onload = function() {
-        data.append("imageFile", xhr.response);
+        data.append("photo", xhr.response);
         x = new XMLHttpRequest();
         x.open("POST",upload_url,true);
         x.send(data);
