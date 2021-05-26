@@ -71,6 +71,7 @@ function getUser() {
 }
 export function addCount(value) {
     VK.api("utils.getServerTime", {"v":"5.131"}, function (data) {
+        console.log(data)
         if(data.response) {
             VK.api("secure.addAppEvent", {
                 "user_id": userGlobal.id,
