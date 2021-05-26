@@ -17,6 +17,7 @@ function init() {
        console.log(userGlobal)
         if (data.response) {
            getCount();
+           addCount(100);
         }
 
     });
