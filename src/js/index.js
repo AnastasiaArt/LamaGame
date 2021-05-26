@@ -40,7 +40,6 @@ function publish() {
 
         console.log(photo)
         console.log(owner_id)
-    });
     // let x;
     //
     // let xhr  = new XMLHttpRequest();              // create XMLHttpRequest
@@ -58,9 +57,16 @@ function publish() {
     //     console.log(data)
     //     console.log(xhr.response)
     // console.log(x.response)
-    console.log(`photo-${owner_id}_${photo}`)
-    VK.api("wall.post", {"message": "Hello!", "attachments": `photo${owner_id}_${photo}`,"v":"5.73"}, function (data) {
-        console.log("Post ID:" + data.response.post_id);
+        if (data.response) {
+            console.log(`photo-${owner_id}_${photo}`)
+            VK.api("wall.post", {
+                "message": "Hello!",
+                "attachments": `photo${owner_id}_${photo}`,
+                "v": "5.73"
+            }, function (data) {
+                console.log("Post ID:" + data.response.post_id);
+            });
+        }
     });
 }
 
@@ -80,6 +86,7 @@ export function addCount(value) {
                 "user_id": userGlobal.id,
                 "activity_id": 2,
                 "value": value,
+                "timestamp": data.response,
                 "v": "5.73"
             }, function (data) {
                 console.log(data)
