@@ -11,7 +11,7 @@ let globalCount = 0;
 
 function init() {
     console.log('11111111111111111111')
-    VK.api("users.get", {"fields": "first_name, last_name, id", "v":"5.73"}, function (data) {
+    VK.api("users.get", {"fields": "first_name, last_name, id", "v":"5.131"}, function (data) {
         console.log(data)
         userGlobal = data.response[0];
         if (data.response) {
@@ -24,11 +24,11 @@ function publish() {
     let upload = '';
     let photo='';
     let owner_id = '';
-    VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
+    VK.api("photos.getWallUploadServer", {"v":"5.131"}, function (data) {
         console.log(data)
         upload = data.response;
     });
-    VK.api("apps.get", {"extended": 1,"v":"5.73"}, function (data) {
+    VK.api("apps.get", {"extended": 1,"v":"5.131"}, function (data) {
         console.log(data.response)
         photo = data.response.items[0].screenshots[0].id;
         owner_id = data.response.items[0].screenshots[0].owner_id
@@ -55,7 +55,7 @@ function publish() {
             VK.api("wall.post", {
                 "message": "Hello!",
                 "attachments": `photo${owner_id}_${photo}`,
-                "v": "5.73"
+                "v": "5.131"
             }, function (data1) {
                 console.log("Post ID:" + data1.response.post_id);
             });
@@ -72,7 +72,7 @@ function getUser() {
     return user;
 }
 export function addCount(value) {
-    VK.api("utils.getServerTime", {"v":"5.73"}, function (data) {
+    VK.api("utils.getServerTime", {"v":"5.131"}, function (data) {
         if(data.response) {
             VK.api("secure.addAppEvent", {
                 "user_id": userGlobal.id,
@@ -86,7 +86,7 @@ export function addCount(value) {
     });
 }
 export function getCount() {
-    VK.api("apps.getScore", {"user_id": userGlobal.id, "v": "5.73"}, function (data) {
+    VK.api("apps.getScore", {"user_id": userGlobal.id, "v": "5.131"}, function (data) {
         globalCount = data.response;
         console.log(data)
     });
