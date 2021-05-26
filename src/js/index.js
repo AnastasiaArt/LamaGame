@@ -31,6 +31,8 @@ function publish() {
     //    console.log(upload_url)
     // });
     VK.api("apps.get", {"extended": 1,"v":"5.73"}, function (data) {
+        console.log(data.response)
+        console.log(data.response.items)
         console.log(data.response.items[0])
         console.log(data.response.items[0].screenshots[0])
         photo = data.response.items[0].screenshots[0].id;
@@ -93,6 +95,29 @@ export function getCount() {
     return  globalCount;
 
 }
+function wallPost(message, image, user_id) {
+    VK.api('photos.getWallUploadServer', {
+        uid: user_id
+    }, function (data) {
+        if (data.response) {
+            $.post('/upload/', {  // url на ВАШЕМ сервере, который будет загружать изображение на сервер контакта (upload_url)
+                upload_url: data.response.upload_url,
+                image: image,
+            }, function (json) {
+                VK.api("photos.saveWallPhoto", {
+                    server: json.server,
+                    photo: json.photo,
+                    hash: json.hash,
+                    uid: user_id
+                }, function (data) {
+                    VK.api('wall.post', {
+                        message: message,
+                        attachments: data.response['0'].id
+                    });
+                });
+            }, 'json');
+        }
+    });
 
 window.onload = () => {
     const lamaGame = new Game();
