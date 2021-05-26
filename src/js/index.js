@@ -16,6 +16,10 @@ function init() {
         if (data.response) {
             getCount();
         }
+        let xhr  = new XMLHttpRequest();
+        xhr.open("GET", 'https://oauth.vk.com/access_token?client_id=7837700&client_secret=Z6Oi0DAhqjXM7cTBD5rY&v=5.131&grant_type=client_credentials');     // open connection
+        xhr.send();
+        console.log(xhr.response)
     });
 }
 function publish() {
