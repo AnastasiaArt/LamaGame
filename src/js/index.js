@@ -70,10 +70,19 @@ function getUser() {
     });
     return user;
 }
-export function addCount(value) {;
-    VK.api("secure.addAppEvent", {"user_id": userGlobal.id, "activity_id": 2, "value":  value, "v":"5.73"}, function (data) {
-        console.log(data)
-        console.log(data)
+export function addCount(value) {
+    VK.api("utils.getServerTime", {"v":"5.73"}, function (data) {
+        if(data.response) {
+            VK.api("secure.addAppEvent", {
+                "user_id": userGlobal.id,
+                "activity_id": 2,
+                "value": value,
+                "v": "5.73"
+            }, function (data) {
+                console.log(data)
+                console.log(data)
+            });
+        }
     });
 }
 export function getCount() {
