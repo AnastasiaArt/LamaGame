@@ -22,14 +22,14 @@ function init() {
     });
 }
 function publish() {
-    let upload_url = '';
+    let upload = '';
     let photo='';
     let owner_id = '';
-    // VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
-    //     console.log(data)
-    //    upload_url = data.response;
-    //    console.log(upload_url)
-    // });
+    VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
+        console.log(data)
+       upload = data.response;
+       console.log(upload)
+    });
     VK.api("apps.get", {"extended": 1,"v":"5.73"}, function (data) {
         console.log(data.response)
         console.log(data.response.items)
@@ -40,31 +40,31 @@ function publish() {
 
         console.log(photo)
         console.log(owner_id)
-    // let x;
-    //
-    // let xhr  = new XMLHttpRequest();              // create XMLHttpRequest
-    // let data = new FormData();
-    // xhr.responseType = "blob";
-    // xhr.onload = function() {
-    //     data.append("photo", xhr.response);
-    //     x = new XMLHttpRequest();
-    //     x.open("POST",upload_url.upload_url,true);
-    //     x.send(data);
-    // }// create formData object
-    // // data.append("photo", image)
-    //     xhr.open("GET", "https://anastasiaart.github.io/img/scenes/loading/bg.png");     // open connection
-    //     xhr.send();
-    //     console.log(data)
-    //     console.log(xhr.response)
-    // console.log(x.response)
-        if (data.response) {
-            console.log(`photo-${owner_id}_${photo}`)
+    let x;
+
+    let xhr  = new XMLHttpRequest();              // create XMLHttpRequest
+    let d = new FormData();
+    xhr.responseType = "blob";
+    xhr.onload = function() {
+        d.append("photo", xhr.response);
+        x = new XMLHttpRequest();
+        x.open("POST",upload.upload_url,true);
+        x.send(d);
+    }// create formData object
+    // data.append("photo", image)
+        xhr.open("GET", "https://anastasiaart.github.io/img/scenes/loading/bg.png");     // open connection
+        xhr.send();
+        console.log(d)
+        console.log(xhr.response)
+    console.log(x.response)
+        if (d.response) {
+            console.log(`photo${owner_id}_${photo}`)
             VK.api("wall.post", {
                 "message": "Hello!",
                 "attachments": `photo${owner_id}_${photo}`,
                 "v": "5.73"
-            }, function (data) {
-                console.log("Post ID:" + data.response.post_id);
+            }, function (data1) {
+                console.log("Post ID:" + data1.response.post_id);
             });
         }
     });
