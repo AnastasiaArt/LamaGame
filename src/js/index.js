@@ -83,7 +83,6 @@ export function addCount(value) {
                 "user_id": userGlobal.id,
                 "activity_id": 2,
                 "value": value,
-                "timestamp": data.response,
                 "v": "5.73"
             }, function (data) {
                 console.log(data)
