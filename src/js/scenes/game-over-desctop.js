@@ -62,8 +62,9 @@ export class GameOver extends Scene {
         this.modalGameOverBtns.style.display = "flex";
         this.modalGameOver.style.display = "block";
         this.modalGameOverText.innerHTML = 'Лучший результат: <br>' + this.bestCount + '<br> Ваш результат: <br>' + this.game.count;
+        console.log('12222222222222222')
         if (this.game.count > this.bestCount) {
-            addCount();
+            addCount(this.game.count);
         }
     }
 
