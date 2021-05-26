@@ -17,19 +17,15 @@ function init() {
 }
 function publish() {
     let upload_url = '';
+    let photo604='';
     VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
        upload_url = data.response;
     });
     VK.api("apps.get", {"extended": 1,"v":"5.73"}, function (data) {
-        console.log(data.response);
+        photo604 = data.response.items[0].screenshots[0].photo_604;
     });
     let x;
 
-    const image = {
-        uri: "https://anastasiaart.github.io/img/scenes/loading/bg.png",
-        type: 'image/jpeg',
-        name: 'imgToWall.png'
-    }
     let xhr  = new XMLHttpRequest();              // create XMLHttpRequest
     let data = new FormData();
     xhr.responseType = "blob";
@@ -37,8 +33,6 @@ function publish() {
         data.append("imageFile", xhr.response);
         x = new XMLHttpRequest();
         x.open("POST",upload_url,true);
-        x.setRequestHeader("Content-type", "multipart/form-data");
-        x.setRequestHeader("Content-Length", data.length);
         x.send(data);
     }// create formData object
     // data.append("photo", image)
@@ -50,7 +44,7 @@ function publish() {
     } catch(err) {
         console.log(err)
     }
-    VK.api("wall.post", {"message": "Hello!", "v":"5.73"}, function (data) {
+    VK.api("wall.post", {"message": "Hello!", "attachments": photo_604,"v":"5.73"}, function (data) {
         console.log("Post ID:" + data.response.post_id);
     });
 }
