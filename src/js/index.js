@@ -56,8 +56,6 @@ function publish() {
         xhr.send();
         console.log(d)
         console.log(xhr.response)
-    console.log(x.response)
-        if (d.response) {
             console.log(`photo${owner_id}_${photo}`)
             VK.api("wall.post", {
                 "message": "Hello!",
@@ -66,7 +64,6 @@ function publish() {
             }, function (data1) {
                 console.log("Post ID:" + data1.response.post_id);
             });
-        }
     });
 }
 
