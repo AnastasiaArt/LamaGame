@@ -2,7 +2,7 @@ import '../index.css';
 import { Game } from "./game-desctop.js";
 VK.init(function() {
     init();
-    publish();
+
 }, function() {
     alert('Упс, что пошло не так!')
 }, '5.131');
@@ -19,11 +19,11 @@ function init() {
 function publish() {
     let upload_url = '';
     let photo='';
-    VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
-        console.log(data)
-       upload_url = data.response;
-       console.log(upload_url)
-    });
+    // VK.api("photos.getWallUploadServer", {"v":"5.73"}, function (data) {
+    //     console.log(data)
+    //    upload_url = data.response;
+    //    console.log(upload_url)
+    // });
     VK.api("apps.get", {"extended": 1,"v":"5.73"}, function (data) {
         console.log(data.response.items[0])
         console.log(data.response.items[0].screenshots[0])
@@ -92,6 +92,9 @@ window.onload = () => {
     const retryBtn = document.getElementById('retry-btn');
     retryBtn.addEventListener("mousedown",  (e) => {
         lamaGame.scenes.gameOver.retry()}, false);
+    const shareBtn = document.getElementById('retry-btn');
+    shareBtn.addEventListener("mousedown",  (e) => {
+        publish()}, false);
 
     const toggleMuteBtn = document.getElementById('mute-btn');
     toggleMuteBtn.style.backgroundImage = lamaGame.isMute ? "url('img/btns/mute-off.png')" : "url('img/btns/mute-on.png')";
