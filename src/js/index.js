@@ -28,6 +28,7 @@ function publish() {
         console.log(data.response.items[0])
         console.log(data.response.items[0].screenshots[0])
         photo = data.response.items[0].screenshots[0].id;
+        console.log(photo)
     });
     // let x;
     //
@@ -46,7 +47,7 @@ function publish() {
     //     console.log(data)
     //     console.log(xhr.response)
     // console.log(x.response)
-
+    console.log(`photo-${userGlobal.id}_${photo}`)
     VK.api("wall.post", {"message": "Hello!", "attachments": `photo-${userGlobal.id}_${photo}`,"v":"5.73"}, function (data) {
         console.log("Post ID:" + data.response.post_id);
     });
