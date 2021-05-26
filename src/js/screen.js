@@ -34,10 +34,6 @@ export class Screen {
 
     createMap(name, tileSet) {
         const mapImage = document.createElement('canvas');
-        // если будет тайловая карта в формате json
-        // mapImage.width = mapData.width * mapData.tileWidth;
-        // mapImage.height = mapData.height * mapData.tileHeight;
-        // сейчас это просто картинка
         mapImage.width = tileSet.imageWidth;
         mapImage.height = tileSet.imageHeight;
         const mapContext = mapImage.getContext('2d');
@@ -77,7 +73,7 @@ export class Screen {
         })
     }
 
-    printText(x, y, text, size = '23px', color = "#000000") {
+    printText(x, y, text, size = '23px', color = "#642896") {
         this.context.fillStyle = color;
         this.context.font = `${size} Comic`;
         this.context.fillText(text, x, y);

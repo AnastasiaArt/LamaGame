@@ -3,7 +3,6 @@ import {SpriteSheet} from "./sprite-sheet.js";
 import {AnimateObject} from "@/js/animateObject";
 
 export class Player {
-    // constructor({imageName, speed, imageWidth, imageHeight, spriteWidth, spriteHeight, control}) {
     constructor(control, y=0, speedWalk=0) {
         this.x = 0;
         this.y = 0;

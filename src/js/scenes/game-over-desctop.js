@@ -4,7 +4,7 @@ import {SpriteSheet} from "../sprite-sheet";
 import {AnimateObject} from "@/js/animateObject";
 import {Running} from "@/js/scenes/running";
 import {FlyElement} from "@/js/flyElement";
-import {addCount, getCount} from "@/js/index"
+// import {addCount, getCount} from "@/js/index"
 
 export class GameOver extends Scene {
     constructor(game) {
@@ -62,21 +62,21 @@ export class GameOver extends Scene {
     showModalRetry() {
         this.modalGameOverBtns.style.display = "flex";
         this.modalGameOver.style.display = "block";
-        this.modalGameOverText.innerHTML = 'Лучший результат: <br>' + this.bestCount + '<br> Ваш результат: <br>' + this.game.count;
-        if (this.game.count > this.bestCount && !this.isFinishGame) {
-            try {
-                this.isFinishGame = true;
-                console.log('12222222222222222')
-                addCount(this.game.count);
-            } catch(err) {
-                console.log(err)
-            }
-        }
+        this.modalGameOverText.innerHTML = 'Лучший результат: <br>' + this.game.count + '<br> Ваш результат: <br>' + this.game.count;
+        // if (this.game.count > this.bestCount && !this.isFinishGame) {
+        //     try {
+        //         this.isFinishGame = true;
+        //         console.log('12222222222222222')
+        //         addCount(this.game.count);
+        //     } catch(err) {
+        //         console.log(err)
+        //     }
+        // }
     }
 
     init() {
         super.init();
-        this.bestCount = getCount();
+        // this.bestCount = getCount();
         this.modalGameOverBtns.style.display = "none";
         this.sky1 = new AnimateObject('sky2', this.game.screen.canvas.width, this.game.screen.canvas.height/2, 1, 0, this.game.screen.context, this.game.screen.images, 'left', this.game.screen.canvas.width/2 - 470);
         this.sky5 = new AnimateObject('sky3', this.game.screen.canvas.width, 50, 1, 0, this.game.screen.context, this.game.screen.images, 'left',  this.game.screen.canvas.width/2 - 50);
@@ -93,14 +93,9 @@ export class GameOver extends Scene {
         this.obstacle7 = new AnimateObject('obstacles', this.game.screen.images.sky1.width - 70, 0, 1, 0, this.game.screen.context, this.game.screen.images, 'down', this.game.screen.images.sky1.width - 70);
         this.lama = new AnimateObject('menuLama', -400, this.game.screen.canvas.height - this.game.screen.images.menuLama.height/1.5, 1, 0, this.game.screen.context, this.game.screen.images, 'right', -150, );
         this.lamaSleep = new AnimateObject('menuLamaSleep', this.game.screen.canvas.width , this.game.screen.canvas.height - this.game.screen.images.menuLamaSleep.height/1.5, 1, 0, this.game.screen.context, this.game.screen.images, 'left', this.game.screen.canvas.width - 250);
-
         this.textGameOver = new AnimateObject('textGameOver', this.game.screen.canvas.width/2, this.game.screen.canvas.height/7, 0, 0, this.game.screen.context, this.game.screen.images);
 
         setTimeout(()=> { this.isShowModal = true;}, 5000);
-        // document.addEventListener("mousedown",  (e) => {
-        //    if(this.isFinishGame) {
-        //        addCount(this.game.count)
-        //    }}, false);
     }
 
     retry(){

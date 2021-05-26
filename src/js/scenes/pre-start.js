@@ -63,20 +63,6 @@ export class PreStart extends Scene {
         this.modalText.innerHTML = 'Ты снова здесь!<br> Ура!';
     }
 
-
-    // отрисовка окна для нового юзера
-    // showModalStart() {
-    //     this.modal.style.display = "block";
-    //     this.modalText.innerHTML = 'Привет, я Лама! <br> Нажимай пробел для прыжка и помни,<br>что через пять столкновений <br>я засну.<br>Тогда придётся начать путь заново!'
-    //     this.game.screen.drawScaleImage('textBg',this.game.screen.canvas.width/2 - 248, this.game.screen.canvas.height/2 - 200, 0, 0, 82, 108, 500, 300);
-    //     this.game.screen.drawImage(this.game.screen.canvas.width/2 + 238 - this.game.screen.images.btnClose.width - 20, this.game.screen.canvas.height/2 - 200 + 20, 'btnClose');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 90, this.game.screen.canvas.height/2 - 200 +  this.game.screen.images.btnClose.height + 60, 'Привет, я Лама!');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 225, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 100, 'Нажимай пробел для прыжка и помни,');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 160, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 140, 'что через пять столкновений');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 40, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 180, 'я засну.');
-    //     this.game.screen.printText(this.game.screen.canvas.width/2 - 210, this.game.screen.canvas.height/2 - 200 + this.game.screen.images.btnClose.height + 220, 'Тогда придётся начать путь заново!');
-    // }
-
     renderClouds() {
         this.game.screen.drawScaleImage('sky1', this.position.x, 20, 0,0, 301, 181, 180, 100 );
         this.game.screen.drawScaleImage('sky2',this.position.x - 20, this.game.screen.images.sky1.height, 0,0, 225, 120, 150, 80);

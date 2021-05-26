@@ -73,7 +73,7 @@ export class Screen {
         })
     }
 
-    printText(x, y, text, size = '23px', color = "#000000") {
+    printText(x, y, text, size = '23px', color = "#642896") {
         this.context.fillStyle = color;
         this.context.font = `${size} Comic`;
         this.context.fillText(text, x, y);
